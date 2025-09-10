@@ -2,6 +2,12 @@
 
 bro, see you just have to code like you guys do it react, it has tailwind installed so, just write the `jsx` in the defined page.jsx files for different pages, If you want to create any other routes then you can create it by creating a new folder which will reflect as new route.
 
+## Setup Instructions
+
+1. clone this repo by running `git clone https://github.com/Abhaysoft-inc/sih-mvp` in cmd/terminal
+2. open the folder in vs code and run `npm install` in the terminal
+3. start server by running `npm run dev` 
+
 ## App Router Routes
 
 
