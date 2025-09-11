@@ -1,10 +1,190 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 
 const Login = () => {
-    return (
-        <div>
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        role: ''
+    })
 
-            Login Page here
+    const roles = [
+        { value: 'admin', label: 'Admin' },
+        { value: 'surveyor', label: 'Surveyor' },
+        { value: 'tehsildar', label: 'Tehsildar' },
+        { value: 'citizen', label: 'Citizen' }
+    ]
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('Login attempt:', formData)
+
+        // Add your authentication logic here
+        // For now, we'll simulate successful login and redirect based on role
+
+        // Role-based routing
+        switch (formData.role) {
+            case 'admin':
+                window.location.href = '/admin/dashboard'
+                break
+            case 'surveyor':
+                window.location.href = '/dashboard/survey'
+                break
+            case 'tehsildar':
+                window.location.href = '/dashboard/tehsil'
+                break
+            case 'citizen':
+                window.location.href = '/dashboard'
+                break
+            default:
+                alert('Please select a role / कृपया एक भूमिका चुनें')
+                return
+        }
+    }
+
+    return (
+        <div className="min-h-screen bg-gray-100">
+
+            <div className="bg-blue-900 text-white py-4">
+                <div className="container mx-auto px-4">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-4">
+                            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                                <img src="/emblem.png" alt="" className='w-7' />
+                            </div>
+                            <div>
+                                <h1 className="text-xl font-bold">Government of India</h1>
+                                <p className="text-sm text-blue-200">भारत सरकार</p>
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-sm">Digital India Initiative</p>
+                            <p className="text-xs text-blue-200">डिजिटल इंडिया पहल</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Main Content */}
+            <div className="container mx-auto px-4 py-8">
+                <div className="max-w-lg mx-auto">
+
+
+                    {/* Login Form */}
+                    <div className="bg-white shadow-md border border-gray-200">
+                        <div className="bg-blue-800 text-white px-6 py-3">
+                            <h3 className="font-semibold">Login / लॉगिन</h3>
+                        </div>
+                        <div className="p-6">
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                {/* Role Selection */}
+                                <div>
+                                    <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+                                        Select Role / भूमिका चुनें <span className="text-red-500">*</span>
+                                    </label>
+                                    <select
+                                        id="role"
+                                        name="role"
+                                        value={formData.role}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full px-3 py-2 border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    >
+                                        <option value="">-- Please Select / कृपया चुनें --</option>
+                                        {roles.map((role) => (
+                                            <option key={role.value} value={role.value}>
+                                                {role.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                {/* Email Input */}
+                                <div>
+                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                                        Email Address / ईमेल पता <span className="text-red-500">*</span>
+                                    </label>
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="Enter your email address"
+                                    />
+                                </div>
+
+                                {/* Password Input */}
+                                <div>
+                                    <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                                        Password / पासवर्ड <span className="text-red-500">*</span>
+                                    </label>
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        value={formData.password}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="Enter your password"
+                                    />
+                                </div>
+
+                                {/* Submit Button */}
+                                <div className="pt-4">
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-blue-800 text-white py-3 px-4 font-medium hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200"
+                                    >
+                                        LOGIN / लॉगिन करें
+                                    </button>
+                                </div>
+
+                                {/* Links */}
+                                <div className="pt-4 border-t border-gray-200">
+                                    <div className="flex flex-col space-y-2 text-sm">
+                                        <a href="#" className="text-blue-700 hover:text-blue-900 underline">
+                                            Forgot Password? / पासवर्ड भूल गए?
+                                        </a>
+
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+            {/* Government Footer */}
+            <div className="bg-blue-900 text-white py-6 mt-8">
+                <div className="container mx-auto px-4 text-center">
+                    <div className="text-sm space-y-2">
+                        <p>© 2024 Government of India. All rights reserved.</p>
+                        <p className="text-blue-200">
+                            Designed & Developed by National Informatics Centre (NIC)
+                        </p>
+                        <p className="text-xs text-blue-300">
+                            Last Updated: September 2024 | Best Viewed in Chrome, Firefox, Safari
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

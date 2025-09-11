@@ -4,6 +4,9 @@ bro, see you just have to code like you guys do it react, it has tailwind instal
 
 ## Setup Instructions
 
+- Make sure you have `git` and `nodejs` installed
+
+
 1. clone this repo by running `git clone https://github.com/Abhaysoft-inc/sih-mvp` in cmd/terminal
 2. open the folder in vs code and run `npm install` in the terminal
 3. start server by running `npm run dev` 
