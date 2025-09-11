@@ -127,6 +127,52 @@ export default function MainDashboard() {
             </div>
           </Link>
 
+          
+          {/* DSS Module */}
+          <Link href="/dss" style={{ textDecoration: "none" }}>
+            <div style={{
+              backgroundColor: "white",
+              borderRadius: "0.75rem",
+              border: "2px solid #e5e7eb",
+              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+              padding: "2rem",
+              textAlign: "center",
+              cursor: "pointer",
+              transition: "all 0.2s ease"
+            }}>
+              <div style={{
+                fontSize: "3rem",
+                margin: "0 0 1rem 0"
+              }}>🧠</div>
+              <h3 style={{
+                fontSize: "1.25rem",
+                fontWeight: "600",
+                margin: "0 0 0.5rem 0",
+                color: "#111827"
+              }}>
+                Decision Support System
+              </h3>
+              <p style={{
+                color: "#6b7280",
+                margin: "0 0 1rem 0"
+              }}>
+                AI-powered scheme optimization and policy interventions
+              </p>
+              <div style={{
+                backgroundColor: "#16a34a",
+                color: "white",
+                padding: "0.5rem 1rem",
+                borderRadius: "0.375rem",
+                fontSize: "0.875rem",
+                fontWeight: "500",
+                display: "inline-block"
+              }}>
+                Access DSS →
+              </div>
+            </div>
+          </Link>
+
+
           {/* Tehsil Module */}
           <Link href="/dashboard/tehsil" style={{ textDecoration: "none" }}>
             <div style={{
