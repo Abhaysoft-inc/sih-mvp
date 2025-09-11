@@ -1,10 +1,4 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
 
 export const metadata = {
   title: "FRA Claims Surveyor",
@@ -35,7 +29,7 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`} style={{ backgroundColor: 'hsl(0 0% 100%)', color: 'hsl(222.2 84% 4.9%)' }}>
+      <body className="font-sans antialiased" style={{ backgroundColor: 'hsl(0 0% 100%)', color: 'hsl(222.2 84% 4.9%)' }}>
         {children}
       </body>
     </html>
