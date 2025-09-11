@@ -63,7 +63,7 @@ export default function SurveyDashboard() {
   return (
     <div style={{ 
       minHeight: "100vh", 
-      backgroundColor: "#fafafa",
+      backgroundColor: "#fafbfa",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     }}>
       <style jsx global>{`
@@ -73,36 +73,36 @@ export default function SurveyDashboard() {
         }
         
         .card-hover {
-          transition: all 0.2s ease-in-out;
+          transition: all 0.3s ease-in-out;
         }
         
         .card-hover:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
+          transform: translateY(-4px);
+          box-shadow: 0 12px 35px rgba(16, 185, 129, 0.15) !important;
         }
         
         .button-hover {
-          transition: all 0.15s ease;
+          transition: all 0.2s ease;
         }
         
         .button-hover:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
         }
         
         .quick-action:hover {
-          background-color: #f8fafc !important;
-          border-color: #cbd5e1 !important;
+          background-color: #f7fee7 !important;
+          border-color: #bbf7d0 !important;
         }
       `}</style>
       {/* Header */}
       <header style={{
         backgroundColor: "white",
-        borderBottom: "1px solid #e2e8f0",
+        borderBottom: "1px solid #d1fae5",
         position: "sticky",
         top: 0,
         zIndex: 50,
-        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.08)"
+        boxShadow: "0 1px 3px rgba(16, 185, 129, 0.08)"
       }}>
         <div style={{
           maxWidth: "1200px",
@@ -114,32 +114,34 @@ export default function SurveyDashboard() {
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div style={{
-              width: "48px",
-              height: "48px",
-              backgroundColor: "#3b82f6",
-              borderRadius: "12px",
+              width: "52px",
+              height: "52px",
+              background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+              borderRadius: "16px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: "24px",
-              color: "white"
+              fontSize: "26px",
+              color: "white",
+              boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)"
             }}>
-              📋
+              🌿
             </div>
             <div>
               <h1 style={{
-                fontSize: "28px",
+                fontSize: "30px",
                 fontWeight: "700",
-                color: "#1e293b",
+                color: "#064e3b",
                 margin: "0 0 4px 0",
                 letterSpacing: "-0.025em"
               }}>
-                Field Survey Dashboard
+                Forest Survey Dashboard
               </h1>
               <p style={{
-                color: "#64748b",
+                color: "#059669",
                 margin: "0",
-                fontSize: "15px"
+                fontSize: "15px",
+                fontWeight: "500"
               }}>
                 Welcome back! Today is {currentTime.toLocaleDateString('en-US', { 
                   weekday: 'long', 
@@ -153,8 +155,9 @@ export default function SurveyDashboard() {
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div style={{ 
               fontSize: "14px", 
-              color: "#64748b",
-              textAlign: "right"
+              color: "#065f46",
+              textAlign: "right",
+              fontWeight: "600"
             }}>
               {currentTime.toLocaleTimeString('en-US', { 
                 hour: '2-digit', 

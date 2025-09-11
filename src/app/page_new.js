@@ -38,7 +38,7 @@ export default function LoginPage() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      background: "linear-gradient(135deg, #f0fdf4 0%, #ecfccb 50%, #fef3c7 100%)",
+      background: "linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%)",
       padding: "24px",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     }}>
@@ -48,77 +48,48 @@ export default function LoginPage() {
       }}>
         <div style={{
           backgroundColor: "white",
-          borderRadius: "24px",
-          boxShadow: "0 20px 60px -12px rgba(34, 197, 94, 0.15), 0 8px 25px -8px rgba(0, 0, 0, 0.08)",
-          border: "1px solid rgba(34, 197, 94, 0.1)",
+          borderRadius: "20px",
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+          border: "1px solid #e2e8f0",
           overflow: "hidden"
         }}>
           {/* Header Section */}
           <div style={{
-            background: "linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)",
-            padding: "48px 32px",
+            background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
+            padding: "40px 32px",
             textAlign: "center",
-            color: "white",
-            position: "relative",
-            overflow: "hidden"
+            color: "white"
           }}>
             <div style={{
-              position: "absolute",
-              top: "-20%",
-              right: "-10%",
-              width: "200px",
-              height: "200px",
-              background: "rgba(255, 255, 255, 0.1)",
+              margin: "0 auto 20px auto",
+              backgroundColor: "rgba(255, 255, 255, 0.2)",
               borderRadius: "50%",
-              filter: "blur(40px)"
-            }} />
-            <div style={{
-              position: "absolute",
-              bottom: "-30%",
-              left: "-15%",
-              width: "150px",
-              height: "150px",
-              background: "rgba(255, 255, 255, 0.08)",
-              borderRadius: "50%",
-              filter: "blur(30px)"
-            }} />
-            <div style={{
-              margin: "0 auto 24px auto",
-              backgroundColor: "rgba(255, 255, 255, 0.15)",
-              borderRadius: "50%",
-              padding: "20px",
-              width: "88px",
-              height: "88px",
+              padding: "16px",
+              width: "80px",
+              height: "80px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              backdropFilter: "blur(10px)",
-              border: "2px solid rgba(255, 255, 255, 0.2)",
-              position: "relative",
-              zIndex: 1
+              backdropFilter: "blur(10px)"
             }}>
               <div style={{ 
-                fontSize: "36px"
-              }}>🌿</div>
+                fontSize: "32px"
+              }}>👤</div>
             </div>
             <h1 style={{
-              fontSize: "32px",
+              fontSize: "28px",
               fontWeight: "700",
-              margin: "0 0 12px 0",
-              letterSpacing: "-0.025em",
-              position: "relative",
-              zIndex: 1
+              margin: "0 0 8px 0",
+              letterSpacing: "-0.025em"
             }}>
-              Forest Survey Login
+              Surveyor Field Login
             </h1>
             <p style={{
-              fontSize: "17px",
+              fontSize: "16px",
               margin: "0",
-              opacity: 0.95,
-              position: "relative",
-              zIndex: 1
+              opacity: 0.9
             }}>
-              Access FRA Claims Registration System
+              Sign in to access FRA Claims Registration
             </p>
           </div>
           
@@ -262,23 +233,23 @@ export default function LoginPage() {
             
             {/* Demo Credentials */}
             <div style={{
-              marginTop: "36px",
-              padding: "22px",
-              backgroundColor: "#f0fdf4",
-              borderRadius: "16px",
-              border: "1px solid #bbf7d0"
+              marginTop: "32px",
+              padding: "20px",
+              backgroundColor: "#f1f5f9",
+              borderRadius: "12px",
+              border: "1px solid #e2e8f0"
             }}>
               <div style={{
-                fontSize: "13px",
-                color: "#065f46",
+                fontSize: "12px",
+                color: "#64748b",
                 textAlign: "center",
-                fontWeight: "600",
+                fontWeight: "500",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "10px"
+                gap: "8px"
               }}>
-                <span style={{ fontSize: "16px" }}>🍃</span>
+                <span style={{ fontSize: "14px" }}>ℹ️</span>
                 Demo credentials: surveyor123 / password
               </div>
             </div>
