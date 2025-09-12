@@ -1,8 +1,16 @@
 "use client"
 
 import Link from "next/link"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function MainDashboard() {
+  const router = useRouter()
+
+  useEffect(() => {
+    // Redirect to tehsil page immediately
+    router.push('/dashboard/tehsil')
+  }, [router])
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#f9fafb" }}>
       {/* Header */}
@@ -127,7 +135,7 @@ export default function MainDashboard() {
             </div>
           </Link>
 
-          
+
           {/* DSS Module */}
           <Link href="/dss" style={{ textDecoration: "none" }}>
             <div style={{

@@ -1,18 +1,35 @@
-import React from 'react'
+"use client";
 
-const Home = () => {
+import dynamic from "next/dynamic";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+
+const Map = dynamic(() => import("../components/Map"), { ssr: false });
+
+export default function Home() {
+  const handleLocationApply = (locationData) => {
+    console.log("Applied location data:", locationData);
+    // Here you can handle the location data, such as:
+    // - Update the map view
+    // - Fetch data based on selected location
+    // - Store in state for other components to use
+  };
+
   return (
-    <div className='flex h-screen justify-center items-center'>
-      <div className="text-center">
+    <div className="flex flex-col h-screen w-screen overflow-hidden">
+      {/* Navbar */}
+      <Navbar />
 
-        <p className="text-4xl">For Login to go /auth</p>
-        <br />
-        <p className="text-2xl">This page is for creating that Map atlas thing</p>
+      {/* Main Content */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
+        <Sidebar onApply={handleLocationApply} />
+
+        {/* Map Area */}
+        <main className="flex-1">
+          <Map />
+        </main>
       </div>
-
-
     </div>
-  )
+  );
 }
-
-export default Home
