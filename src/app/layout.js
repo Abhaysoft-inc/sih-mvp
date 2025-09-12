@@ -1,4 +1,12 @@
 import "./globals.css";
+import { Nunito } from 'next/font/google';
+
+const nunito = Nunito({
+  subsets: ['latin'],
+  weight: ['300', '400', '600', '700', '800', '900'],
+  variable: '--font-sans-nunito',
+  display: 'swap',
+});
 
 export const metadata = {
   title: "FRA Claims Surveyor",
@@ -29,7 +37,7 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="font-sans antialiased" style={{ backgroundColor: 'hsl(0 0% 100%)', color: 'hsl(222.2 84% 4.9%)' }}>
+      <body className={`${nunito.variable} font-sans antialiased`} style={{ backgroundColor: 'hsl(0 0% 100%)', color: 'hsl(222.2 84% 4.9%)' }}>
         {children}
       </body>
     </html>

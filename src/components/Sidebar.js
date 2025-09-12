@@ -9,6 +9,7 @@ export default function Sidebar({ onApply }) {
     const [tehsil, setTehsil] = useState("");
     const [village, setVillage] = useState("");
     const [plot, setPlot] = useState("");
+    const [collapsed, setCollapsed] = useState(false);
 
     // Load states and districts data
     useEffect(() => {
@@ -86,16 +87,58 @@ export default function Sidebar({ onApply }) {
 
     const isApplyDisabled = !state || !district || !tehsil || !village || !plot;
 
+    if (collapsed) {
+        // When collapsed, shrink the left offset so map controls and legend move left
+        if (typeof document !== 'undefined') {
+            // Revert to positioning controls under the hamburger button and near left edge
+            document.documentElement.style.setProperty('--sidebar-left-offset', '12px');
+            document.documentElement.style.setProperty('--controls-top-offset', 'calc(3.2rem + 46px)');
+        }
+        return (
+            <button
+                onClick={() => setCollapsed(false)}
+                aria-label="Open location selector"
+                className="fixed left-[10px] z-[1006] p-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                style={{ top: 'calc(3.2rem + 2px)' }}
+                title="Open Location Selector"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" className="w-6 h-6 fill-current">
+                    <path d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z"></path>
+                </svg>
+            </button>
+        );
+    }
+
+    // When open, push the left offset to the width of the sidebar + gap (20rem + 24px)
+    if (typeof document !== 'undefined') {
+        document.documentElement.style.setProperty('--sidebar-left-offset', 'calc(20rem + 24px)');
+        // Reset zoom controls to default top inside the map
+        document.documentElement.style.setProperty('--controls-top-offset', '0px');
+    }
+
     return (
-        <aside className="w-80 bg-gradient-to-b from-white to-green-50/60 border-r border-gray-200/80 overflow-y-auto h-[calc(100vh-4rem)] sticky top-16">
+        <aside
+            className="w-80 bg-gradient-to-b from-white to-green-50/60 border border-gray-200/80 overflow-y-auto fixed left-3 z-[1005]"
+            style={{ top: 'calc(3.2rem + 8px)', height: 'calc(100vh - 3.2rem - 16px)' }}
+        >
             <div className="p-4">
-                <h2 className="text-lg font-semibold mb-1 text-green-900">Location Selector</h2>
+                <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-lg font-semibold text-green-900">Location Selector</h2>
+                    <button
+                        onClick={() => setCollapsed(true)}
+                        aria-label="Minimize location selector"
+                        className="text-gray-500 hover:text-gray-700 text-lg font-bold"
+                        title="Close"
+                    >
+                        ×
+                    </button>
+                </div>
                 <p className="text-xs text-gray-500 mb-4">Pick a location to filter the map and data</p>
 
                 {/* State */}
                 <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">State</label>
                 <select
-                    className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm"
+                    className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm"
                     value={state}
                     onChange={(e) => handleStateChange(e.target.value)}
                 >
@@ -110,7 +153,7 @@ export default function Sidebar({ onApply }) {
                 {/* District */}
                 <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">District</label>
                 <select
-                    className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
+                    className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
                     value={district}
                     onChange={(e) => handleDistrictChange(e.target.value)}
                     disabled={!state}
@@ -126,7 +169,7 @@ export default function Sidebar({ onApply }) {
                 {/* Tehsil */}
                 <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">Tehsil</label>
                 <select
-                    className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
+                    className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
                     value={tehsil}
                     onChange={(e) => setTehsil(e.target.value)}
                     disabled={!district}
@@ -142,7 +185,7 @@ export default function Sidebar({ onApply }) {
                 {/* Village */}
                 <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">Village</label>
                 <select
-                    className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
+                    className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
                     value={village}
                     onChange={(e) => setVillage(e.target.value)}
                     disabled={!tehsil}
@@ -159,7 +202,7 @@ export default function Sidebar({ onApply }) {
                 <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">Plot No.</label>
                 <input
                     type="text"
-                    className="w-full mb-6 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
+                    className="w-full mb-6 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
                     value={plot}
                     onChange={(e) => setPlot(e.target.value)}
                     disabled={!village}
@@ -170,9 +213,9 @@ export default function Sidebar({ onApply }) {
                 <button
                     onClick={handleApply}
                     disabled={isApplyDisabled}
-                    className={`w-full py-2.5 px-4 rounded-lg font-semibold transition-all shadow ${isApplyDisabled
-                            ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                            : "bg-green-600 text-white hover:bg-green-700 active:bg-green-800 hover:shadow-md"
+                    className={`w-full py-2.5 px-4 rounded-none font-semibold transition-all ${isApplyDisabled
+                        ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                        : "bg-green-600 text-white hover:bg-green-700 active:bg-green-800"
                         }`}
                 >
                     Apply Selection

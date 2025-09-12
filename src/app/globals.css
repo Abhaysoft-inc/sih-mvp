@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+/* Offset Leaflet left-side controls to avoid the fixed sidebar (w-80 + gaps ~ 20rem + 24px) */
+:root {
+    --sidebar-left-offset: 12px;
+    --controls-top-offset: 0px;
+}
+
+.leaflet-top.leaflet-left,
+.leaflet-bottom.leaflet-left {
+    left: var(--sidebar-left-offset) !important;
+}
+
+.leaflet-top.leaflet-left {
+    top: var(--controls-top-offset) !important;
+}
