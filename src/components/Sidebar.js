@@ -118,7 +118,7 @@ export default function Sidebar({ onApply }) {
 
     return (
         <aside
-            className="w-80 bg-gradient-to-b from-white to-green-50/60 border border-gray-200/80 overflow-y-auto fixed left-3 z-[1005]"
+            className="w-80 bg-white border border-gray-200 overflow-y-auto fixed left-3 z-[1005]"
             style={{ top: 'calc(3.2rem + 8px)', height: 'calc(100vh - 3.2rem - 16px)' }}
         >
             <div className="p-4">
