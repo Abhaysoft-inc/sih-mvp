@@ -6,6 +6,9 @@ import dynamic from "next/dynamic"
 import TehsilSidebar from "@/components/TehsilSidebar"
 import TehsilNavbar from "@/components/TehsilNavbar"
 import AnalyticsAndReports from "@/components/AnalyticsAndReports"
+import VerificationSection from "@/components/VerificationSection"
+import MappingSection from "@/components/MappingSection"
+import DataManagementSection from "@/components/DataManagementSection"
 
 // Dynamic import to avoid SSR issues with Leaflet
 const Map = dynamic(() => import('@/components/Map'), {
@@ -2371,266 +2374,17 @@ export default function TehsilDashboard() {
 
           {/* Verification Tab */}
           {activeTab === 'verification' && (
-            <div>
-              <h3 style={{
-                fontSize: "18px",
-                fontWeight: "600",
-                color: "#333",
-                margin: "0 0 16px 0"
-              }}>
-                Verification Center
-              </h3>
-
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                gap: "16px",
-                marginBottom: "24px"
-              }}>
-                <ActionCard
-                  title="Pending Claims Review"
-                  description="Review and verify pending FRA claims with documentation"
-                  icon="📋"
-                  status={`${stats.pendingVerification} pending review →`}
-                />
-
-                <ActionCard
-                  title="Document Verification"
-                  description="Verify submitted documents and certificates"
-                  icon="📑"
-                  status="Verify Documents →"
-                />
-
-                <ActionCard
-                  title="Field Verification"
-                  description="Coordinate field verification with surveyors"
-                  icon="🔍"
-                  status="Schedule Verification →"
-                />
-
-                <ActionCard
-                  title="Updation Requests"
-                  description="Process requests for claim updates and modifications"
-                  icon="✏️"
-                  status="Process Updates →"
-                />
-              </div>
-
-              {/* Verification Queue */}
-              <div style={{
-                backgroundColor: "white",
-                border: "1px solid #ddd",
-                borderRadius: "6px",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-                marginBottom: "20px"
-              }}>
-                <div style={{ padding: "20px", borderBottom: "1px solid #eee" }}>
-                  <h4 style={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    color: "#333",
-                    margin: "0"
-                  }}>
-                    Verification Queue
-                  </h4>
-                </div>
-
-                {[
-                  { id: "FRA-2024-048", applicant: "Rajesh Kumar", village: "Banswara", priority: "High", days: 2 },
-                  { id: "FRA-2024-049", applicant: "Sita Devi", village: "Kumbhalgarh", priority: "Medium", days: 5 },
-                  { id: "FRA-2024-050", applicant: "Mohan Singh", village: "Pratapgarh", priority: "Low", days: 8 }
-                ].map((claim, index) => (
-                  <div key={index} style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "16px 20px",
-                    borderBottom: index < 2 ? "1px solid #eee" : "none"
-                  }}>
-                    <div style={{ flex: 1 }}>
-                      <div style={{
-                        fontSize: "14px",
-                        fontWeight: "600",
-                        color: "#333",
-                        marginBottom: "4px"
-                      }}>
-                        {claim.id} - {claim.applicant}
-                      </div>
-                      <div style={{
-                        fontSize: "12px",
-                        color: "#666"
-                      }}>
-                        Village: {claim.village} • {claim.days} days pending
-                      </div>
-                    </div>
-                    <div style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "12px"
-                    }}>
-                      <span style={{
-                        padding: "4px 8px",
-                        borderRadius: "4px",
-                        fontSize: "12px",
-                        fontWeight: "500",
-                        backgroundColor: claim.priority === 'High' ? '#fef2f2' : claim.priority === 'Medium' ? '#fefce8' : '#f0fdf4',
-                        color: claim.priority === 'High' ? '#dc2626' : claim.priority === 'Medium' ? '#ca8a04' : '#16a34a'
-                      }}>
-                        {claim.priority}
-                      </span>
-                      <button style={{
-                        padding: "6px 12px",
-                        backgroundColor: "#007bff",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "4px",
-                        fontSize: "12px",
-                        cursor: "pointer"
-                      }}>
-                        Review
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <VerificationSection stats={stats} ActionCard={ActionCard} />
           )}
 
           {/* Assets & Mapping Tab */}
           {activeTab === 'mapping' && (
-            <div>
-              <h3 style={{
-                fontSize: "18px",
-                fontWeight: "600",
-                color: "#333",
-                margin: "0 0 16px 0"
-              }}>
-                Assets Mapping & Satellite Imagery
-              </h3>
-
-              {/* Interactive Map Section */}
-              <div style={{
-                backgroundColor: "white",
-                borderRadius: "8px",
-                border: "1px solid #e5e7eb",
-                padding: "20px",
-                marginBottom: "24px",
-                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)"
-              }}>
-                <h4 style={{
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  color: "#333",
-                  margin: "0 0 16px 0"
-                }}>
-                  📍 Odisha Villages Interactive Map
-                </h4>
-                <p style={{
-                  fontSize: "14px",
-                  color: "#6b7280",
-                  margin: "0 0 16px 0"
-                }}>
-                  Click on any village polygon to view details. Use mouse wheel to zoom and drag to pan.
-                </p>
-                <Map />
-              </div>
-
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                gap: "16px"
-              }}>
-                <ActionCard
-                  title="Satellite Imagery Viewer"
-                  description="View latest satellite imagery for land verification"
-                  icon="🛰️"
-                  status={`${stats.satelliteUpdates} recent updates →`}
-                />
-
-                <ActionCard
-                  title="Assets Mapping System"
-                  description="Map and track forest assets and boundaries"
-                  icon="🗺️"
-                  status="Open Mapping Tool →"
-                />
-
-                <ActionCard
-                  title="Land Boundary Analysis"
-                  description="Analyze land boundaries using GPS and satellite data"
-                  icon="📐"
-                  status="Analyze Boundaries →"
-                />
-
-                <ActionCard
-                  title="Change Detection"
-                  description="Detect land use changes over time using imagery"
-                  icon="📊"
-                  status="Run Detection →"
-                />
-              </div>
-            </div>
+            <MappingSection stats={stats} ActionCard={ActionCard} />
           )}
 
           {/* Data Management Tab */}
           {activeTab === 'management' && (
-            <div>
-              <h3 style={{
-                fontSize: "18px",
-                fontWeight: "600",
-                color: "#333",
-                margin: "0 0 16px 0"
-              }}>
-                Data Management & Administration
-              </h3>
-
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                gap: "16px"
-              }}>
-                <ActionCard
-                  title="Villages Management"
-                  description="Manage village data and administrative boundaries"
-                  icon="🏘️"
-                  status={`${stats.villages} villages →`}
-                />
-
-                <ActionCard
-                  title="Surveyor Management"
-                  description="Manage surveyor assignments and performance"
-                  icon="👥"
-                  status={`${stats.activeSurveyors} active surveyors →`}
-                />
-
-                <ActionCard
-                  title="Schemes Administration"
-                  description="Manage government schemes and eligibility criteria"
-                  icon="📜"
-                  status={`${stats.schemes} schemes →`}
-                />
-
-                <ActionCard
-                  title="Data Export & Reports"
-                  description="Export data and generate comprehensive reports"
-                  icon="📊"
-                  status="Generate Reports →"
-                />
-
-                <ActionCard
-                  title="System Configuration"
-                  description="Configure system settings and administrative parameters"
-                  icon="⚙️"
-                  status="Configure System →"
-                />
-
-                <ActionCard
-                  title="Audit Trail"
-                  description="View system audit logs and user activity"
-                  icon="📋"
-                  status="View Audit Logs →"
-                />
-              </div>
-            </div>
+            <DataManagementSection stats={stats} ActionCard={ActionCard} />
           )}
         </div> {/* Close Main Content Area */}
       </div> {/* Close Flex Container */}
