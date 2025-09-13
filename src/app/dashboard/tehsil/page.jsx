@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import dynamic from "next/dynamic"
+import TehsilSidebar from "@/components/TehsilSidebar"
 
 // Dynamic import to avoid SSR issues with Leaflet
 const Map = dynamic(() => import('@/components/Map'), {
@@ -293,150 +294,7 @@ export default function TehsilDashboard() {
         margin: "0"
       }}>
         {/* Sidebar Navigation */}
-        <div style={{
-          width: "200px",
-          minHeight: "calc(100vh - 120px)",
-          backgroundColor: "#2c3e50",
-          boxShadow: "2px 0 5px rgba(0,0,0,0.1)"
-        }}>
-          {/* Sidebar Header */}
-          <div style={{
-            padding: "16px 16px 12px",
-            borderBottom: "1px solid #34495e"
-          }}>
-            <div style={{
-              color: "#ecf0f1",
-              fontSize: "11px",
-              fontWeight: "700",
-              textTransform: "uppercase",
-              letterSpacing: "1.5px"
-            }}>
-              NAVIGATION
-            </div>
-          </div>
-
-          {/* Menu Items */}
-          <nav style={{ padding: "8px 0" }}>
-            {[
-              { id: 'overview', label: 'Dashboard', icon: '▦' },
-              { id: 'dss', label: 'Decision Support', icon: '◈' },
-              { id: 'analytics', label: 'Analytics', icon: '◢' },
-              { id: 'verification', label: 'Verification', icon: '✓' },
-              { id: 'mapping', label: 'Mapping', icon: '⬢' },
-              { id: 'data', label: 'Data Management', icon: '⬇' }
-            ].map((item) => (
-              <div
-                key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "11px 16px",
-                  cursor: "pointer",
-                  backgroundColor: activeTab === item.id ? "#3498db" : "transparent",
-                  color: activeTab === item.id ? "#ffffff" : "#bdc3c7",
-                  borderLeft: activeTab === item.id ? "3px solid #2980b9" : "3px solid transparent",
-                  transition: "all 0.25s ease",
-                  fontSize: "13px",
-                  fontWeight: "500"
-                }}
-                onMouseEnter={(e) => {
-                  if (activeTab !== item.id) {
-                    e.currentTarget.style.backgroundColor = "#34495e"
-                    e.currentTarget.style.color = "#ffffff"
-                    e.currentTarget.style.paddingLeft = "20px"
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (activeTab !== item.id) {
-                    e.currentTarget.style.backgroundColor = "transparent"
-                    e.currentTarget.style.color = "#bdc3c7"
-                    e.currentTarget.style.paddingLeft = "16px"
-                  }
-                }}
-              >
-                <span style={{
-                  marginRight: "10px",
-                  fontSize: "14px",
-                  width: "16px",
-                  textAlign: "center",
-                  fontWeight: "bold"
-                }}>
-                  {item.icon}
-                </span>
-                <span style={{
-                  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                  fontSize: "13px"
-                }}>
-                  {item.label}
-                </span>
-              </div>
-            ))}
-          </nav>
-
-          {/* Separator */}
-          <div style={{
-            height: "1px",
-            backgroundColor: "#34495e",
-            margin: "16px 12px"
-          }}></div>
-
-          {/* Support Section */}
-          <div style={{ padding: "0 16px 24px" }}>
-            <div style={{
-              color: "#7f8c8d",
-              fontSize: "10px",
-              fontWeight: "700",
-              textTransform: "uppercase",
-              letterSpacing: "1.5px",
-              marginBottom: "12px"
-            }}>
-              SUPPORT
-            </div>
-
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              color: "#95a5a6",
-              fontSize: "12px",
-              padding: "8px 0",
-              cursor: "pointer",
-              transition: "all 0.2s ease"
-            }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "#ffffff"
-                e.currentTarget.style.paddingLeft = "8px"
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "#95a5a6"
-                e.currentTarget.style.paddingLeft = "0px"
-              }}>
-              <span style={{ marginRight: "10px", fontSize: "12px", fontWeight: "bold" }}>?</span>
-              Help Center
-            </div>
-
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              color: "#95a5a6",
-              fontSize: "12px",
-              padding: "8px 0",
-              cursor: "pointer",
-              transition: "all 0.2s ease"
-            }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "#ffffff"
-                e.currentTarget.style.paddingLeft = "8px"
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "#95a5a6"
-                e.currentTarget.style.paddingLeft = "0px"
-              }}>
-              <span style={{ marginRight: "10px", fontSize: "12px", fontWeight: "bold" }}>ⓘ</span>
-              Documentation
-            </div>
-          </div>
-        </div>
+        <TehsilSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
         {/* Main Content Area */}
         <div style={{
