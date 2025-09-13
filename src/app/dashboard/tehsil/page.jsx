@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import dynamic from "next/dynamic"
 import TehsilSidebar from "@/components/TehsilSidebar"
+import TehsilNavbar from "@/components/TehsilNavbar"
 
 // Dynamic import to avoid SSR issues with Leaflet
 const Map = dynamic(() => import('@/components/Map'), {
@@ -196,97 +197,15 @@ export default function TehsilDashboard() {
     </div>
   )
 
+
   return (
     <div style={{
       minHeight: "100vh",
       backgroundColor: "#f5f5f5",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
     }}>
-      {/* Header */}
-      <div style={{
-        backgroundColor: "white",
-        borderBottom: "1px solid #ddd",
-        padding: "16px 0"
-      }}>
-        <div style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-          padding: "0 20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between"
-        }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <div style={{
-              width: "32px",
-              height: "32px",
-              backgroundColor: "#28a745",
-              borderRadius: "4px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "16px",
-              color: "white"
-            }}>
-              🏛️
-            </div>
-            <div>
-              <h1 style={{
-                fontSize: "20px",
-                fontWeight: "600",
-                color: "#333",
-                margin: "0",
-                lineHeight: "1.2"
-              }}>
-                Regional Officer Dashboard
-              </h1>
-              <div style={{
-                color: "#666",
-                fontSize: "13px",
-                marginTop: "1px"
-              }}>
-                DSS, Verification & Administrative Management
-              </div>
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <div style={{
-              fontSize: "13px",
-              color: "#666",
-              fontWeight: "500"
-            }}>
-              {currentTime.toLocaleString('en-US', {
-                weekday: 'short',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-              })}
-            </div>
-            <div style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              padding: "6px 12px",
-              borderRadius: "4px",
-              fontSize: "12px",
-              fontWeight: "500",
-              backgroundColor: "#d4edda",
-              color: "#155724",
-              border: "1px solid #c3e6cb"
-            }}>
-              <div style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
-                backgroundColor: "#28a745"
-              }} />
-              <span>Active</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Navbar */}
+      <TehsilNavbar currentTime={currentTime} />
 
       <div style={{
         display: "flex",
