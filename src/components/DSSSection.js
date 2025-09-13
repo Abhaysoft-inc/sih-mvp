@@ -1,7 +1,7 @@
 import React from "react";
 import { MdPsychology, MdBarChart, MdAdd } from "react-icons/md";
 import RecommendedScheme from "./RecommendedScheme";
-const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, handlePriorityChange }) => (
+const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, handlePriorityChange, getIcon }) => (
     <div>
         {/* DSS Header */}
         <div className="bg-white border border-gray-300 rounded-md p-5 mb-5 shadow-sm">
@@ -89,7 +89,7 @@ const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, 
                                 onChange={() => handleCriteriaChange(index)}
                                 className="m-0"
                             />
-                            <span className="text-base">{criteria.icon}</span>
+                            <span className="text-base">{getIcon ? getIcon(criteria.icon) : criteria.icon}</span>
                             <span className="text-xs text-gray-800">
                                 {criteria.label}
                             </span>

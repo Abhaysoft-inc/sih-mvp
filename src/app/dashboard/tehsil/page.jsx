@@ -3,6 +3,24 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import dynamic from "next/dynamic"
+import {
+  MdWaterDrop,
+  MdAgriculture,
+  MdForest,
+  MdBarChart,
+  MdCheckCircle,
+  MdCancel,
+  MdSearch,
+  MdLocationOn,
+  MdBolt,
+  MdDescription,
+  MdBuild,
+  MdTrendingUp,
+  MdFileUpload,
+  MdAssignment,
+  MdPeople,
+  MdMap
+} from "react-icons/md"
 import TehsilSidebar from "@/components/TehsilSidebar"
 import TehsilNavbar from "@/components/TehsilNavbar"
 import AnalyticsAndReports from "@/components/AnalyticsAndReports"
@@ -41,11 +59,43 @@ export default function TehsilDashboard() {
 
   // State for DSS form elements
   const [eligibilityCriteria, setEligibilityCriteria] = useState([
-    { label: "Low Water Index (< 0.4)", icon: "💧", checked: false },
-    { label: "Has Agriculture (> 50 ha)", icon: "🌾", checked: false },
-    { label: "Forest Degradation (High)", icon: "🌳", checked: false },
-    { label: "High Poverty Score (> 50%)", icon: "📊", checked: false }
+    { label: "Low Water Index (< 0.4)", icon: "water", checked: false },
+    { label: "Has Agriculture (> 50 ha)", icon: "agriculture", checked: false },
+    { label: "Forest Degradation (High)", icon: "forest", checked: false },
+    { label: "High Poverty Score (> 50%)", icon: "chart", checked: false }
   ])
+
+  // Function to get the appropriate icon component
+  const getIcon = (iconType, className = "text-base") => {
+    switch (iconType) {
+      case "water":
+        return <MdWaterDrop className={className} />
+      case "agriculture":
+        return <MdAgriculture className={className} />
+      case "forest":
+        return <MdForest className={className} />
+      case "chart":
+        return <MdBarChart className={className} />
+      case "search":
+        return <MdSearch className={className} />
+      case "location":
+        return <MdLocationOn className={className} />
+      case "flash":
+        return <MdBolt className={className} />
+      case "document":
+        return <MdDescription className={className} />
+      case "build":
+        return <MdBuild className={className} />
+      case "trending":
+        return <MdTrendingUp className={className} />
+      case "check":
+        return <MdCheckCircle className={className} />
+      case "cancel":
+        return <MdCancel className={className} />
+      default:
+        return <MdBarChart className={className} />
+    }
+  }
 
   const [priorityLevel, setPriorityLevel] = useState('High')
 
@@ -602,11 +652,11 @@ export default function TehsilDashboard() {
                   </p>
 
                   {[
-                    { name: "Gond", claims: 234, percentage: "18.8%", icon: "👥" },
-                    { name: "Korku", claims: 189, percentage: "15.2%", icon: "👥" },
-                    { name: "Muria", claims: 156, percentage: "12.5%", icon: "👥" },
-                    { name: "Baiga", claims: 134, percentage: "10.8%", icon: "👥" },
-                    { name: "Others", claims: 534, percentage: "42.7%", icon: "👥" }
+                    { name: "Gond", claims: 234, percentage: "18.8%", icon: <MdPeople /> },
+                    { name: "Korku", claims: 189, percentage: "15.2%", icon: <MdPeople /> },
+                    { name: "Muria", claims: 156, percentage: "12.5%", icon: <MdPeople /> },
+                    { name: "Baiga", claims: 134, percentage: "10.8%", icon: <MdPeople /> },
+                    { name: "Others", claims: 534, percentage: "42.7%", icon: <MdPeople /> }
                   ].map((community, index) => (
                     <div key={index} style={{
                       display: "flex",
@@ -708,9 +758,15 @@ export default function TehsilDashboard() {
                         fontSize: "10px",
                         color: "#666"
                       }}>
-                        <span>✅ Approved: {state.approved}%</span>
-                        <span>⏳ Pending: {state.pending}%</span>
-                        <span>❌ Rejected: {state.rejected}%</span>
+                        <span className="flex items-center gap-1">
+                          <MdCheckCircle className="text-green-600" /> Approved: {state.approved}%
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MdTrendingUp className="text-yellow-500" /> Pending: {state.pending}%
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MdCancel className="text-red-600" /> Rejected: {state.rejected}%
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -890,7 +946,7 @@ export default function TehsilDashboard() {
                     <ActionCard
                       title="Decision Support System"
                       description="Advanced analytics and decision-making tools for claim processing"
-                      icon="🧠"
+                      icon={<MdBarChart />}
                       onClick={() => setActiveTab('dss')}
                       status="View Analytics →"
                     />
@@ -898,7 +954,7 @@ export default function TehsilDashboard() {
                     <ActionCard
                       title="Verification Center"
                       description="Review and verify pending claims with comprehensive tools"
-                      icon="🔍"
+                      icon={<MdSearch />}
                       onClick={() => setActiveTab('verification')}
                       status={`${stats.pendingVerification} pending →`}
                     />
@@ -906,7 +962,7 @@ export default function TehsilDashboard() {
                     <ActionCard
                       title="Assets Mapping"
                       description="Satellite imagery and land assets mapping interface"
-                      icon="🗺️"
+                      icon={<MdLocationOn />}
                       onClick={() => setActiveTab('mapping')}
                       status="View Maps →"
                     />
@@ -938,10 +994,10 @@ export default function TehsilDashboard() {
                   </p>
 
                   {[
-                    { icon: "📍", title: "Open FRA Atlas", desc: "Geographic information system" },
-                    { icon: "⚡", title: "Run Decision Support", desc: "AI-powered recommendations" },
-                    { icon: "📄", title: "Upload Documents", desc: "Batch document processing" },
-                    { icon: "📊", title: "Export Report (PDF)", desc: "Generate comprehensive reports" }
+                    { icon: <MdLocationOn />, title: "Open FRA Atlas", desc: "Geographic information system" },
+                    { icon: <MdBolt />, title: "Run Decision Support", desc: "AI-powered recommendations" },
+                    { icon: <MdDescription />, title: "Upload Documents", desc: "Batch document processing" },
+                    { icon: <MdBarChart />, title: "Export Report (PDF)", desc: "Generate comprehensive reports" }
                   ].map((action, index) => (
                     <div key={index} style={{
                       display: "flex",
@@ -1023,28 +1079,28 @@ export default function TehsilDashboard() {
                 <ActionCard
                   title="Performance Reports"
                   description="Generate detailed performance analytics and trend reports"
-                  icon="📊"
+                  icon={<MdBarChart />}
                   status="Generate Report →"
                 />
 
                 <ActionCard
                   title="Data Export"
                   description="Export claims data in various formats (CSV, PDF, Excel)"
-                  icon="📤"
+                  icon={<MdFileUpload />}
                   status="Export Data →"
                 />
 
                 <ActionCard
                   title="Custom Analytics"
                   description="Create custom analytics dashboards and visualizations"
-                  icon="🔧"
+                  icon={<MdBuild />}
                   status="Build Dashboard →"
                 />
 
                 <ActionCard
                   title="Compliance Reports"
                   description="Generate compliance and audit reports for regulatory requirements"
-                  icon="📋"
+                  icon={<MdAssignment />}
                   status="View Compliance →"
                 />
               </div>
@@ -1083,7 +1139,9 @@ export default function TehsilDashboard() {
                     border: "1px solid #eee"
                   }}>
                     <div style={{ textAlign: "center", color: "#666" }}>
-                      <div style={{ fontSize: "24px", marginBottom: "8px" }}>📈</div>
+                      <div style={{ fontSize: "24px", marginBottom: "8px" }}>
+                        <MdTrendingUp />
+                      </div>
                       <div style={{ fontSize: "14px" }}>Claims trend visualization</div>
                     </div>
                   </div>
@@ -1116,7 +1174,9 @@ export default function TehsilDashboard() {
                     border: "1px solid #eee"
                   }}>
                     <div style={{ textAlign: "center", color: "#666" }}>
-                      <div style={{ fontSize: "24px", marginBottom: "8px" }}>🗺️</div>
+                      <div style={{ fontSize: "24px", marginBottom: "8px" }}>
+                        <MdMap />
+                      </div>
                       <div style={{ fontSize: "14px" }}>Regional performance heatmap</div>
                     </div>
                   </div>
@@ -1132,6 +1192,7 @@ export default function TehsilDashboard() {
               handleCriteriaChange={handleCriteriaChange}
               priorityLevel={priorityLevel}
               handlePriorityChange={handlePriorityChange}
+              getIcon={getIcon}
             />
           )}
 
