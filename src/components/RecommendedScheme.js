@@ -1,4 +1,5 @@
 import React from "react";
+import { MdLocationOn, MdBarChart } from "react-icons/md";
 
 const RecommendedScheme = ({
     schemeName,
@@ -44,7 +45,7 @@ const RecommendedScheme = ({
             {fullName}
         </div>
         <div className="flex items-center gap-1.5 mb-4">
-            <span className="text-base">📍</span>
+            <MdLocationOn className="text-base text-gray-600" />
             <span className="text-sm text-gray-600">{location}</span>
         </div>
         <p className="text-sm text-gray-800 leading-6 mb-4">
@@ -58,7 +59,7 @@ const RecommendedScheme = ({
         {evidence && (
             <div className="mb-4">
                 <h4 className="text-sm font-semibold text-gray-800 m-0 mb-3 flex items-center gap-1.5">
-                    📊 Supporting Evidence
+                    <MdBarChart className="text-blue-600" /> Supporting Evidence
                 </h4>
                 <div className="grid grid-cols-3 gap-3 mb-4">
                     {evidence.map((item, i) => (
@@ -100,8 +101,8 @@ const RecommendedScheme = ({
                 <button
                     key={i}
                     className={`py-2 px-4 rounded text-sm font-medium cursor-pointer ${a.primary
-                            ? "bg-blue-600 text-white border-none"
-                            : "bg-white text-gray-600 border border-gray-300"
+                        ? "bg-blue-600 text-white border-none"
+                        : "bg-white text-gray-600 border border-gray-300"
                         }`}
                 >
                     {a.label}

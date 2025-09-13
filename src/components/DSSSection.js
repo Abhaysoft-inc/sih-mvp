@@ -1,239 +1,96 @@
 import React from "react";
+import { MdPsychology, MdBarChart, MdAdd } from "react-icons/md";
 import RecommendedScheme from "./RecommendedScheme";
 const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, handlePriorityChange }) => (
     <div>
         {/* DSS Header */}
-        <div style={{
-            backgroundColor: "white",
-            border: "1px solid #ddd",
-            borderRadius: "6px",
-            padding: "20px",
-            marginBottom: "20px",
-            boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
-        }}>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: "16px"
-            }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                    <div style={{
-                        width: "40px",
-                        height: "40px",
-                        backgroundColor: "#007bff",
-                        borderRadius: "8px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "20px",
-                        color: "white"
-                    }}>
-                        🧠
+        <div className="bg-white border border-gray-300 rounded-md p-5 mb-5 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-xl text-white">
+                        <MdPsychology />
                     </div>
                     <div>
-                        <h2 style={{
-                            fontSize: "20px",
-                            fontWeight: "600",
-                            color: "#333",
-                            margin: "0"
-                        }}>
+                        <h2 className="text-xl font-semibold text-gray-800 m-0">
                             Decision Support System
                         </h2>
-                        <p style={{
-                            color: "#666",
-                            margin: "0",
-                            fontSize: "14px"
-                        }}>
+                        <p className="text-gray-600 m-0 text-sm">
                             FRA Scheme Recommendations
                         </p>
                     </div>
                 </div>
-                <div style={{ display: "flex", gap: "12px" }}>
-                    <button style={{
-                        padding: "8px 16px",
-                        backgroundColor: "white",
-                        color: "#007bff",
-                        border: "1px solid #007bff",
-                        borderRadius: "4px",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px"
-                    }}>
-                        📊 Export Report
+                <div className="flex gap-3">
+                    <button className="py-2 px-4 bg-white text-blue-600 border border-blue-600 rounded text-sm font-medium cursor-pointer flex items-center gap-1.5">
+                        <MdBarChart /> Export Report
                     </button>
-                    <button style={{
-                        padding: "8px 16px",
-                        backgroundColor: "#007bff",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "4px",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px"
-                    }}>
-                        + Create Implementation Plan
+                    <button className="py-2 px-4 bg-blue-600 text-white border-none rounded text-sm font-medium cursor-pointer flex items-center gap-1.5">
+                        <MdAdd /> Create Implementation Plan
                     </button>
                 </div>
             </div>
-            <div style={{ fontSize: "14px", color: "#666" }}>
+            <div className="text-sm text-gray-600">
                 29 recommendations across 5 villages • Last updated: 11/9/2025
             </div>
         </div>
 
         {/* Priority Summary */}
-        <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "16px",
-            marginBottom: "24px"
-        }}>
-            <div style={{
-                backgroundColor: "white",
-                border: "1px solid #ddd",
-                borderRadius: "6px",
-                padding: "20px",
-                textAlign: "center",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
-            }}>
-                <div style={{
-                    fontSize: "32px",
-                    fontWeight: "700",
-                    color: "#dc3545",
-                    marginBottom: "8px"
-                }}>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mb-6">
+            <div className="bg-white border border-gray-300 rounded-md p-5 text-center shadow-sm">
+                <div className="text-3xl font-bold text-red-600 mb-2">
                     5
                 </div>
-                <div style={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    color: "#333",
-                    marginBottom: "4px"
-                }}>
+                <div className="text-base font-semibold text-gray-800 mb-1">
                     High Priority
                 </div>
-                <div style={{
-                    fontSize: "12px",
-                    color: "#666"
-                }}>
+                <div className="text-xs text-gray-600">
                     Immediate action required
                 </div>
             </div>
 
-            <div style={{
-                backgroundColor: "white",
-                border: "1px solid #ddd",
-                borderRadius: "6px",
-                padding: "20px",
-                textAlign: "center",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
-            }}>
-                <div style={{
-                    fontSize: "32px",
-                    fontWeight: "700",
-                    color: "#ffc107",
-                    marginBottom: "8px"
-                }}>
+            <div className="bg-white border border-gray-300 rounded-md p-5 text-center shadow-sm">
+                <div className="text-3xl font-bold text-yellow-500 mb-2">
                     14
                 </div>
-                <div style={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    color: "#333",
-                    marginBottom: "4px"
-                }}>
+                <div className="text-base font-semibold text-gray-800 mb-1">
                     Medium Priority
                 </div>
-                <div style={{
-                    fontSize: "12px",
-                    color: "#666"
-                }}>
+                <div className="text-xs text-gray-600">
                     Plan for next quarter
                 </div>
             </div>
 
-            <div style={{
-                backgroundColor: "white",
-                border: "1px solid #ddd",
-                borderRadius: "6px",
-                padding: "20px",
-                textAlign: "center",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
-            }}>
-                <div style={{
-                    fontSize: "32px",
-                    fontWeight: "700",
-                    color: "#28a745",
-                    marginBottom: "8px"
-                }}>
+            <div className="bg-white border border-gray-300 rounded-md p-5 text-center shadow-sm">
+                <div className="text-3xl font-bold text-green-600 mb-2">
                     10
                 </div>
-                <div style={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    color: "#333",
-                    marginBottom: "4px"
-                }}>
+                <div className="text-base font-semibold text-gray-800 mb-1">
                     Low Priority
                 </div>
-                <div style={{
-                    fontSize: "12px",
-                    color: "#666"
-                }}>
+                <div className="text-xs text-gray-600">
                     Long-term consideration
                 </div>
             </div>
         </div>
 
         {/* Main DSS Interface (left: criteria, right: recommendations) */}
-        <div style={{
-            display: "grid",
-            gridTemplateColumns: "300px 1fr",
-            gap: "20px"
-        }}>
+        <div className="grid grid-cols-[300px_1fr] gap-5">
             {/* Left Panel - Criteria & Villages */}
             <div>
                 {/* Eligibility Criteria */}
-                <div style={{
-                    backgroundColor: "white",
-                    border: "1px solid #ddd",
-                    borderRadius: "6px",
-                    padding: "16px",
-                    marginBottom: "16px",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
-                }}>
-                    <h4 style={{
-                        fontSize: "14px",
-                        fontWeight: "600",
-                        color: "#333",
-                        margin: "0 0 12px 0",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.5px"
-                    }}>
+                <div className="bg-white border border-gray-300 rounded-md p-4 mb-4 shadow-sm">
+                    <h4 className="text-sm font-semibold text-gray-800 m-0 mb-3 uppercase tracking-wider">
                         Eligibility Criteria
                     </h4>
                     {eligibilityCriteria.map((criteria, index) => (
-                        <div key={index} style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            padding: "8px 0",
-                            borderBottom: index < 3 ? "1px solid #eee" : "none"
-                        }}>
+                        <div key={index} className={`flex items-center gap-2 py-2 ${index < 3 ? 'border-b border-gray-200' : ''}`}>
                             <input
                                 type="checkbox"
                                 checked={criteria.checked}
                                 onChange={() => handleCriteriaChange(index)}
-                                style={{ margin: "0" }}
+                                className="m-0"
                             />
-                            <span style={{ fontSize: "16px" }}>{criteria.icon}</span>
-                            <span style={{ fontSize: "13px", color: "#333" }}>
+                            <span className="text-base">{criteria.icon}</span>
+                            <span className="text-xs text-gray-800">
                                 {criteria.label}
                             </span>
                         </div>
@@ -241,22 +98,8 @@ const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, 
                 </div>
 
                 {/* Villages Selection */}
-                <div style={{
-                    backgroundColor: "white",
-                    border: "1px solid #ddd",
-                    borderRadius: "6px",
-                    padding: "16px",
-                    marginBottom: "16px",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
-                }}>
-                    <h4 style={{
-                        fontSize: "14px",
-                        fontWeight: "600",
-                        color: "#333",
-                        margin: "0 0 12px 0",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.5px"
-                    }}>
+                <div className="bg-white border border-gray-300 rounded-md p-4 mb-4 shadow-sm">
+                    <h4 className="text-sm font-semibold text-gray-800 m-0 mb-3 uppercase tracking-wider">
                         Villages (0 Selected)
                     </h4>
                     {[
@@ -266,18 +109,12 @@ const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, 
                         { name: "Kanker", claims: 1 },
                         { name: "Mandla", claims: 1 }
                     ].map((village, index) => (
-                        <div key={index} style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            padding: "8px 0",
-                            borderBottom: index < 4 ? "1px solid #eee" : "none"
-                        }}>
+                        <div key={index} className={`flex items-center gap-2 py-2 ${index < 4 ? 'border-b border-gray-200' : ''}`}>
                             <input
                                 type="checkbox"
-                                style={{ margin: "0" }}
+                                className="m-0"
                             />
-                            <span style={{ fontSize: "13px", color: "#333", flex: 1 }}>
+                            <span className="text-xs text-gray-800 flex-1">
                                 {village.name} ({village.claims} claims)
                             </span>
                         </div>
@@ -285,21 +122,8 @@ const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, 
                 </div>
 
                 {/* Priority Levels */}
-                <div style={{
-                    backgroundColor: "white",
-                    border: "1px solid #ddd",
-                    borderRadius: "6px",
-                    padding: "16px",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
-                }}>
-                    <h4 style={{
-                        fontSize: "14px",
-                        fontWeight: "600",
-                        color: "#333",
-                        margin: "0 0 12px 0",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.5px"
-                    }}>
+                <div className="bg-white border border-gray-300 rounded-md p-4 shadow-sm">
+                    <h4 className="text-sm font-semibold text-gray-800 m-0 mb-3 uppercase tracking-wider">
                         Priority Levels
                     </h4>
                     {[
@@ -307,27 +131,19 @@ const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, 
                         { label: "Medium", color: "#ffc107" },
                         { label: "Low", color: "#28a745" }
                     ].map((priority, index) => (
-                        <div key={index} style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            padding: "8px 0",
-                            borderBottom: index < 2 ? "1px solid #eee" : "none"
-                        }}>
+                        <div key={index} className={`flex items-center gap-2 py-2 ${index < 2 ? 'border-b border-gray-200' : ''}`}>
                             <input
                                 type="radio"
                                 name="priority"
                                 checked={priorityLevel === priority.label}
                                 onChange={() => handlePriorityChange(priority.label)}
-                                style={{ margin: "0" }}
+                                className="m-0"
                             />
-                            <div style={{
-                                width: "12px",
-                                height: "12px",
-                                borderRadius: "50%",
-                                backgroundColor: priority.color
-                            }} />
-                            <span style={{ fontSize: "13px", color: "#333" }}>
+                            <div
+                                className="w-3 h-3 rounded-full"
+                                style={{ backgroundColor: priority.color }}
+                            />
+                            <span className="text-xs text-gray-800">
                                 {priority.label}
                             </span>
                         </div>
@@ -335,11 +151,7 @@ const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, 
                 </div>
             </div>
             {/* Right Panel - Scheme Recommendations */}
-
-
-
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <div className="flex flex-col gap-5">
                 <RecommendedScheme
                     schemeName="PM-KISAN"
                     priority="High"
