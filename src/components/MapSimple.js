@@ -2,6 +2,7 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { MdAccountBalance } from 'react-icons/md';
 
 const MapComponent = () => {
     const { MapContainer, TileLayer, Polygon, Popup } = require('react-leaflet');
@@ -168,9 +169,12 @@ const MapComponent = () => {
                                     margin: 0,
                                     fontWeight: 'bold',
                                     color: '#1f2937',
-                                    fontSize: '16px'
+                                    fontSize: '16px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '6px'
                                 }}>
-                                    🏛️ {claim.id}
+                                    <MdAccountBalance style={{ color: '#3b82f6' }} /> {claim.id}
                                 </h3>
                                 <span style={{
                                     padding: '2px 8px',

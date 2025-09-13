@@ -15,9 +15,9 @@ const TehsilNavbar = ({ currentTime }) => (
         }}
     >
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <img src="/emblem.png" alt="Emblem" style={{ height: 36, marginRight: 10 }} />
+            {/*      */}
             <span style={{ fontWeight: 700, fontSize: 20, color: "#007bff", letterSpacing: 1 }}>
-                Tehsil Dashboard
+                WebGIS FRA Portal
             </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>

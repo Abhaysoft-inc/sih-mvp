@@ -6,6 +6,13 @@ import { useEffect } from "react";
 import L from "leaflet";
 import MapTools from "./MapTools";
 import MapLegend from "./MapLegend";
+import {
+    MdForest,
+    MdHome,
+    MdSecurity,
+    MdWaterDrop,
+    MdAccountBalance
+} from "react-icons/md";
 
 export default function Map() {
     // Fix for default markers - using a more reliable approach
@@ -164,7 +171,9 @@ export default function Map() {
                     >
                         <Popup>
                             <div className="text-sm">
-                                <h3 className="font-semibold text-green-800">🌲 {forest.name}</h3>
+                                <h3 className="font-semibold text-green-800 flex items-center gap-2">
+                                    <MdForest className="text-green-600" /> {forest.name}
+                                </h3>
                                 <p><strong>Area:</strong> {forest.area}</p>
                                 <p><strong>Type:</strong> {forest.type}</p>
                                 <p className="text-xs text-gray-600 mt-1">Forest Rights Area</p>
@@ -176,12 +185,28 @@ export default function Map() {
                 {/* Village/Settlement Markers */}
                 {villages.map((village, index) => (
                     <Marker key={`village-${index}`} position={village.position}>
-                        <Popup>
-                            <div className="text-sm">
-                                <h3 className="font-semibold text-blue-800">🏘️ {village.name}</h3>
-                                <p><strong>Population:</strong> {village.population}</p>
-                                <p><strong>Status:</strong> {village.status}</p>
-                                <p className="text-xs text-gray-600 mt-1">Administrative Center</p>
+                        <Popup maxWidth={280} className="custom-popup">
+                            <div className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
+                                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 px-4 py-3 border-b border-gray-100">
+                                    <h3 className="font-bold text-blue-800 flex items-center gap-2">
+                                        <MdHome className="text-blue-600 text-lg" /> {village.name}
+                                    </h3>
+                                </div>
+                                <div className="p-4 space-y-2">
+                                    <div className="flex justify-between">
+                                        <span className="text-gray-600 text-sm font-medium">Population:</span>
+                                        <span className="text-gray-800 text-sm font-semibold">{village.population}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="text-gray-600 text-sm font-medium">Status:</span>
+                                        <span className="text-blue-700 text-sm font-semibold">{village.status}</span>
+                                    </div>
+                                </div>
+                                <div className="bg-gray-50 px-4 py-2 border-t border-gray-100">
+                                    <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+                                        Administrative Center
+                                    </p>
+                                </div>
                             </div>
                         </Popup>
                     </Marker>
@@ -199,11 +224,22 @@ export default function Map() {
                         dashArray: '10, 10'
                     }}
                 >
-                    <Popup>
-                        <div className="text-sm">
-                            <h3 className="font-semibold text-green-800">🛡️ Protected Forest Boundary</h3>
-                            <p>Chandaka-Dampara Wildlife Sanctuary</p>
-                            <p className="text-xs text-gray-600 mt-1">Local Protected Area</p>
+                    <Popup maxWidth={300} className="custom-popup">
+                        <div className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
+                            <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-3 border-b border-gray-100">
+                                <h3 className="font-bold text-green-800 flex items-center gap-2">
+                                    <MdSecurity className="text-green-600 text-lg" /> Protected Forest Boundary
+                                </h3>
+                            </div>
+                            <div className="p-4">
+                                <p className="text-gray-800 font-semibold text-sm">Chandaka-Dampara Wildlife Sanctuary</p>
+                                <p className="text-gray-600 text-sm mt-1">This area is under special protection for biodiversity conservation.</p>
+                            </div>
+                            <div className="bg-gray-50 px-4 py-2 border-t border-gray-100">
+                                <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+                                    Local Protected Area
+                                </p>
+                            </div>
                         </div>
                     </Popup>
                 </Polygon>
@@ -220,12 +256,28 @@ export default function Map() {
                         fillOpacity: 0.4
                     }}
                 >
-                    <Popup>
-                        <div className="text-sm">
-                            <h3 className="font-semibold text-blue-800">💧 Local Water Body</h3>
-                            <p><strong>Type:</strong> Forest area lake</p>
-                            <p><strong>Area:</strong> 0.8 sq km</p>
-                            <p className="text-xs text-gray-600 mt-1">Natural water source</p>
+                    <Popup maxWidth={280} className="custom-popup">
+                        <div className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
+                            <div className="bg-gradient-to-r from-blue-50 to-sky-50 px-4 py-3 border-b border-gray-100">
+                                <h3 className="font-bold text-blue-800 flex items-center gap-2">
+                                    <MdWaterDrop className="text-blue-600 text-lg" /> Local Water Body
+                                </h3>
+                            </div>
+                            <div className="p-4 space-y-2">
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600 text-sm font-medium">Type:</span>
+                                    <span className="text-gray-800 text-sm font-semibold">Forest area lake</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600 text-sm font-medium">Area:</span>
+                                    <span className="text-blue-700 text-sm font-semibold">0.8 sq km</span>
+                                </div>
+                            </div>
+                            <div className="bg-gray-50 px-4 py-2 border-t border-gray-100">
+                                <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+                                    Natural Water Source
+                                </p>
+                            </div>
                         </div>
                     </Popup>
                 </Circle>
@@ -243,39 +295,79 @@ export default function Map() {
                             fillOpacity: 0.4
                         }}
                     >
-                        <Popup maxWidth={300}>
-                            <div className="text-sm p-2">
-                                <div className="flex items-center justify-between mb-2">
-                                    <h3 className="font-semibold text-gray-800 text-base">
-                                        🏛️ {claim.id}
-                                    </h3>
-                                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${claim.status === 'Approved' ? 'bg-green-100 text-green-800' :
-                                        claim.status === 'Pending' ? 'bg-orange-100 text-orange-800' :
-                                            claim.status === 'Under Review' ? 'bg-blue-100 text-blue-800' :
-                                                'bg-red-100 text-red-800'
-                                        }`}>
-                                        {claim.status}
-                                    </span>
+                        <Popup maxWidth={350} className="custom-popup">
+                            <div className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
+                                {/* Header Section */}
+                                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 border-b border-gray-100">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-2">
+                                            <MdAccountBalance className="text-blue-600 text-lg" />
+                                            <h3 className="font-bold text-gray-800 text-base">
+                                                {claim.id}
+                                            </h3>
+                                        </div>
+                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${claim.status === 'Approved'
+                                                ? 'bg-green-50 text-green-700 border-green-200' :
+                                                claim.status === 'Pending'
+                                                    ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                                                    claim.status === 'Under Review'
+                                                        ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                                        'bg-red-50 text-red-700 border-red-200'
+                                            }`}>
+                                            {claim.status}
+                                        </span>
+                                    </div>
                                 </div>
 
-                                <div className="space-y-1">
-                                    <p><strong>Claimant:</strong> {claim.claimantName}</p>
-                                    <p><strong>Village:</strong> {claim.village}</p>
-                                    <p><strong>Area:</strong> {claim.area}</p>
-                                    <p><strong>Submitted:</strong> {claim.submissionDate}</p>
+                                {/* Content Section */}
+                                <div className="p-4 space-y-3">
+                                    <div className="grid grid-cols-1 gap-2">
+                                        <div className="flex justify-between items-start">
+                                            <span className="text-gray-600 text-sm font-medium">Claimant:</span>
+                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.claimantName}</span>
+                                        </div>
 
-                                    {claim.approvalDate && (
-                                        <p><strong>Approved:</strong> {claim.approvalDate}</p>
-                                    )}
+                                        <div className="flex justify-between items-start">
+                                            <span className="text-gray-600 text-sm font-medium">Village:</span>
+                                            <span className="text-gray-800 text-sm text-right">{claim.village}</span>
+                                        </div>
+
+                                        <div className="flex justify-between items-start">
+                                            <span className="text-gray-600 text-sm font-medium">Area:</span>
+                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.area}</span>
+                                        </div>
+
+                                        <hr className="border-gray-100 my-2" />
+
+                                        <div className="flex justify-between items-start">
+                                            <span className="text-gray-600 text-sm font-medium">Submitted:</span>
+                                            <span className="text-gray-800 text-sm text-right">{claim.submissionDate}</span>
+                                        </div>
+
+                                        {claim.approvalDate && (
+                                            <div className="flex justify-between items-start">
+                                                <span className="text-green-600 text-sm font-medium">Approved:</span>
+                                                <span className="text-green-700 text-sm font-semibold text-right">{claim.approvalDate}</span>
+                                            </div>
+                                        )}
+                                    </div>
 
                                     {claim.rejectionReason && (
-                                        <div className="mt-2 p-2 bg-red-50 rounded text-xs">
-                                            <strong>Rejection Reason:</strong> {claim.rejectionReason}
+                                        <div className="mt-3 p-3 bg-red-50 border border-red-100 rounded-lg">
+                                            <div className="flex items-start gap-2">
+                                                <span className="text-red-600 text-xs font-semibold uppercase tracking-wide">Rejection Reason:</span>
+                                            </div>
+                                            <p className="text-red-700 text-sm mt-1">{claim.rejectionReason}</p>
                                         </div>
                                     )}
                                 </div>
 
-                                <p className="text-xs text-gray-600 mt-2">Forest Rights Act (FRA) Claim</p>
+                                {/* Footer */}
+                                <div className="bg-gray-50 px-4 py-2 border-t border-gray-100">
+                                    <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+                                        Forest Rights Act (FRA) Claim
+                                    </p>
+                                </div>
                             </div>
                         </Popup>
                     </Polygon>
