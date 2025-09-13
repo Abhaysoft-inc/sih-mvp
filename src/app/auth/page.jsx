@@ -33,16 +33,16 @@ const Login = () => {
         // Role-based routing
         switch (formData.role) {
             case 'admin':
-                window.location.href = '/admin/dashboard'
+                window.location.href = '/dashboard/tehsil'
                 break
             case 'surveyor':
-                window.location.href = '/dashboard/survey'
+                window.location.href = '/dashboard/tehsil'
                 break
             case 'tehsildar':
                 window.location.href = '/dashboard/tehsil'
                 break
             case 'citizen':
-                window.location.href = '/dashboard'
+                window.location.href = '/dashboard/tehsil'
                 break
             default:
                 alert('Please select a role / कृपया एक भूमिका चुनें')
