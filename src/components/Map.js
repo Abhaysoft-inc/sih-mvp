@@ -2,7 +2,7 @@
 
 import { MapContainer, TileLayer, Marker, Popup, Circle, Polygon } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import L from "leaflet";
 import MapTools from "./MapTools";
 import MapLegend from "./MapLegend";
@@ -15,6 +15,10 @@ import {
 } from "react-icons/md";
 
 export default function Map() {
+    // State for sidebar management
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [selectedFraClaim, setSelectedFraClaim] = useState(null);
+
     // Fix for default markers - using a more reliable approach
     useEffect(() => {
         // Create custom icon to avoid the default icon loading issue
@@ -70,7 +74,19 @@ export default function Map() {
                 [20.7000, 84.9700],
                 [20.7000, 84.9500]
             ],
-            color: "#22c55e" // Green for approved
+            color: "#22c55e", // Green for approved
+            timeline: [
+                { date: "2023-03-15", status: "Application Submitted", description: "Initial application submitted by Santali Tribal Community" },
+                { date: "2023-04-02", status: "Under Review", description: "Application assigned to review committee" },
+                { date: "2023-05-18", status: "Field Verification", description: "Field team conducted site verification" },
+                { date: "2023-07-10", status: "Documentation Complete", description: "All required documents verified and accepted" },
+                { date: "2023-09-25", status: "Committee Approval", description: "Approved by Sub-Divisional Level Committee" },
+                { date: "2023-11-30", status: "District Approval", description: "Approved by District Level Committee" },
+                { date: "2024-01-20", status: "Final Approval", description: "Final approval granted and title rights issued" }
+            ],
+            landType: "Traditional Agricultural Land",
+            surveyNumber: "SY-789/2A",
+            tehsil: "Patia"
         },
         {
             id: "FRA-002",
@@ -87,7 +103,18 @@ export default function Map() {
                 [20.6500, 85.0400],
                 [20.6500, 85.0200]
             ],
-            color: "#f59e0b" // Orange for pending
+            color: "#f59e0b", // Orange for pending
+            timeline: [
+                { date: "2024-02-10", status: "Application Submitted", description: "Initial application submitted by Kond Tribal Group" },
+                { date: "2024-02-25", status: "Preliminary Review", description: "Application received and assigned tracking number" },
+                { date: "2024-03-15", status: "Document Verification", description: "Initial document verification in progress" },
+                { date: "2024-04-20", status: "Additional Documents Required", description: "Committee requested additional supporting documents" },
+                { date: "2024-05-10", status: "Documents Resubmitted", description: "Additional documents provided by claimant" },
+                { date: "2024-06-01", status: "Under Review", description: "Currently under review by Sub-Divisional Committee" }
+            ],
+            landType: "Forest Land for Cultivation",
+            surveyNumber: "SY-456/1B",
+            tehsil: "Chandrasekharpur"
         },
         {
             id: "FRA-003",
@@ -104,7 +131,19 @@ export default function Map() {
                 [20.5000, 84.8200],
                 [20.5000, 84.8000]
             ],
-            color: "#3b82f6" // Blue for under review
+            color: "#3b82f6", // Blue for under review
+            timeline: [
+                { date: "2024-01-05", status: "Application Submitted", description: "Initial application submitted by Bonda Community" },
+                { date: "2024-01-20", status: "Preliminary Review", description: "Application accepted for detailed review" },
+                { date: "2024-02-28", status: "Field Survey Scheduled", description: "Field verification team assigned" },
+                { date: "2024-03-20", status: "Field Verification", description: "On-site verification completed" },
+                { date: "2024-04-15", status: "Technical Review", description: "Technical committee reviewing survey reports" },
+                { date: "2024-05-30", status: "Community Consultation", description: "Public consultation held with local community" },
+                { date: "2024-07-10", status: "Under Final Review", description: "Currently under final review by District Committee" }
+            ],
+            landType: "Mixed Forest and Agricultural Land",
+            surveyNumber: "SY-123/3C",
+            tehsil: "Jayadev Vihar"
         },
         {
             id: "FRA-004",
@@ -122,7 +161,18 @@ export default function Map() {
                 [20.4500, 84.9200],
                 [20.4500, 84.9000]
             ],
-            color: "#ef4444" // Red for rejected
+            color: "#ef4444", // Red for rejected
+            timeline: [
+                { date: "2023-08-20", status: "Application Submitted", description: "Initial application submitted by Saora Tribal Family" },
+                { date: "2023-09-05", status: "Under Review", description: "Application under preliminary review" },
+                { date: "2023-10-12", status: "Documentation Issues", description: "Missing required documents identified" },
+                { date: "2023-11-01", status: "Notice Issued", description: "Notice sent to provide missing documents within 30 days" },
+                { date: "2023-12-15", status: "Follow-up Notice", description: "Second notice issued for pending documents" },
+                { date: "2024-01-30", status: "Application Rejected", description: "Application rejected due to insufficient documentation and non-compliance" }
+            ],
+            landType: "Disputed Forest Land",
+            surveyNumber: "SY-321/4D",
+            tehsil: "Nayapalli"
         },
         {
             id: "FRA-005",
@@ -139,9 +189,185 @@ export default function Map() {
                 [20.6000, 84.7700],
                 [20.6000, 84.7500]
             ],
-            color: "#22c55e" // Green for approved
+            color: "#22c55e", // Green for approved
+            timeline: [
+                { date: "2023-05-12", status: "Application Submitted", description: "Initial application submitted by Ho Tribal Collective" },
+                { date: "2023-05-25", status: "Fast Track Review", description: "Application selected for fast-track processing" },
+                { date: "2023-06-15", status: "Field Verification", description: "Rapid field verification completed" },
+                { date: "2023-07-20", status: "Documentation Complete", description: "All documents verified and approved" },
+                { date: "2023-08-30", status: "Committee Review", description: "Sub-Divisional Committee reviewed and recommended approval" },
+                { date: "2023-10-15", status: "District Approval", description: "District Level Committee approved the claim" },
+                { date: "2023-11-30", status: "Title Rights Issued", description: "Final approval granted and community land rights certificate issued" }
+            ],
+            landType: "Community Forest Land",
+            surveyNumber: "SY-567/5A",
+            tehsil: "Rasulgarh"
         }
     ];
+
+    // Function to handle showing details
+    const handleShowDetails = (claim) => {
+        setSelectedFraClaim(claim);
+        setSidebarOpen(true);
+    };
+
+    // Function to close sidebar
+    const closeSidebar = () => {
+        setSidebarOpen(false);
+        setSelectedFraClaim(null);
+    };
+
+    // FRA Details Sidebar Component (Compact with Light Colors)
+    const FRADetailsSidebar = () => {
+        if (!selectedFraClaim) return null;
+
+        const getStatusColor = (status) => {
+            switch (status.toLowerCase()) {
+                case 'approved':
+                case 'final approval':
+                case 'title rights issued':
+                    return 'text-green-700 bg-green-50 border-green-200';
+                case 'rejected':
+                case 'application rejected':
+                    return 'text-red-700 bg-red-50 border-red-200';
+                case 'pending':
+                case 'under review':
+                case 'under final review':
+                    return 'text-blue-700 bg-blue-50 border-blue-200';
+                case 'documentation issues':
+                case 'additional documents required':
+                    return 'text-orange-700 bg-orange-50 border-orange-200';
+                default:
+                    return 'text-gray-700 bg-gray-50 border-gray-200';
+            }
+        };
+
+        return (
+            <div className={`fixed top-16 right-0 bottom-0 w-80 bg-white shadow-2xl border-l border-gray-200 transform transition-transform duration-300 ease-in-out z-[9999] ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'
+                }`}>
+                {/* Header */}
+                <div className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200 p-3">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h2 className="text-lg font-bold text-gray-800">{selectedFraClaim.id}</h2>
+                            <p className="text-gray-600 text-sm">{selectedFraClaim.claimantName}</p>
+                        </div>
+                        <button
+                            onClick={closeSidebar}
+                            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="mt-2">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium border ${selectedFraClaim.status === 'Approved' ? 'bg-green-100 text-green-700 border-green-200' :
+                            selectedFraClaim.status === 'Rejected' ? 'bg-red-100 text-red-700 border-red-200' :
+                                selectedFraClaim.status === 'Pending' ? 'bg-orange-100 text-orange-700 border-orange-200' :
+                                    'bg-blue-100 text-blue-700 border-blue-200'
+                            }`}>
+                            {selectedFraClaim.status}
+                        </span>
+                    </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 overflow-y-auto p-3 space-y-4">
+                    {/* Basic Information */}
+                    <div className="bg-gray-50 rounded-lg p-3 max-h-48 overflow-y-auto">
+                        <h3 className="text-sm font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                            <MdAccountBalance className="text-gray-600" />
+                            Basic Information
+                        </h3>
+                        <div className="space-y-1.5 text-xs">
+                            <div className="flex justify-between">
+                                <span className="text-gray-600 font-medium">Village:</span>
+                                <span className="text-gray-800">{selectedFraClaim.village}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-gray-600 font-medium">Area:</span>
+                                <span className="text-gray-800 font-semibold">{selectedFraClaim.area}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-gray-600 font-medium">Land Type:</span>
+                                <span className="text-gray-800">{selectedFraClaim.landType}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-gray-600 font-medium">Survey No:</span>
+                                <span className="text-gray-800">{selectedFraClaim.surveyNumber}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-gray-600 font-medium">Tehsil:</span>
+                                <span className="text-gray-800">{selectedFraClaim.tehsil}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Decision/Order */}
+                    <div className="bg-gray-50 rounded-lg p-3">
+                        <h3 className="text-sm font-semibold text-gray-800 mb-3">Decision & Order</h3>
+
+                        {/* Final Decision */}
+                        <div className={`p-3 rounded-lg border-2 mb-3 ${selectedFraClaim.status === 'Approved' ? 'bg-green-50 border-green-200' :
+                            selectedFraClaim.status === 'Rejected' ? 'bg-red-50 border-red-200' :
+                                selectedFraClaim.status === 'Pending' ? 'bg-orange-50 border-orange-200' :
+                                    'bg-blue-50 border-blue-200'
+                            }`}>
+                            <div className="flex items-center gap-2 mb-2">
+                                <div className={`w-3 h-3 rounded-full ${selectedFraClaim.status === 'Approved' ? 'bg-green-500' :
+                                    selectedFraClaim.status === 'Rejected' ? 'bg-red-500' :
+                                        selectedFraClaim.status === 'Pending' ? 'bg-orange-500' :
+                                            'bg-blue-500'
+                                    }`}></div>
+                                <span className="text-sm font-semibold text-gray-800">
+                                    {selectedFraClaim.status === 'Approved' ? 'LAND APPROVED' :
+                                        selectedFraClaim.status === 'Rejected' ? 'CLAIM REJECTED' :
+                                            selectedFraClaim.status === 'Pending' ? 'APPLICATION PENDING' :
+                                                'UNDER REVIEW'}
+                                </span>
+                            </div>
+
+                            <div className="space-y-1 text-xs">
+                                <p className={`font-medium ${selectedFraClaim.status === 'Approved' ? 'text-green-700' :
+                                    selectedFraClaim.status === 'Rejected' ? 'text-red-700' :
+                                        selectedFraClaim.status === 'Pending' ? 'text-orange-700' :
+                                            'text-blue-700'
+                                    }`}>
+                                    {selectedFraClaim.status === 'Approved'
+                                        ? `This land (${selectedFraClaim.area}) has been approved and granted to ${selectedFraClaim.claimantName}.`
+                                        : selectedFraClaim.status === 'Rejected'
+                                            ? `The land claim for ${selectedFraClaim.area} has been rejected.`
+                                            : selectedFraClaim.status === 'Pending'
+                                                ? `The application for ${selectedFraClaim.area} is currently pending review.`
+                                                : `The claim for ${selectedFraClaim.area} is under review by the committee.`
+                                    }
+                                </p>
+
+                                {selectedFraClaim.approvalDate && (
+                                    <p className="text-gray-600">
+                                        <strong>Approved on:</strong> {selectedFraClaim.approvalDate}
+                                    </p>
+                                )}
+
+                                <p className="text-gray-600">
+                                    <strong>Applied on:</strong> {selectedFraClaim.submissionDate}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Rejection Reason if applicable */}
+                    {selectedFraClaim.rejectionReason && (
+                        <div className="bg-red-50 border border-red-200 rounded-lg p-3 max-h-32 overflow-y-auto">
+                            <h3 className="text-sm font-semibold text-red-800 mb-2">Rejection Details</h3>
+                            <p className="text-red-700 text-xs">{selectedFraClaim.rejectionReason}</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    };
 
     return (
         <div className="relative h-full w-full">
@@ -307,12 +533,12 @@ export default function Map() {
                                             </h3>
                                         </div>
                                         <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${claim.status === 'Approved'
-                                                ? 'bg-green-50 text-green-700 border-green-200' :
-                                                claim.status === 'Pending'
-                                                    ? 'bg-orange-50 text-orange-700 border-orange-200' :
-                                                    claim.status === 'Under Review'
-                                                        ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                                                        'bg-red-50 text-red-700 border-red-200'
+                                            ? 'bg-green-50 text-green-700 border-green-200' :
+                                            claim.status === 'Pending'
+                                                ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                                                claim.status === 'Under Review'
+                                                    ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                                    'bg-red-50 text-red-700 border-red-200'
                                             }`}>
                                             {claim.status}
                                         </span>
@@ -360,6 +586,19 @@ export default function Map() {
                                             <p className="text-red-700 text-sm mt-1">{claim.rejectionReason}</p>
                                         </div>
                                     )}
+
+                                    {/* Show Details Button */}
+                                    <div className="mt-4 pt-3 border-t border-gray-100 items-center">
+                                        <button
+                                            onClick={() => handleShowDetails(claim)}
+                                            className="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 flex items-center justify-center gap-2 "
+                                        >
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                            Show Details
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* Footer */}
@@ -376,6 +615,9 @@ export default function Map() {
             </MapContainer>
             <MapTools />
             <MapLegend />
+
+            {/* FRA Details Sidebar */}
+            <FRADetailsSidebar />
         </div>
     );
 }
