@@ -12,23 +12,24 @@ import {
   MdArrowBack,
   MdArrowForward,
   MdUpload,
-  MdCamera,
   MdVerified,
   MdDescription,
   MdPersonPin,
   MdHome,
   MdPhone,
   MdEmail,
-  MdLocationOn
+  MdLocationOn,
+  MdCloudUpload,
+  MdCheckCircle,
+  MdInsertDriveFile
 } from "react-icons/md"
 
 export default function NewRegistrationPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [loading, setLoading] = useState(false)
-  const [scanProgress, setScanProgress] = useState(0)
-  const [scanStatus, setScanStatus] = useState('')
   const [uploadProgress, setUploadProgress] = useState(0)
   const [biometricProgress, setBiometricProgress] = useState(0)
+  const [uploadStatus, setUploadStatus] = useState('')
   const [biometricStatus, setBiometricStatus] = useState('')
   const [formData, setFormData] = useState({
     applicantName: "",
@@ -41,6 +42,7 @@ export default function NewRegistrationPage() {
     status: 'draft'
   })
   const [ocrData, setOcrData] = useState(null)
+  const [uploadedFiles, setUploadedFiles] = useState([])
 
   const router = useRouter()
 
@@ -56,39 +58,36 @@ export default function NewRegistrationPage() {
     setFormData(prev => ({ ...prev, ...updates }))
   }
 
-  const handleDocumentScan = async () => {
+  // File upload function for document scanning
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+
     setLoading(true)
-    setScanProgress(0)
-    setScanStatus('Initializing camera...')
+    setUploadProgress(0)
+    setUploadStatus('Preparing file for upload...')
 
     try {
-      // Step 1: Initialize camera
+      // Simulate upload progress
+      await new Promise(resolve => setTimeout(resolve, 500))
+      setUploadProgress(20)
+      setUploadStatus('Uploading document...')
+
+      for (let i = 1; i <= 6; i++) {
+        await new Promise(resolve => setTimeout(resolve, 300))
+        setUploadProgress(20 + (i * 10))
+        setUploadStatus(`Uploading... ${20 + (i * 10)}%`)
+      }
+
       await new Promise(resolve => setTimeout(resolve, 800))
-      setScanProgress(20)
-      setScanStatus('Camera ready. Position document...')
+      setUploadProgress(90)
+      setUploadStatus('Processing document...')
 
-      // Step 2: Document detection
-      await new Promise(resolve => setTimeout(resolve, 1200))
-      setScanProgress(40)
-      setScanStatus('Document detected. Capturing image...')
+      await new Promise(resolve => setTimeout(resolve, 600))
+      setUploadProgress(100)
+      setUploadStatus('Document uploaded successfully!')
 
-      // Step 3: Capture image
-      await new Promise(resolve => setTimeout(resolve, 800))
-      setScanProgress(60)
-      setScanStatus('Image captured. Processing...')
-
-      const mockImageData = "data:image/jpeg;base64,mock_image_data"
-
-      // Step 4: OCR Processing
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      setScanProgress(80)
-      setScanStatus('Extracting text from document...')
-
-      // Step 5: Data extraction complete
-      await new Promise(resolve => setTimeout(resolve, 800))
-      setScanProgress(100)
-      setScanStatus('Document scan complete!')
-
+      // Mock OCR data
       const ocr = {
         name: "राम कुमार शर्मा",
         fatherName: "श्री मोहन लाल शर्मा",
@@ -99,11 +98,13 @@ export default function NewRegistrationPage() {
 
       const newDocument = {
         type: "identity",
-        imageData: mockImageData,
+        fileName: file.name,
+        fileSize: file.size,
         ocrData: ocr,
         timestamp: new Date().toISOString()
       }
 
+      setUploadedFiles([...uploadedFiles, { name: file.name, size: file.size }])
       updateFormData({
         documents: [...(formData.documents || []), newDocument],
         applicantName: ocr.name
@@ -111,14 +112,14 @@ export default function NewRegistrationPage() {
       setOcrData(ocr)
 
     } catch (error) {
-      console.error("Document scan failed:", error)
-      setScanStatus('Scan failed. Please try again.')
+      console.error("Upload failed:", error)
+      setUploadStatus('Upload failed. Please try again.')
     } finally {
       setTimeout(() => {
         setLoading(false)
-        setScanProgress(0)
-        setScanStatus('')
-      }, 1000)
+        setUploadProgress(0)
+        setUploadStatus('')
+      }, 1500)
     }
   }
 
@@ -149,92 +150,38 @@ export default function NewRegistrationPage() {
         await new Promise(resolve => setTimeout(resolve, 800))
         setBiometricProgress(20)
 
-        setBiometricStatus('Place thumb on scanner...')
+        setBiometricStatus('Please place your thumb on the scanner...')
         await new Promise(resolve => setTimeout(resolve, 1500))
-        setBiometricProgress(40)
+        setBiometricProgress(50)
 
-        setBiometricStatus('Scanning fingerprint ridges...')
+        setBiometricStatus('Capturing fingerprint pattern...')
         await new Promise(resolve => setTimeout(resolve, 1200))
-        setBiometricProgress(70)
+        setBiometricProgress(80)
 
-        setBiometricStatus('Processing biometric data...')
-        await new Promise(resolve => setTimeout(resolve, 800))
-        setBiometricProgress(90)
-
-        setBiometricStatus('Fingerprint captured successfully!')
+        setBiometricStatus('Thumbprint captured successfully!')
         await new Promise(resolve => setTimeout(resolve, 500))
         setBiometricProgress(100)
       }
 
-      const mockBiometricData = `data:image/jpeg;base64,mock_${type}_data_${Date.now()}`
-
       updateFormData({
         biometrics: {
           ...formData.biometrics,
-          [type]: mockBiometricData,
-          [`${type}_timestamp`]: new Date().toISOString()
+          [type]: {
+            captured: true,
+            timestamp: new Date().toISOString(),
+            quality: 'high'
+          }
         }
       })
 
     } catch (error) {
       console.error("Biometric capture failed:", error)
-      setBiometricStatus(`${type} capture failed. Please try again.`)
+      setBiometricStatus('Capture failed. Please try again.')
     } finally {
       setTimeout(() => {
         setLoading(false)
         setBiometricProgress(0)
         setBiometricStatus('')
-      }, 1500)
-    }
-  }
-
-  const handleFileUpload = async (file) => {
-    setLoading(true)
-    setUploadProgress(0)
-    setScanStatus('Preparing file upload...')
-
-    try {
-      // Simulate file validation
-      await new Promise(resolve => setTimeout(resolve, 500))
-      setUploadProgress(10)
-      setScanStatus('Validating file format...')
-
-      // Simulate upload chunks
-      for (let i = 1; i <= 8; i++) {
-        await new Promise(resolve => setTimeout(resolve, 200))
-        setUploadProgress(10 + (i * 10))
-        setScanStatus(`Uploading... ${10 + (i * 10)}%`)
-      }
-
-      // Simulate server processing
-      await new Promise(resolve => setTimeout(resolve, 800))
-      setUploadProgress(95)
-      setScanStatus('Processing uploaded document...')
-
-      await new Promise(resolve => setTimeout(resolve, 500))
-      setUploadProgress(100)
-      setScanStatus('Upload complete!')
-
-      const newDocument = {
-        type: file.type.includes('image') ? 'photo' : 'document',
-        name: file.name,
-        size: file.size,
-        uploadedAt: new Date().toISOString(),
-        mockData: `uploaded_${Date.now()}`
-      }
-
-      updateFormData({
-        documents: [...(formData.documents || []), newDocument]
-      })
-
-    } catch (error) {
-      console.error("Upload failed:", error)
-      setScanStatus('Upload failed. Please try again.')
-    } finally {
-      setTimeout(() => {
-        setLoading(false)
-        setUploadProgress(0)
-        setScanStatus('')
       }, 1000)
     }
   }
@@ -244,122 +191,195 @@ export default function NewRegistrationPage() {
     try {
       // Simulate submission
       await new Promise(resolve => setTimeout(resolve, 2000))
-
-      // For now, just redirect back to dashboard
-      router.push('/dashboard')
-
+      router.push('/dashboard/survey')
     } catch (error) {
-      console.error("Submit failed:", error)
+      console.error("Submission failed:", error)
     } finally {
       setLoading(false)
     }
   }
 
-  const renderStep = () => {
+  const renderStepContent = () => {
     switch (currentStep) {
       case 1:
         return (
-          <div className="flex flex-col gap-8">
-            <div className="bg-white/70 backdrop-blur-sm border border-white/20 rounded-2xl shadow-xl overflow-hidden">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6 border-b border-blue-100">
-                <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg">
-                    <MdPerson className="text-xl" />
-                  </div>
-                  Personal Information
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "24px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "24px"
+            }}>
+              <div style={{
+                width: "48px",
+                height: "48px",
+                backgroundColor: "#334155",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                <MdPerson style={{ color: "white", fontSize: "24px" }} />
+              </div>
+              <div>
+                <h3 style={{
+                  fontSize: "18px",
+                  fontWeight: "600",
+                  color: "#374151",
+                  margin: 0
+                }}>
+                  Applicant Details
                 </h3>
-                <p className="text-gray-600 mt-2 ml-16">Please provide your basic details for the FRA claim application</p>
+                <p style={{
+                  fontSize: "14px",
+                  color: "#6b7280",
+                  margin: 0
+                }}>
+                  Enter the basic information of the applicant
+                </p>
+              </div>
+            </div>
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "16px"
+            }}>
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  color: "#374151",
+                  marginBottom: "6px"
+                }}>
+                  Applicant Name
+                </label>
+                <input
+                  type="text"
+                  value={formData.applicantName}
+                  onChange={(e) => updateFormData({ applicantName: e.target.value })}
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #d1d5db",
+                    borderRadius: "6px",
+                    fontSize: "14px",
+                    outline: "none"
+                  }}
+                  placeholder="Enter full name"
+                />
               </div>
 
-              <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Full Name */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                    <MdPersonPin className="text-blue-600" />
-                    Full Name *
-                  </label>
-                  <input
-                    value={formData.applicantName}
-                    onChange={(e) => updateFormData({ applicantName: e.target.value })}
-                    placeholder="Enter your full name"
-                    className="w-full h-12 px-4 border-2 border-gray-200 rounded-xl text-sm focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-white/50 backdrop-blur-sm"
-                  />
-                </div>
-
-                {/* Phone Number */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                    <MdPhone className="text-green-600" />
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    value={formData.applicantPhone}
-                    onChange={(e) => updateFormData({ applicantPhone: e.target.value })}
-                    placeholder="Enter your phone number"
-                    className="w-full h-12 px-4 border-2 border-gray-200 rounded-xl text-sm focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-white/50 backdrop-blur-sm"
-                  />
-                </div>
-
-                {/* Email Address */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                    <MdEmail className="text-purple-600" />
-                    Email Address
-                    <span className="text-gray-500 font-normal">(Optional)</span>
-                  </label>
-                  <input
-                    type="email"
-                    value={formData.applicantEmail}
-                    onChange={(e) => updateFormData({ applicantEmail: e.target.value })}
-                    placeholder="Enter your email address"
-                    className="w-full h-12 px-4 border-2 border-gray-200 rounded-xl text-sm focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-white/50 backdrop-blur-sm"
-                  />
-                </div>
-
-                {/* Land Area */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                    <MdHome className="text-orange-600" />
-                    Land Area *
-                    <span className="text-gray-500 font-normal">(in acres)</span>
-                  </label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={formData.landArea}
-                    onChange={(e) => updateFormData({ landArea: e.target.value })}
-                    placeholder="Enter land area"
-                    className="w-full h-12 px-4 border-2 border-gray-200 rounded-xl text-sm focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-white/50 backdrop-blur-sm"
-                  />
-                </div>
-
-                {/* Land Location */}
-                <div className="col-span-1 md:col-span-2 space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                    <MdLocationOn className="text-red-600" />
-                    Land Location *
-                  </label>
-                  <input
-                    value={formData.landLocation}
-                    onChange={(e) => updateFormData({ landLocation: e.target.value })}
-                    placeholder="Village, Tehsil, District (e.g., Rampur, Sadar, Bhopal)"
-                    className="w-full h-12 px-4 border-2 border-gray-200 rounded-xl text-sm focus:border-blue-500 focus:ring-0 transition-colors duration-200 bg-white/50 backdrop-blur-sm"
-                  />
-                </div>
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  color: "#374151",
+                  marginBottom: "6px"
+                }}>
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  value={formData.applicantPhone}
+                  onChange={(e) => updateFormData({ applicantPhone: e.target.value })}
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #d1d5db",
+                    borderRadius: "6px",
+                    fontSize: "14px",
+                    outline: "none"
+                  }}
+                  placeholder="Enter phone number"
+                />
               </div>
 
-              {/* Info Section */}
-              <div className="bg-blue-50/50 border-t border-blue-100 px-8 py-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <MdVerified className="text-blue-600 text-sm" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-blue-800">Required Information</p>
-                    <p className="text-xs text-blue-600 mt-1">Fields marked with * are mandatory for processing your FRA claim application.</p>
-                  </div>
-                </div>
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  color: "#374151",
+                  marginBottom: "6px"
+                }}>
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  value={formData.applicantEmail}
+                  onChange={(e) => updateFormData({ applicantEmail: e.target.value })}
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #d1d5db",
+                    borderRadius: "6px",
+                    fontSize: "14px",
+                    outline: "none"
+                  }}
+                  placeholder="Enter email address"
+                />
+              </div>
+
+              <div>
+                <label style={{
+                  display: "block",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  color: "#374151",
+                  marginBottom: "6px"
+                }}>
+                  Land Area (in acres)
+                </label>
+                <input
+                  type="number"
+                  value={formData.landArea}
+                  onChange={(e) => updateFormData({ landArea: e.target.value })}
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #d1d5db",
+                    borderRadius: "6px",
+                    fontSize: "14px",
+                    outline: "none"
+                  }}
+                  placeholder="Enter land area"
+                />
+              </div>
+
+              <div style={{ gridColumn: "1 / -1" }}>
+                <label style={{
+                  display: "block",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  color: "#374151",
+                  marginBottom: "6px"
+                }}>
+                  Land Location
+                </label>
+                <textarea
+                  value={formData.landLocation}
+                  onChange={(e) => updateFormData({ landLocation: e.target.value })}
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #d1d5db",
+                    borderRadius: "6px",
+                    fontSize: "14px",
+                    outline: "none",
+                    minHeight: "80px",
+                    resize: "vertical"
+                  }}
+                  placeholder="Provide detailed location description"
+                />
               </div>
             </div>
           </div>
@@ -367,185 +387,560 @@ export default function NewRegistrationPage() {
 
       case 2:
         return (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "24px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+          }}>
             <div style={{
-              backgroundColor: "white",
-              borderRadius: "0.75rem",
-              border: "1px solid #e5e7eb",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)"
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "24px"
             }}>
-              <div style={{ padding: "1.5rem 1.5rem 0.5rem 1.5rem" }}>
+              <div style={{
+                width: "48px",
+                height: "48px",
+                backgroundColor: "#334155",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                <MdDocumentScanner style={{ color: "white", fontSize: "24px" }} />
+              </div>
+              <div>
                 <h3 style={{
-                  fontSize: "1.125rem",
+                  fontSize: "18px",
                   fontWeight: "600",
-                  margin: "0",
+                  color: "#374151",
+                  margin: 0
+                }}>
+                  Document Scanning
+                </h3>
+                <p style={{
+                  fontSize: "14px",
+                  color: "#6b7280",
+                  margin: 0
+                }}>
+                  Upload identity documents for verification
+                </p>
+              </div>
+            </div>
+
+            {!loading && uploadedFiles.length === 0 && (
+              <div style={{
+                border: "2px dashed #d1d5db",
+                borderRadius: "8px",
+                padding: "48px 24px",
+                textAlign: "center",
+                backgroundColor: "#f9fafb"
+              }}>
+                <div style={{
+                  width: "64px",
+                  height: "64px",
+                  backgroundColor: "#e5e7eb",
+                  borderRadius: "50%",
                   display: "flex",
                   alignItems: "center",
-                  gap: "0.5rem"
+                  justifyContent: "center",
+                  margin: "0 auto 16px"
                 }}>
-                  <MdDocumentScanner style={{ color: "#3b82f6" }} />
-                  Document Scanning & OCR
-                </h3>
-              </div>
-              <div style={{
-                padding: "0 1.5rem 1.5rem 1.5rem",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem"
-              }}>
-                <div style={{ textAlign: "center" }}>
-                  <div style={{
-                    border: "2px dashed #d1d5db",
-                    borderRadius: "0.75rem",
-                    padding: "2rem",
-                    marginBottom: "1rem"
-                  }}>
-                    <div style={{ fontSize: "4rem", marginBottom: "1rem", display: "flex", justifyContent: "center" }}>
-                      <MdCamera style={{ color: "#3b82f6" }} />
-                    </div>
-                    <p style={{ color: "#6b7280", marginBottom: "1rem", margin: "0 0 1rem 0" }}>
-                      Position document in camera view
-                    </p>
-                    <button
-                      onClick={handleDocumentScan}
-                      disabled={loading}
-                      style={{
-                        width: "100%",
-                        height: "3rem",
-                        backgroundColor: loading ? "#9ca3af" : "#3b82f6",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "0.375rem",
-                        fontSize: "1rem",
-                        fontWeight: "500",
-                        cursor: loading ? "not-allowed" : "pointer"
-                      }}
-                    >
-                      {loading ? "Scanning..." : "Scan Document"}
-                    </button>
-                  </div>
+                  <MdCloudUpload style={{ fontSize: "32px", color: "#6b7280" }} />
                 </div>
+                <h4 style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#374151",
+                  margin: "0 0 8px 0"
+                }}>
+                  Upload Document
+                </h4>
+                <p style={{
+                  fontSize: "14px",
+                  color: "#6b7280",
+                  margin: "0 0 24px 0"
+                }}>
+                  Select an identity document (Aadhaar, Voter ID, etc.)
+                </p>
+                <label style={{
+                  display: "inline-block",
+                  backgroundColor: "#334155",
+                  color: "white",
+                  padding: "12px 24px",
+                  borderRadius: "6px",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  cursor: "pointer"
+                }}>
+                  <MdUpload style={{ marginRight: "8px" }} />
+                  Choose File
+                  <input
+                    type="file"
+                    accept="image/*,.pdf"
+                    onChange={handleFileUpload}
+                    style={{ display: "none" }}
+                  />
+                </label>
+              </div>
+            )}
+
+            {loading && (
+              <div style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+                padding: "32px",
+                textAlign: "center"
+              }}>
+                <div style={{
+                  width: "64px",
+                  height: "64px",
+                  backgroundColor: "#334155",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 16px"
+                }}>
+                  <MdCloudUpload style={{ fontSize: "32px", color: "white" }} />
+                </div>
+                <h4 style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#374151",
+                  margin: "0 0 16px 0"
+                }}>
+                  {uploadStatus}
+                </h4>
+                <div style={{
+                  width: "100%",
+                  height: "8px",
+                  backgroundColor: "#f3f4f6",
+                  borderRadius: "4px",
+                  overflow: "hidden",
+                  marginBottom: "8px"
+                }}>
+                  <div style={{
+                    width: `${uploadProgress}%`,
+                    height: "100%",
+                    backgroundColor: "#334155",
+                    borderRadius: "4px",
+                    transition: "width 0.3s ease"
+                  }}></div>
+                </div>
+                <div style={{
+                  fontSize: "14px",
+                  color: "#6b7280"
+                }}>
+                  {uploadProgress}% completed
+                </div>
+              </div>
+            )}
+
+            {uploadedFiles.length > 0 && !loading && (
+              <div>
+                <h4 style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#374151",
+                  margin: "0 0 16px 0"
+                }}>
+                  Uploaded Documents
+                </h4>
+                {uploadedFiles.map((file, index) => (
+                  <div key={index} style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    padding: "16px",
+                    border: "1px solid #e5e7eb",
+                    borderRadius: "8px",
+                    marginBottom: "12px"
+                  }}>
+                    <div style={{
+                      width: "40px",
+                      height: "40px",
+                      backgroundColor: "#16a34a",
+                      borderRadius: "6px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}>
+                      <MdInsertDriveFile style={{ color: "white", fontSize: "20px" }} />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{
+                        fontSize: "14px",
+                        fontWeight: "500",
+                        color: "#374151"
+                      }}>
+                        {file.name}
+                      </div>
+                      <div style={{
+                        fontSize: "12px",
+                        color: "#6b7280"
+                      }}>
+                        {(file.size / 1024 / 1024).toFixed(2)} MB
+                      </div>
+                    </div>
+                    <div style={{
+                      width: "32px",
+                      height: "32px",
+                      backgroundColor: "#dcfce7",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}>
+                      <MdCheckCircle style={{ color: "#16a34a", fontSize: "16px" }} />
+                    </div>
+                  </div>
+                ))}
 
                 {ocrData && (
                   <div style={{
+                    marginTop: "24px",
+                    padding: "20px",
                     backgroundColor: "#f0fdf4",
                     border: "1px solid #bbf7d0",
-                    borderRadius: "0.75rem",
-                    padding: "1rem"
+                    borderRadius: "8px"
                   }}>
                     <h4 style={{
+                      fontSize: "16px",
                       fontWeight: "600",
-                      color: "#166534",
-                      marginBottom: "0.5rem",
-                      margin: "0 0 0.5rem 0"
+                      color: "#374151",
+                      margin: "0 0 16px 0",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px"
                     }}>
-                      Extracted Information:
+                      <MdVerified style={{ color: "#16a34a" }} />
+                      Extracted Information
                     </h4>
                     <div style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "0.25rem",
-                      fontSize: "0.875rem"
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: "16px"
                     }}>
-                      <p style={{ margin: "0" }}><strong>Name:</strong> {ocrData.name}</p>
-                      <p style={{ margin: "0" }}><strong>Father's Name:</strong> {ocrData.fatherName}</p>
-                      <p style={{ margin: "0" }}><strong>Address:</strong> {ocrData.address}</p>
-                      <p style={{ margin: "0" }}><strong>Document Number:</strong> {ocrData.documentNumber}</p>
+                      <div>
+                        <label style={{
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          color: "#6b7280",
+                          textTransform: "uppercase"
+                        }}>
+                          Name
+                        </label>
+                        <div style={{
+                          fontSize: "14px",
+                          color: "#374151",
+                          fontWeight: "500"
+                        }}>
+                          {ocrData.name}
+                        </div>
+                      </div>
+                      <div>
+                        <label style={{
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          color: "#6b7280",
+                          textTransform: "uppercase"
+                        }}>
+                          Father's Name
+                        </label>
+                        <div style={{
+                          fontSize: "14px",
+                          color: "#374151",
+                          fontWeight: "500"
+                        }}>
+                          {ocrData.fatherName}
+                        </div>
+                      </div>
+                      <div style={{ gridColumn: "1 / -1" }}>
+                        <label style={{
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          color: "#6b7280",
+                          textTransform: "uppercase"
+                        }}>
+                          Address
+                        </label>
+                        <div style={{
+                          fontSize: "14px",
+                          color: "#374151",
+                          fontWeight: "500"
+                        }}>
+                          {ocrData.address}
+                        </div>
+                      </div>
+                      <div>
+                        <label style={{
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          color: "#6b7280",
+                          textTransform: "uppercase"
+                        }}>
+                          Document Number
+                        </label>
+                        <div style={{
+                          fontSize: "14px",
+                          color: "#374151",
+                          fontWeight: "500"
+                        }}>
+                          {ocrData.documentNumber}
+                        </div>
+                      </div>
+                      <div>
+                        <label style={{
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          color: "#6b7280",
+                          textTransform: "uppercase"
+                        }}>
+                          Date of Birth
+                        </label>
+                        <div style={{
+                          fontSize: "14px",
+                          color: "#374151",
+                          fontWeight: "500"
+                        }}>
+                          {ocrData.dateOfBirth}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
-            </div>
+            )}
           </div>
         )
 
       case 3:
         return (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "24px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+          }}>
             <div style={{
-              backgroundColor: "white",
-              borderRadius: "0.75rem",
-              border: "1px solid #e5e7eb",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)"
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "24px"
             }}>
-              <div style={{ padding: "1.5rem 1.5rem 0.5rem 1.5rem" }}>
+              <div style={{
+                width: "48px",
+                height: "48px",
+                backgroundColor: "#334155",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                <MdVerified style={{ color: "white", fontSize: "24px" }} />
+              </div>
+              <div>
                 <h3 style={{
-                  fontSize: "1.125rem",
+                  fontSize: "18px",
                   fontWeight: "600",
-                  margin: "0",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem"
+                  color: "#374151",
+                  margin: 0
                 }}>
-                  <MdFingerprint style={{ color: "#10b981" }} />
                   Identity Verification
                 </h3>
+                <p style={{
+                  fontSize: "14px",
+                  color: "#6b7280",
+                  margin: 0
+                }}>
+                  Capture biometric data for verification
+                </p>
               </div>
-              <div style={{
-                padding: "0 1.5rem 1.5rem 1.5rem",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem"
-              }}>
-                <div>
-                  <h4 style={{ fontWeight: "600", marginBottom: "0.75rem", margin: "0 0 0.75rem 0" }}>
-                    Live Photo Capture
-                  </h4>
-                  <div style={{
-                    border: "2px dashed #d1d5db",
-                    borderRadius: "0.75rem",
-                    padding: "1.5rem",
-                    textAlign: "center"
-                  }}>
-                    <div style={{ fontSize: "3rem", marginBottom: "0.5rem", display: "flex", justifyContent: "center" }}>
-                      <MdCamera style={{ color: "#10b981" }} />
-                    </div>
-                    <button
-                      onClick={() => handleBiometricCapture('photo')}
-                      disabled={loading}
-                      style={{
-                        width: "100%",
-                        height: "2.5rem",
-                        backgroundColor: "white",
-                        border: "1px solid #e5e7eb",
-                        borderRadius: "0.375rem",
-                        cursor: loading ? "not-allowed" : "pointer"
-                      }}
-                    >
-                      {formData.biometrics?.photo ? "Photo Captured ✓" : "Capture Photo"}
-                    </button>
-                  </div>
-                </div>
+            </div>
 
-                <div>
-                  <h4 style={{ fontWeight: "600", marginBottom: "0.75rem", margin: "0 0 0.75rem 0" }}>
-                    Thumbprint Capture
-                  </h4>
-                  <div style={{
-                    border: "2px dashed #d1d5db",
-                    borderRadius: "0.75rem",
-                    padding: "1.5rem",
-                    textAlign: "center"
-                  }}>
-                    <div style={{ fontSize: "3rem", marginBottom: "0.5rem", display: "flex", justifyContent: "center" }}>
-                      <MdFingerprint style={{ color: "#8b5cf6" }} />
-                    </div>
-                    <button
-                      onClick={() => handleBiometricCapture('thumbprint')}
-                      disabled={loading}
-                      style={{
-                        width: "100%",
-                        height: "2.5rem",
-                        backgroundColor: "white",
-                        border: "1px solid #e5e7eb",
-                        borderRadius: "0.375rem",
-                        cursor: loading ? "not-allowed" : "pointer"
-                      }}
-                    >
-                      {formData.biometrics?.thumbprint ? "Thumbprint Captured ✓" : "Capture Thumbprint"}
-                    </button>
-                  </div>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "24px"
+            }}>
+              {/* Live Photo Capture */}
+              <div style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+                padding: "24px",
+                textAlign: "center"
+              }}>
+                <div style={{
+                  width: "80px",
+                  height: "80px",
+                  backgroundColor: formData.biometrics?.photo ? "#dcfce7" : "#f3f4f6",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 16px"
+                }}>
+                  <MdPerson style={{
+                    fontSize: "40px",
+                    color: formData.biometrics?.photo ? "#16a34a" : "#6b7280"
+                  }} />
                 </div>
+                <h4 style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#374151",
+                  margin: "0 0 8px 0"
+                }}>
+                  Live Photo Capture
+                </h4>
+                {loading && biometricStatus.includes('photo') ? (
+                  <div>
+                    <div style={{
+                      fontSize: "14px",
+                      color: "#6b7280",
+                      marginBottom: "16px"
+                    }}>
+                      {biometricStatus}
+                    </div>
+                    <div style={{
+                      width: "100%",
+                      height: "6px",
+                      backgroundColor: "#f3f4f6",
+                      borderRadius: "3px",
+                      overflow: "hidden"
+                    }}>
+                      <div style={{
+                        width: `${biometricProgress}%`,
+                        height: "100%",
+                        backgroundColor: "#334155",
+                        borderRadius: "3px",
+                        transition: "width 0.3s ease"
+                      }}></div>
+                    </div>
+                  </div>
+                ) : formData.biometrics?.photo ? (
+                  <div style={{
+                    color: "#16a34a",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "6px"
+                  }}>
+                    <MdCheckCircle />
+                    Photo Captured ✓
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => handleBiometricCapture('photo')}
+                    disabled={loading}
+                    style={{
+                      backgroundColor: "#334155",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "6px",
+                      padding: "12px 24px",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      cursor: "pointer"
+                    }}
+                  >
+                    Capture Photo
+                  </button>
+                )}
+              </div>
+
+              {/* Thumbprint Capture */}
+              <div style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+                padding: "24px",
+                textAlign: "center"
+              }}>
+                <div style={{
+                  width: "80px",
+                  height: "80px",
+                  backgroundColor: formData.biometrics?.thumbprint ? "#dcfce7" : "#f3f4f6",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 16px"
+                }}>
+                  <MdFingerprint style={{
+                    fontSize: "40px",
+                    color: formData.biometrics?.thumbprint ? "#16a34a" : "#6b7280"
+                  }} />
+                </div>
+                <h4 style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#374151",
+                  margin: "0 0 8px 0"
+                }}>
+                  Thumbprint Capture
+                </h4>
+                {loading && biometricStatus.includes('fingerprint') ? (
+                  <div>
+                    <div style={{
+                      fontSize: "14px",
+                      color: "#6b7280",
+                      marginBottom: "16px"
+                    }}>
+                      {biometricStatus}
+                    </div>
+                    <div style={{
+                      width: "100%",
+                      height: "6px",
+                      backgroundColor: "#f3f4f6",
+                      borderRadius: "3px",
+                      overflow: "hidden"
+                    }}>
+                      <div style={{
+                        width: `${biometricProgress}%`,
+                        height: "100%",
+                        backgroundColor: "#334155",
+                        borderRadius: "3px",
+                        transition: "width 0.3s ease"
+                      }}></div>
+                    </div>
+                  </div>
+                ) : formData.biometrics?.thumbprint ? (
+                  <div style={{
+                    color: "#16a34a",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "6px"
+                  }}>
+                    <MdCheckCircle />
+                    Thumbprint Captured ✓
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => handleBiometricCapture('thumbprint')}
+                    disabled={loading}
+                    style={{
+                      backgroundColor: "#334155",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "6px",
+                      padding: "12px 24px",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      cursor: "pointer"
+                    }}
+                  >
+                    Capture Thumbprint
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -553,175 +948,289 @@ export default function NewRegistrationPage() {
 
       case 4:
         return (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "24px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+          }}>
             <div style={{
-              backgroundColor: "white",
-              borderRadius: "0.75rem",
-              border: "1px solid #e5e7eb",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)"
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "24px"
             }}>
-              <div style={{ padding: "1.5rem 1.5rem 0.5rem 1.5rem" }}>
+              <div style={{
+                width: "48px",
+                height: "48px",
+                backgroundColor: "#334155",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                <MdAttachFile style={{ color: "white", fontSize: "24px" }} />
+              </div>
+              <div>
                 <h3 style={{
-                  fontSize: "1.125rem",
+                  fontSize: "18px",
                   fontWeight: "600",
-                  margin: "0",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem"
+                  color: "#374151",
+                  margin: 0
                 }}>
-                  <MdAttachFile style={{ color: "#f59e0b" }} />
                   Supporting Documents
                 </h3>
+                <p style={{
+                  fontSize: "14px",
+                  color: "#6b7280",
+                  margin: 0
+                }}>
+                  Upload additional supporting documents
+                </p>
               </div>
-              <div style={{ padding: "0 1.5rem 1.5rem 1.5rem" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                  <p style={{
-                    fontSize: "0.875rem",
-                    color: "#6b7280",
-                    margin: "0"
-                  }}>
-                    Add photos of supporting documents (land records, previous permits, etc.)
-                  </p>
+            </div>
 
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: "16px"
+            }}>
+              {[
+                { name: "Land Revenue Records", required: true },
+                { name: "Community Certificate", required: true },
+                { name: "Forest Settlement Records", required: false },
+                { name: "Survey Settlement Records", required: false }
+              ].map((doc, index) => (
+                <div key={index} style={{
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "8px",
+                  padding: "16px"
+                }}>
                   <div style={{
-                    border: "2px dashed #d1d5db",
-                    borderRadius: "0.75rem",
-                    padding: "2rem",
-                    textAlign: "center"
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: "12px"
                   }}>
-                    <div style={{ fontSize: "3rem", marginBottom: "0.5rem", display: "flex", justifyContent: "center" }}>
-                      <MdUpload style={{ color: "#f59e0b" }} />
-                    </div>
-                    <button style={{
-                      width: "100%",
-                      height: "3rem",
-                      backgroundColor: "white",
-                      border: "1px solid #e5e7eb",
-                      borderRadius: "0.375rem",
-                      fontSize: "1.125rem",
-                      cursor: "pointer"
+                    <h4 style={{
+                      fontSize: "14px",
+                      fontWeight: "600",
+                      color: "#374151",
+                      margin: 0
                     }}>
-                      Add Document Photos
-                    </button>
+                      {doc.name}
+                    </h4>
+                    {doc.required && (
+                      <span style={{
+                        fontSize: "12px",
+                        color: "#dc2626",
+                        backgroundColor: "#fef2f2",
+                        padding: "2px 8px",
+                        borderRadius: "12px"
+                      }}>
+                        Required
+                      </span>
+                    )}
                   </div>
-
-                  <div style={{
-                    fontSize: "0.875rem",
-                    color: "#6b7280"
+                  <label style={{
+                    display: "block",
+                    width: "100%",
+                    padding: "12px",
+                    border: "2px dashed #d1d5db",
+                    borderRadius: "6px",
+                    textAlign: "center",
+                    fontSize: "14px",
+                    color: "#6b7280",
+                    cursor: "pointer"
                   }}>
-                    {formData.documents?.length || 0} documents uploaded
-                  </div>
+                    <MdUpload style={{ marginRight: "6px" }} />
+                    Choose File
+                    <input
+                      type="file"
+                      accept="image/*,.pdf"
+                      style={{ display: "none" }}
+                    />
+                  </label>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         )
 
       case 5:
         return (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "24px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+          }}>
             <div style={{
-              backgroundColor: "white",
-              borderRadius: "0.75rem",
-              border: "1px solid #e5e7eb",
-              boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)"
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "24px"
             }}>
-              <div style={{ padding: "1.5rem 1.5rem 0.5rem 1.5rem" }}>
+              <div style={{
+                width: "48px",
+                height: "48px",
+                backgroundColor: "#334155",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                <MdCheck style={{ color: "white", fontSize: "24px" }} />
+              </div>
+              <div>
                 <h3 style={{
-                  fontSize: "1.125rem",
+                  fontSize: "18px",
                   fontWeight: "600",
-                  margin: "0",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem"
+                  color: "#374151",
+                  margin: 0
                 }}>
-                  <MdCheck style={{ color: "#059669" }} />
                   Review & Submit
                 </h3>
+                <p style={{
+                  fontSize: "14px",
+                  color: "#6b7280",
+                  margin: 0
+                }}>
+                  Review all information before submission
+                </p>
               </div>
+            </div>
+
+            <div style={{ display: "grid", gap: "16px" }}>
+              {/* Applicant Details Summary */}
               <div style={{
-                padding: "0 1.5rem 1.5rem 1.5rem",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem"
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+                padding: "16px"
               }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>
-                  <div style={{
-                    backgroundColor: "#f9fafb",
-                    padding: "1rem",
-                    borderRadius: "0.75rem"
-                  }}>
-                    <h4 style={{
-                      fontWeight: "600",
-                      marginBottom: "0.5rem",
-                      margin: "0 0 0.5rem 0"
-                    }}>
-                      Applicant Details
-                    </h4>
-                    <p style={{ margin: "0" }}><strong>Name:</strong> {formData.applicantName}</p>
-                    <p style={{ margin: "0" }}><strong>Phone:</strong> {formData.applicantPhone}</p>
-                    <p style={{ margin: "0" }}><strong>Land Area:</strong> {formData.landArea} acres</p>
-                    <p style={{ margin: "0" }}><strong>Location:</strong> {formData.landLocation}</p>
+                <h4 style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#374151",
+                  margin: "0 0 12px 0"
+                }}>
+                  Applicant Details
+                </h4>
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  gap: "12px",
+                  fontSize: "14px"
+                }}>
+                  <div>
+                    <span style={{ color: "#6b7280" }}>Name: </span>
+                    <span style={{ color: "#374151", fontWeight: "500" }}>
+                      {formData.applicantName || "Not provided"}
+                    </span>
                   </div>
-
-                  <div style={{
-                    backgroundColor: "#f9fafb",
-                    padding: "1rem",
-                    borderRadius: "0.75rem"
-                  }}>
-                    <h4 style={{
-                      fontWeight: "600",
-                      marginBottom: "0.5rem",
-                      margin: "0 0 0.5rem 0"
-                    }}>
-                      Verification Status
-                    </h4>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                        {formData.documents?.length ?
-                          <MdCheck style={{ color: "#059669", fontSize: "1rem" }} /> :
-                          <MdClose style={{ color: "#dc2626", fontSize: "1rem" }} />
-                        }
-                        <span style={{ fontSize: "0.875rem" }}>Document Scanned</span>
-                      </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                        {formData.biometrics?.photo ?
-                          <MdCheck style={{ color: "#059669", fontSize: "1rem" }} /> :
-                          <MdClose style={{ color: "#dc2626", fontSize: "1rem" }} />
-                        }
-                        <span style={{ fontSize: "0.875rem" }}>Photo Captured</span>
-                      </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                        {formData.biometrics?.thumbprint ?
-                          <MdCheck style={{ color: "#059669", fontSize: "1rem" }} /> :
-                          <MdClose style={{ color: "#dc2626", fontSize: "1rem" }} />
-                        }
-                        <span style={{ fontSize: "0.875rem" }}>Thumbprint Captured</span>
-                      </div>
-                    </div>
+                  <div>
+                    <span style={{ color: "#6b7280" }}>Phone: </span>
+                    <span style={{ color: "#374151", fontWeight: "500" }}>
+                      {formData.applicantPhone || "Not provided"}
+                    </span>
                   </div>
-                </div>
-
-                <div style={{ paddingTop: "1rem" }}>
-                  <button
-                    onClick={handleSubmit}
-                    disabled={loading}
-                    style={{
-                      width: "100%",
-                      height: "3.5rem",
-                      backgroundColor: loading ? "#9ca3af" : "#3b82f6",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "0.375rem",
-                      fontSize: "1rem",
-                      fontWeight: "600",
-                      cursor: loading ? "not-allowed" : "pointer"
-                    }}
-                  >
-                    {loading ? "Submitting..." : "Submit Registration"}
-                  </button>
+                  <div>
+                    <span style={{ color: "#6b7280" }}>Email: </span>
+                    <span style={{ color: "#374151", fontWeight: "500" }}>
+                      {formData.applicantEmail || "Not provided"}
+                    </span>
+                  </div>
+                  <div>
+                    <span style={{ color: "#6b7280" }}>Land Area: </span>
+                    <span style={{ color: "#374151", fontWeight: "500" }}>
+                      {formData.landArea ? `${formData.landArea} acres` : "Not provided"}
+                    </span>
+                  </div>
                 </div>
               </div>
+
+              {/* Document Status */}
+              <div style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+                padding: "16px"
+              }}>
+                <h4 style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#374151",
+                  margin: "0 0 12px 0"
+                }}>
+                  Documents & Verification
+                </h4>
+                <div style={{ display: "grid", gap: "8px", fontSize: "14px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    {formData.documents?.length > 0 ? (
+                      <>
+                        <MdCheckCircle style={{ color: "#16a34a" }} />
+                        <span style={{ color: "#374151" }}>Identity Document: Uploaded</span>
+                      </>
+                    ) : (
+                      <>
+                        <MdClose style={{ color: "#dc2626" }} />
+                        <span style={{ color: "#374151" }}>Identity Document: Not uploaded</span>
+                      </>
+                    )}
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    {formData.biometrics?.photo ? (
+                      <>
+                        <MdCheckCircle style={{ color: "#16a34a" }} />
+                        <span style={{ color: "#374151" }}>Photo Verification: Completed</span>
+                      </>
+                    ) : (
+                      <>
+                        <MdClose style={{ color: "#dc2626" }} />
+                        <span style={{ color: "#374151" }}>Photo Verification: Not completed</span>
+                      </>
+                    )}
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    {formData.biometrics?.thumbprint ? (
+                      <>
+                        <MdCheckCircle style={{ color: "#16a34a" }} />
+                        <span style={{ color: "#374151" }}>Thumbprint Verification: Completed</span>
+                      </>
+                    ) : (
+                      <>
+                        <MdClose style={{ color: "#dc2626" }} />
+                        <span style={{ color: "#374151" }}>Thumbprint Verification: Not completed</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                onClick={handleSubmit}
+                disabled={loading}
+                style={{
+                  backgroundColor: "#16a34a",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "16px 32px",
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  cursor: loading ? "not-allowed" : "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  opacity: loading ? 0.7 : 1
+                }}
+              >
+                {loading ? "Submitting..." : "Submit Registration"}
+                {!loading && <MdCheck />}
+              </button>
             </div>
           </div>
         )
@@ -731,118 +1240,185 @@ export default function NewRegistrationPage() {
     }
   }
 
-  const canProceed = () => {
-    switch (currentStep) {
-      case 1:
-        return formData.applicantName && formData.applicantPhone && formData.landArea && formData.landLocation
-      case 2:
-        return formData.documents?.length
-      case 3:
-        return formData.biometrics?.photo && formData.biometrics?.thumbprint
-      case 4:
-        return true // Documents are optional
-      case 5:
-        return true
-      default:
-        return false
-    }
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="max-w-4xl mx-auto px-4 py-6 flex flex-col gap-6">
-        {/* Header with Progress */}
-        <div className="bg-white/90 backdrop-blur-sm border border-white/20 sticky top-0 z-10 rounded-lg p-3 shadow-lg">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white">
-                <MdPersonPin className="text-sm" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-800">FRA Registration</h1>
-              </div>
+    <div style={{
+      minHeight: "100vh",
+      backgroundColor: "#f5f5f5",
+      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+    }}>
+      {/* Professional Header */}
+      <div style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "12px 24px",
+        backgroundColor: "#334155",
+        borderBottom: "1px solid #475569"
+      }}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px"
+        }}>
+          <button
+            onClick={() => router.push('/dashboard/survey')}
+            style={{
+              width: "32px",
+              height: "32px",
+              backgroundColor: "rgba(255,255,255,0.1)",
+              border: "none",
+              borderRadius: "6px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "white",
+              cursor: "pointer"
+            }}
+          >
+            <MdArrowBack />
+          </button>
+          <div>
+            <div style={{
+              fontSize: "18px",
+              fontWeight: "600",
+              color: "white"
+            }}>
+              FRA Registration
             </div>
-            <div className="text-xs text-gray-600 font-medium">
-              Step {currentStep} / {steps.length}
+            <div style={{
+              fontSize: "12px",
+              color: "#cbd5e1"
+            }}>
+              Step {currentStep} of {steps.length} - {steps[currentStep - 1]?.title}
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Compact Progress Bar */}
-          <div className="w-full bg-gray-200 rounded-full h-1.5 mb-2">
+      {/* Progress Bar */}
+      <div style={{
+        backgroundColor: "white",
+        padding: "16px 24px",
+        borderBottom: "1px solid #e5e7eb"
+      }}>
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          marginBottom: "8px"
+        }}>
+          {steps.map((step, index) => (
             <div
-              className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-300"
-              style={{ width: `${(currentStep / steps.length) * 100}%` }}
-            />
-          </div>
-
-          {/* Mini Step Indicators */}
-          <div className="flex justify-between items-center">
-            {steps.map((step) => (
-              <div key={step.id} className="flex items-center">
-                <div className={`w-4 h-4 rounded-full flex items-center justify-center text-xs transition-all duration-200 ${currentStep >= step.id
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-300 text-gray-500'
-                  }`}>
-                  {currentStep > step.id ? <MdCheck className="text-xs" /> : step.id}
-                </div>
+              key={step.id}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                flex: 1,
+                position: "relative",
+                maxWidth: "180px"
+              }}
+            >
+              <div style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                backgroundColor: step.id <= currentStep ? "#334155" : "#e5e7eb",
+                color: step.id <= currentStep ? "white" : "#6b7280",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "14px",
+                fontWeight: "600",
+                marginBottom: "8px"
+              }}>
+                {step.id < currentStep ? <MdCheck /> : step.id}
               </div>
-            ))}
-          </div>
+              <div style={{
+                fontSize: "12px",
+                color: step.id <= currentStep ? "#374151" : "#6b7280",
+                fontWeight: step.id === currentStep ? "600" : "400",
+                textAlign: "center",
+                lineHeight: "1.3",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                maxWidth: "100%"
+              }}>
+                {step.title}
+              </div>
+              {index < steps.length - 1 && (
+                <div style={{
+                  position: "absolute",
+                  top: "16px",
+                  left: "50%",
+                  right: "-50%",
+                  height: "2px",
+                  backgroundColor: step.id < currentStep ? "#334155" : "#e5e7eb",
+                  zIndex: 1
+                }} />
+              )}
+            </div>
+          ))}
         </div>
+      </div>
 
-        {/* Step Content */}
-        <div className="pb-24">
-          {renderStep()}
-        </div>
+      {/* Main Content */}
+      <div style={{
+        padding: "24px",
+        maxWidth: "1000px",
+        margin: "0 auto"
+      }}>
+        {renderStepContent()}
 
-        {/* Navigation */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200 p-3 shadow-2xl">
-          <div className="max-w-4xl mx-auto flex gap-3">
-            {currentStep > 1 && (
-              <button
-                onClick={() => setCurrentStep(currentStep - 1)}
-                className="w-32 md:w-40 h-10 bg-white hover:bg-gray-50 border-2 border-gray-300 rounded-lg cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 font-medium text-sm text-gray-700 hover:border-gray-400 shadow-md"
-              >
-                <MdArrowBack className="text-base" />
-                Previous
-              </button>
-            )}
+        {/* Navigation Buttons */}
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginTop: "24px"
+        }}>
+          <button
+            onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+            disabled={currentStep === 1}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "12px 24px",
+              backgroundColor: currentStep === 1 ? "#f3f4f6" : "white",
+              color: currentStep === 1 ? "#9ca3af" : "#374151",
+              border: "1px solid #d1d5db",
+              borderRadius: "6px",
+              fontSize: "14px",
+              fontWeight: "500",
+              cursor: currentStep === 1 ? "not-allowed" : "pointer"
+            }}
+          >
+            <MdArrowBack />
+            Previous
+          </button>
 
-            {currentStep < steps.length ? (
-              <button
-                onClick={() => setCurrentStep(currentStep + 1)}
-                disabled={!canProceed()}
-                className={`flex-1 max-w-xs h-10 rounded-lg font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2 shadow-md ${!canProceed()
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white cursor-pointer hover:shadow-lg'
-                  }`}
-              >
-                Next
-                <MdArrowForward className="text-base" />
-              </button>
-            ) : (
-              <button
-                onClick={handleSubmit}
-                disabled={loading || !canProceed()}
-                className={`flex-1 max-w-xs h-10 rounded-lg font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2 shadow-md ${loading || !canProceed()
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white cursor-pointer hover:shadow-lg'
-                  }`}
-              >
-                {loading ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    Submitting...
-                  </>
-                ) : (
-                  <>
-                    <MdCheck className="text-base" />
-                    Submit Application
-                  </>
-                )}
-              </button>
-            )}
-          </div>
+          <button
+            onClick={() => setCurrentStep(Math.min(steps.length, currentStep + 1))}
+            disabled={currentStep === steps.length}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "12px 24px",
+              backgroundColor: currentStep === steps.length ? "#f3f4f6" : "#334155",
+              color: currentStep === steps.length ? "#9ca3af" : "white",
+              border: "none",
+              borderRadius: "6px",
+              fontSize: "14px",
+              fontWeight: "500",
+              cursor: currentStep === steps.length ? "not-allowed" : "pointer"
+            }}
+          >
+            Next
+            <MdArrowForward />
+          </button>
         </div>
       </div>
     </div>
