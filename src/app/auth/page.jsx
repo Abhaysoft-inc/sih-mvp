@@ -30,19 +30,23 @@ const Login = () => {
         // Add your authentication logic here
         // For now, we'll simulate successful login and redirect based on role
 
+        // Store user role in localStorage for persistence
+        localStorage.setItem('userRole', formData.role)
+        localStorage.setItem('userEmail', formData.email)
+        
         // Role-based routing
         switch (formData.role) {
             case 'admin':
-                window.location.href = '/dashboard/tehsil'
+                window.location.href = '/admin/dashboard'
                 break
             case 'surveyor':
-                window.location.href = '/dashboard/tehsil'
+                window.location.href = '/dashboard/survey'
                 break
             case 'tehsildar':
                 window.location.href = '/dashboard/tehsil'
                 break
             case 'citizen':
-                window.location.href = '/dashboard/tehsil'
+                window.location.href = '/dashboard'
                 break
             default:
                 alert('Please select a role / कृपया एक भूमिका चुनें')

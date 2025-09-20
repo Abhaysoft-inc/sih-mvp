@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
@@ -19,7 +19,9 @@ import {
   MdDescription,
   MdNotifications,
   MdSettings,
-  MdRefresh
+  MdRefresh,
+  MdApps,
+  MdAccountCircle
 } from "react-icons/md"
 
 export default function SurveyDashboard() {
@@ -45,250 +47,677 @@ export default function SurveyDashboard() {
     window.addEventListener('offline', updateOnlineStatus)
     updateOnlineStatus()
     return () => {
-      window.removeEventListener('online', updateOnlineStatus)
-      window.removeEventListener('offline', updateOnlineStatus)
-      clearInterval(timeInterval)
-    }
-  }, [])
-
-  const StatusIndicator = ({ isOnline }) => (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border backdrop-blur-sm ${isOnline ? 'bg-green-500/20 text-green-200 border-green-400/30' : 'bg-red-500/20 text-red-200 border-red-400/30'}`}>
-      <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isOnline ? 'bg-green-400' : 'bg-red-400'}`}></span>
-      {isOnline ? "Online" : "Offline"}
-    </span>
-  )
+      window.removeEventListener('online', updateOnlineStatus);
+      window.removeEventListener('offline', updateOnlineStatus);
+      clearInterval(timeInterval);
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
-      {/* Header */}
-      <header className="sticky top-0 z-20 bg-gradient-to-r from-slate-800 via-slate-900 to-gray-900 border-b border-slate-700 shadow-lg">
-        <div className="max-w-6xl mx-auto px-0 py-2.5 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-white/15 backdrop-blur-sm rounded-lg flex items-center justify-center text-white text-lg border border-white/20">
-              <MdDashboard />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold text-white leading-tight">Survey Dashboard</h1>
-              <div className="text-xs text-slate-300 flex items-center gap-1">
-                <MdSchedule className="text-xs" />
-                {currentTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-              </div>
-            </div>
+    <div style={{
+      minHeight: "100vh",
+      backgroundColor: "#f5f5f5",
+      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+    }}>
+      {/* Professional Header - matching tehsil page */}
+      <div style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "12px 24px",
+        backgroundColor: "#334155",
+        borderBottom: "1px solid #475569",
+        position: "sticky",
+        top: 0,
+        zIndex: 10
+      }}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px"
+        }}>
+          <div style={{
+            width: "32px",
+            height: "32px",
+            backgroundColor: "rgba(255,255,255,0.1)",
+            borderRadius: "6px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "white"
+          }}>
+            <MdApps />
           </div>
-          <div className="flex items-center gap-3">
-            <button className="p-1.5 hover:bg-white/10 rounded-lg transition text-slate-300 hover:text-white">
-              <MdNotifications className="text-lg" />
-            </button>
-            <button className="p-1.5 hover:bg-white/10 rounded-lg transition text-slate-300 hover:text-white">
-              <MdSettings className="text-lg" />
-            </button>
-            <div className="text-xs text-slate-300 font-medium flex items-center gap-1">
-              <MdSchedule className="text-xs" />
-              {currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+          <div>
+            <div style={{
+              fontSize: "18px",
+              fontWeight: "600",
+              color: "white"
+            }}>
+              Survey Dashboard
             </div>
-            <StatusIndicator isOnline={isOnline} />
+            <div style={{
+              fontSize: "12px",
+              color: "#cbd5e1",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px"
+            }}>
+              <MdSchedule style={{ fontSize: "12px" }} />
+              Sep 20
+            </div>
           </div>
         </div>
-      </header>
-      <main className="max-w-6xl mx-auto px-6 py-8">
-        {/* Primary Action Section */}
-        <section className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl shadow-lg mb-8 p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full -translate-y-16 translate-x-16"></div>
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
-                <MdPersonAdd className="text-lg" />
-              </div>
-              <h2 className="text-xl font-bold text-gray-800">New Survey Registration</h2>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px"
+        }}>
+          <div style={{
+            fontSize: "12px",
+            color: "#cbd5e1",
+            fontWeight: "500"
+          }}>
+            {currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })} PM
+          </div>
+          <span style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "6px",
+            padding: "4px 8px",
+            borderRadius: "12px",
+            fontSize: "12px",
+            fontWeight: "500",
+            backgroundColor: isOnline ? "#22c55e" : "#ef4444",
+            color: "white"
+          }}>
+            ● Online
+          </span>
+        </div>
+      </div>
+
+      <div style={{
+        padding: "20px 24px",
+        maxWidth: "1200px",
+        margin: "0 auto"
+      }}>
+        {/* New Survey Registration Section */}
+        <div style={{
+          backgroundColor: "#e0f2fe",
+          border: "1px solid #0284c7",
+          borderRadius: "8px",
+          padding: "24px",
+          marginBottom: "24px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
+          <div>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              marginBottom: "8px"
+            }}>
+              <MdPersonAdd style={{ color: "#0284c7", fontSize: "20px" }} />
+              <h2 style={{
+                fontSize: "18px",
+                fontWeight: "600",
+                color: "#374151",
+                margin: 0
+              }}>
+                New Survey Registration
+              </h2>
             </div>
-            <p className="text-gray-600">Document a new FRA claim with our streamlined, guided registration process</p>
-            <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
-              <span className="flex items-center gap-1">
-                <MdLocationOn className="text-blue-500" /> GPS Enabled
+            <p style={{
+              fontSize: "14px",
+              color: "#6b7280",
+              margin: "0 0 8px 0"
+            }}>
+              Document a new FRA claim with our streamlined, guided registration process
+            </p>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "16px",
+              fontSize: "12px",
+              color: "#6b7280"
+            }}>
+              <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                <MdLocationOn style={{ color: "#0284c7" }} /> GPS Enabled
               </span>
-              <span className="flex items-center gap-1">
-                <MdDescription className="text-green-500" /> Document Upload
+              <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                <MdDescription style={{ color: "#16a34a" }} /> Document Upload
               </span>
             </div>
           </div>
-          <Link href="/register/new" className="inline-block relative z-10">
-            <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-lg px-8 py-3 flex items-center gap-3 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
-              <MdAssignment className="text-xl" />
-              <span>Start New Registration</span>
+          <Link href="/register/new">
+            <button style={{
+              backgroundColor: "#0284c7",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              padding: "12px 24px",
+              fontSize: "14px",
+              fontWeight: "600",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px"
+            }}>
+              <MdAssignment />
+              Start New Registration
             </button>
           </Link>
-        </section>
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-            <MdTrendingUp className="text-blue-600" />
+        </div>
+
+        {/* Today's Performance Section */}
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "16px"
+        }}>
+          <h3 style={{
+            fontSize: "16px",
+            fontWeight: "600",
+            color: "#374151",
+            margin: 0,
+            display: "flex",
+            alignItems: "center",
+            gap: "8px"
+          }}>
+            <MdTrendingUp style={{ color: "#0284c7" }} />
             Today's Performance
           </h3>
-          <button className="flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition">
-            <MdRefresh className="text-lg" />
+          <button style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "4px",
+            fontSize: "12px",
+            color: "#6b7280",
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer"
+          }}>
+            <MdRefresh />
             Refresh
           </button>
         </div>
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* Today's Submissions */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/5 rounded-full -translate-y-10 translate-x-10"></div>
-            <div className="flex items-center justify-between mb-4 relative z-10">
-              <div>
-                <div className="text-xs text-gray-500 font-medium uppercase tracking-wide mb-2">Claims Submitted Today</div>
-                <div className="text-3xl font-bold text-gray-800 mb-1">{stats.todaySubmissions}</div>
-                <div className="flex items-center gap-1 text-xs text-green-600 font-semibold">
-                  <MdCheckCircle />
-                  Successfully processed
-                </div>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg">
-                <MdTrendingUp />
-              </div>
+
+        {/* Stats Grid */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "16px",
+          marginBottom: "24px"
+        }}>
+          {/* Claims Submitted Today */}
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "20px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+          }}>
+            <div style={{
+              fontSize: "12px",
+              color: "#6b7280",
+              fontWeight: "500",
+              textTransform: "uppercase",
+              marginBottom: "8px"
+            }}>
+              CLAIMS SUBMITTED TODAY
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full" style={{ width: '85%' }}></div>
+            <div style={{
+              fontSize: "32px",
+              fontWeight: "700",
+              color: "#374151",
+              marginBottom: "8px"
+            }}>
+              {stats.todaySubmissions}
             </div>
-          </div>
-          {/* Sync Status */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/5 rounded-full -translate-y-10 translate-x-10"></div>
-            <div className="flex items-center justify-between mb-4 relative z-10">
-              <div>
-                <div className="text-xs text-gray-500 font-medium uppercase tracking-wide mb-2">Data Synchronization</div>
-                <div className="text-3xl font-bold text-gray-800 mb-1">{stats.pendingSync}</div>
-                <div className={`flex items-center gap-1 text-xs font-semibold ${stats.pendingSync === 0 ? 'text-blue-600' : 'text-yellow-600'}`}>
-                  {stats.pendingSync === 0 ? <MdCloudDone /> : <MdPending />}
-                  {stats.pendingSync === 0 ? 'All synchronized' : 'Items pending'}
-                </div>
-              </div>
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl shadow-lg ${stats.pendingSync === 0 ? 'bg-gradient-to-br from-blue-500 to-blue-600' : 'bg-gradient-to-br from-yellow-500 to-yellow-600'}`}>
-                {stats.pendingSync === 0 ? <MdCloudDone /> : <MdPending />}
-              </div>
+            <div style={{
+              fontSize: "12px",
+              color: "#16a34a",
+              fontWeight: "500",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px"
+            }}>
+              <MdCheckCircle />
+              Successfully processed
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className={`h-2 rounded-full ${stats.pendingSync === 0 ? 'bg-gradient-to-r from-blue-500 to-blue-600' : 'bg-gradient-to-r from-yellow-500 to-yellow-600'}`} style={{ width: stats.pendingSync === 0 ? '100%' : '70%' }}></div>
-            </div>
-          </div>
-          {/* Total Progress */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/5 rounded-full -translate-y-10 translate-x-10"></div>
-            <div className="flex items-center justify-between mb-4 relative z-10">
-              <div>
-                <div className="text-xs text-gray-500 font-medium uppercase tracking-wide mb-2">Total Claims Registered</div>
-                <div className="text-3xl font-bold text-gray-800 mb-1">{stats.totalClaims}</div>
-                <div className="flex items-center gap-1 text-xs text-purple-600 font-semibold">
-                  <MdCheckCircle />
-                  {stats.completionRate}% completion rate
-                </div>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg">
-                <MdFileCopy />
-              </div>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full" style={{ width: `${stats.completionRate}%` }}></div>
+            <div style={{
+              width: "100%",
+              height: "4px",
+              backgroundColor: "#f3f4f6",
+              borderRadius: "2px",
+              marginTop: "12px"
+            }}>
+              <div style={{
+                width: "85%",
+                height: "100%",
+                backgroundColor: "#16a34a",
+                borderRadius: "2px"
+              }}></div>
             </div>
           </div>
-        </section>
-        <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
-          <MdDashboard className="text-blue-600" />
+
+          {/* Data Synchronization */}
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "20px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+          }}>
+            <div style={{
+              fontSize: "12px",
+              color: "#6b7280",
+              fontWeight: "500",
+              textTransform: "uppercase",
+              marginBottom: "8px"
+            }}>
+              DATA SYNCHRONIZATION
+            </div>
+            <div style={{
+              fontSize: "32px",
+              fontWeight: "700",
+              color: "#374151",
+              marginBottom: "8px"
+            }}>
+              {stats.pendingSync}
+            </div>
+            <div style={{
+              fontSize: "12px",
+              color: "#0284c7",
+              fontWeight: "500",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px"
+            }}>
+              <MdCloudDone />
+              All synchronized
+            </div>
+            <div style={{
+              width: "100%",
+              height: "4px",
+              backgroundColor: "#f3f4f6",
+              borderRadius: "2px",
+              marginTop: "12px"
+            }}>
+              <div style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#0284c7",
+                borderRadius: "2px"
+              }}></div>
+            </div>
+          </div>
+
+          {/* Total Claims Registered */}
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "20px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+          }}>
+            <div style={{
+              fontSize: "12px",
+              color: "#6b7280",
+              fontWeight: "500",
+              textTransform: "uppercase",
+              marginBottom: "8px"
+            }}>
+              TOTAL CLAIMS REGISTERED
+            </div>
+            <div style={{
+              fontSize: "32px",
+              fontWeight: "700",
+              color: "#374151",
+              marginBottom: "8px"
+            }}>
+              {stats.totalClaims}
+            </div>
+            <div style={{
+              fontSize: "12px",
+              color: "#7c3aed",
+              fontWeight: "500",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px"
+            }}>
+              <MdCheckCircle />
+              {stats.completionRate}% completion rate
+            </div>
+            <div style={{
+              width: "100%",
+              height: "4px",
+              backgroundColor: "#f3f4f6",
+              borderRadius: "2px",
+              marginTop: "12px"
+            }}>
+              <div style={{
+                width: `${stats.completionRate}%`,
+                height: "100%",
+                backgroundColor: "#7c3aed",
+                borderRadius: "2px"
+              }}></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Actions Section */}
+        <h3 style={{
+          fontSize: "16px",
+          fontWeight: "600",
+          color: "#374151",
+          margin: "0 0 16px 0",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px"
+        }}>
+          <MdDashboard style={{ color: "#0284c7" }} />
           Quick Actions
         </h3>
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* New Registration Card */}
-          <Link href="/register/new" className="block group">
-            <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all duration-200 transform group-hover:scale-105 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500/10 rounded-full -translate-y-8 translate-x-8"></div>
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 text-white text-2xl shadow-lg relative z-10">
-                <MdPersonAdd />
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "16px",
+          marginBottom: "24px"
+        }}>
+          {/* New FRA Claim Registration */}
+          <Link href="/register/new" style={{ textDecoration: "none" }}>
+            <div style={{
+              backgroundColor: "white",
+              border: "1px solid #e5e7eb",
+              borderRadius: "8px",
+              padding: "20px",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+              cursor: "pointer"
+            }}>
+              <div style={{
+                width: "48px",
+                height: "48px",
+                backgroundColor: "#dbeafe",
+                borderRadius: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "16px"
+              }}>
+                <MdPersonAdd style={{ color: "#0284c7", fontSize: "24px" }} />
               </div>
-              <h4 className="text-lg font-bold text-gray-800 mb-2">New FRA Claim Registration</h4>
-              <p className="text-sm text-gray-600 mb-4 leading-relaxed">Document a new Forest Rights Act claim with guided step-by-step process</p>
-              <div className="flex items-center justify-between">
-                <div className="text-blue-600 text-sm font-semibold group-hover:text-blue-700 transition flex items-center gap-1">
-                  Start Registration
-                  <MdAssignment className="group-hover:translate-x-1 transition-transform" />
-                </div>
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <h4 style={{
+                fontSize: "16px",
+                fontWeight: "600",
+                color: "#374151",
+                margin: "0 0 8px 0"
+              }}>
+                New FRA Claim Registration
+              </h4>
+              <p style={{
+                fontSize: "14px",
+                color: "#6b7280",
+                margin: "0 0 16px 0",
+                lineHeight: "1.4"
+              }}>
+                Document a new Forest Rights Act claim with guided step-by-step process
+              </p>
+              <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center"
+              }}>
+                <span style={{
+                  color: "#0284c7",
+                  fontSize: "14px",
+                  fontWeight: "500"
+                }}>
+                  Start Registration →
+                </span>
+                <div style={{
+                  width: "8px",
+                  height: "8px",
+                  backgroundColor: "#16a34a",
+                  borderRadius: "50%"
+                }}></div>
               </div>
             </div>
           </Link>
-          {/* GPS Survey Card */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-16 h-16 bg-gray-400/10 rounded-full -translate-y-8 translate-x-8"></div>
-            <div className="w-14 h-14 bg-gradient-to-br from-gray-400 to-gray-500 rounded-xl flex items-center justify-center mb-4 text-white text-2xl shadow-lg relative z-10">
-              <MdLocationOn />
+
+          {/* GPS Land Survey */}
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "20px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+            opacity: 0.6
+          }}>
+            <div style={{
+              width: "48px",
+              height: "48px",
+              backgroundColor: "#f3f4f6",
+              borderRadius: "8px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "16px"
+            }}>
+              <MdLocationOn style={{ color: "#9ca3af", fontSize: "24px" }} />
             </div>
-            <h4 className="text-lg font-bold text-gray-500 mb-2">GPS Land Survey</h4>
-            <p className="text-sm text-gray-400 mb-4 leading-relaxed">Advanced GPS mapping and boundary survey tools for precise measurements</p>
-            <div className="flex items-center justify-between">
-              <div className="text-gray-400 text-sm font-semibold flex items-center gap-1">
+            <h4 style={{
+              fontSize: "16px",
+              fontWeight: "600",
+              color: "#9ca3af",
+              margin: "0 0 8px 0"
+            }}>
+              GPS Land Survey
+            </h4>
+            <p style={{
+              fontSize: "14px",
+              color: "#9ca3af",
+              margin: "0 0 16px 0",
+              lineHeight: "1.4"
+            }}>
+              Advanced GPS mapping and boundary survey tools for precise measurements
+            </p>
+            <div style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}>
+              <span style={{
+                color: "#9ca3af",
+                fontSize: "14px",
+                fontWeight: "500"
+              }}>
                 Coming Soon
-                <MdSchedule />
+              </span>
+              <div style={{
+                padding: "2px 8px",
+                backgroundColor: "#f3f4f6",
+                color: "#6b7280",
+                fontSize: "12px",
+                borderRadius: "12px"
+              }}>
+                Beta
               </div>
-              <div className="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full font-medium">Beta</div>
             </div>
           </div>
-          {/* Document Review Card */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-16 h-16 bg-gray-400/10 rounded-full -translate-y-8 translate-x-8"></div>
-            <div className="w-14 h-14 bg-gradient-to-br from-gray-400 to-gray-500 rounded-xl flex items-center justify-center mb-4 text-white text-2xl shadow-lg relative z-10">
-              <MdDescription />
+
+          {/* Document Review */}
+          <div style={{
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "20px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+            opacity: 0.6
+          }}>
+            <div style={{
+              width: "48px",
+              height: "48px",
+              backgroundColor: "#f3f4f6",
+              borderRadius: "8px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "16px"
+            }}>
+              <MdDescription style={{ color: "#9ca3af", fontSize: "24px" }} />
             </div>
-            <h4 className="text-lg font-bold text-gray-500 mb-2">Document Review</h4>
-            <p className="text-sm text-gray-400 mb-4 leading-relaxed">Review and validate submitted claims and documentation with AI assistance</p>
-            <div className="flex items-center justify-between">
-              <div className="text-gray-400 text-sm font-semibold flex items-center gap-1">
+            <h4 style={{
+              fontSize: "16px",
+              fontWeight: "600",
+              color: "#9ca3af",
+              margin: "0 0 8px 0"
+            }}>
+              Document Review
+            </h4>
+            <p style={{
+              fontSize: "14px",
+              color: "#9ca3af",
+              margin: "0 0 16px 0",
+              lineHeight: "1.4"
+            }}>
+              Review and validate submitted claims and documentation with AI assistance
+            </p>
+            <div style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}>
+              <span style={{
+                color: "#9ca3af",
+                fontSize: "14px",
+                fontWeight: "500"
+              }}>
                 Coming Soon
-                <MdSchedule />
+              </span>
+              <div style={{
+                padding: "2px 8px",
+                backgroundColor: "#f3f4f6",
+                color: "#6b7280",
+                fontSize: "12px",
+                borderRadius: "12px"
+              }}>
+                AI
               </div>
-              <div className="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full font-medium">AI</div>
             </div>
           </div>
-        </section>
-        <h3 className="text-lg font-bold text-gray-800 mt-8 mb-6 flex items-center gap-2">
-          <MdNotifications className="text-purple-600" />
+        </div>
+
+        {/* Recent Activity Section */}
+        <h3 style={{
+          fontSize: "16px",
+          fontWeight: "600",
+          color: "#374151",
+          margin: "0 0 16px 0",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px"
+        }}>
+          <MdNotifications style={{ color: "#7c3aed" }} />
           Recent Activity
         </h3>
-        <section className="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+
+        <div style={{
+          backgroundColor: "white",
+          border: "1px solid #e5e7eb",
+          borderRadius: "8px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+          overflow: "hidden"
+        }}>
           {[
-            { time: "2 mins ago", action: "Claim #FRA-2024-047 registered successfully", status: "success", icon: MdCheckCircle, color: "green" },
-            { time: "15 mins ago", action: "Document verification completed", status: "info", icon: MdCloudDone, color: "blue" },
-            { time: "1 hour ago", action: "GPS coordinates captured for plot survey", status: "info", icon: MdLocationOn, color: "purple" },
-            { time: "2 hours ago", action: "Biometric data processed", status: "success", icon: MdTrendingUp, color: "green" }
-          ].map((activity, index) => {
-            const IconComponent = activity.icon;
-            return (
-              <div key={index} className={`flex items-center gap-4 px-6 py-5 hover:bg-gray-50 transition-colors duration-150 relative ${index < 3 ? 'border-b border-gray-100' : ''}`}>
-                <div className={`absolute left-0 top-0 bottom-0 w-1 ${activity.color === 'green' ? 'bg-green-500' : activity.color === 'blue' ? 'bg-blue-500' : 'bg-purple-500'}`}></div>
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-md ${activity.color === 'green' ? 'bg-gradient-to-br from-green-400 to-green-500' :
-                  activity.color === 'blue' ? 'bg-gradient-to-br from-blue-400 to-blue-500' :
-                    'bg-gradient-to-br from-purple-400 to-purple-500'
-                  }`}>
-                  <IconComponent className="text-lg" />
+            { time: "2 mins ago", action: "Claim #FRA-2024-047 registered successfully", status: "Completed", color: "#16a34a" },
+            { time: "15 mins ago", action: "Document verification completed", status: "Processing", color: "#0284c7" },
+            { time: "1 hour ago", action: "GPS coordinates captured for plot survey", status: "Processing", color: "#7c3aed" },
+            { time: "2 hours ago", action: "Biometric data processed", status: "Completed", color: "#16a34a" }
+          ].map((activity, index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "16px 20px",
+                borderBottom: index < 3 ? "1px solid #f3f4f6" : "none"
+              }}
+            >
+              <div style={{
+                width: "4px",
+                height: "40px",
+                backgroundColor: activity.color,
+                borderRadius: "2px"
+              }}></div>
+              <div style={{
+                width: "32px",
+                height: "32px",
+                backgroundColor: activity.color,
+                borderRadius: "6px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                <MdCheckCircle style={{ color: "white", fontSize: "16px" }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{
+                  fontSize: "14px",
+                  color: "#374151",
+                  fontWeight: "500",
+                  marginBottom: "4px"
+                }}>
+                  {activity.action}
                 </div>
-                <div className="flex-1">
-                  <div className="text-sm text-gray-800 font-semibold mb-1">{activity.action}</div>
-                  <div className="text-xs text-gray-500 flex items-center gap-1">
-                    <MdSchedule className="text-xs" />
-                    {activity.time}
-                  </div>
-                </div>
-                <div className={`px-3 py-1 rounded-full text-xs font-medium ${activity.status === 'success' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
-                  }`}>
-                  {activity.status === 'success' ? 'Completed' : 'Processing'}
+                <div style={{
+                  fontSize: "12px",
+                  color: "#6b7280"
+                }}>
+                  {activity.time}
                 </div>
               </div>
-            );
-          })}
-          <div className="p-4 text-center border-t border-gray-100 bg-gray-50">
-            <button className="text-sm text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-1 mx-auto transition-colors">
+              <div style={{
+                padding: "4px 12px",
+                backgroundColor: activity.status === "Completed" ? "#dcfce7" : "#dbeafe",
+                color: activity.status === "Completed" ? "#166534" : "#1e40af",
+                fontSize: "12px",
+                fontWeight: "500",
+                borderRadius: "12px"
+              }}>
+                {activity.status}
+              </div>
+            </div>
+          ))}
+          <div style={{
+            padding: "16px",
+            textAlign: "center",
+            borderTop: "1px solid #f3f4f6",
+            backgroundColor: "#f9fafb"
+          }}>
+            <button style={{
+              color: "#0284c7",
+              fontSize: "14px",
+              fontWeight: "500",
+              backgroundColor: "transparent",
+              border: "none",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+              margin: "0 auto"
+            }}>
               View All Activities
-              <MdRefresh className="text-sm" />
+              <MdRefresh style={{ fontSize: "14px" }} />
             </button>
           </div>
-        </section>
-      </main>
+        </div>
+      </div>
     </div>
   )
 }
