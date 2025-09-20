@@ -43,6 +43,8 @@ export default function NewRegistrationPage() {
   })
   const [ocrData, setOcrData] = useState(null)
   const [uploadedFiles, setUploadedFiles] = useState([])
+  const [showCamera, setShowCamera] = useState(false)
+  const [stream, setStream] = useState(null)
 
   const router = useRouter()
 
@@ -124,28 +126,69 @@ export default function NewRegistrationPage() {
   }
 
   const handleBiometricCapture = async (type) => {
-    setLoading(true)
-    setBiometricProgress(0)
-
-    try {
-      if (type === 'photo') {
-        setBiometricStatus('Initializing camera for photo capture...')
-        await new Promise(resolve => setTimeout(resolve, 800))
-        setBiometricProgress(25)
-
-        setBiometricStatus('Please look at the camera...')
-        await new Promise(resolve => setTimeout(resolve, 1200))
+    if (type === 'photo') {
+      try {
+        setBiometricStatus('Requesting camera access...')
+        setBiometricProgress(20)
+        
+        const mediaStream = await navigator.mediaDevices.getUserMedia({ 
+          video: { 
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'user'
+          } 
+        })
+        
+        setStream(mediaStream)
+        setShowCamera(true)
+        setBiometricStatus('Camera ready - Position your face in the frame')
         setBiometricProgress(50)
 
-        setBiometricStatus('Analyzing face position...')
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        setBiometricProgress(75)
+        // Auto-capture after 3 seconds
+        setTimeout(async () => {
+          if (mediaStream) {
+            setBiometricStatus('Capturing photo...')
+            setBiometricProgress(80)
+            
+            // Simulate capture
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            
+            setBiometricStatus('Photo captured successfully!')
+            setBiometricProgress(100)
+            
+            // Stop camera
+            mediaStream.getTracks().forEach(track => track.stop())
+            setShowCamera(false)
+            setStream(null)
+            
+            updateFormData({
+              biometrics: {
+                ...formData.biometrics,
+                photo: {
+                  captured: true,
+                  timestamp: new Date().toISOString(),
+                  quality: 'high'
+                }
+              }
+            })
+            
+            setTimeout(() => {
+              setBiometricProgress(0)
+              setBiometricStatus('')
+            }, 1500)
+          }
+        }, 3000)
 
-        setBiometricStatus('Photo captured successfully!')
-        await new Promise(resolve => setTimeout(resolve, 500))
-        setBiometricProgress(100)
+      } catch (error) {
+        console.error("Camera access failed:", error)
+        setBiometricStatus('Camera access denied. Please check permissions.')
+        setBiometricProgress(0)
+      }
+    } else if (type === 'thumbprint') {
+      setLoading(true)
+      setBiometricProgress(0)
 
-      } else if (type === 'thumbprint') {
+      try {
         setBiometricStatus('Initializing fingerprint scanner...')
         await new Promise(resolve => setTimeout(resolve, 800))
         setBiometricProgress(20)
@@ -161,28 +204,28 @@ export default function NewRegistrationPage() {
         setBiometricStatus('Thumbprint captured successfully!')
         await new Promise(resolve => setTimeout(resolve, 500))
         setBiometricProgress(100)
-      }
 
-      updateFormData({
-        biometrics: {
-          ...formData.biometrics,
-          [type]: {
-            captured: true,
-            timestamp: new Date().toISOString(),
-            quality: 'high'
+        updateFormData({
+          biometrics: {
+            ...formData.biometrics,
+            thumbprint: {
+              captured: true,
+              timestamp: new Date().toISOString(),
+              quality: 'high'
+            }
           }
-        }
-      })
+        })
 
-    } catch (error) {
-      console.error("Biometric capture failed:", error)
-      setBiometricStatus('Capture failed. Please try again.')
-    } finally {
-      setTimeout(() => {
-        setLoading(false)
-        setBiometricProgress(0)
-        setBiometricStatus('')
-      }, 1000)
+      } catch (error) {
+        console.error("Biometric capture failed:", error)
+        setBiometricStatus('Capture failed. Please try again.')
+      } finally {
+        setTimeout(() => {
+          setLoading(false)
+          setBiometricProgress(0)
+          setBiometricStatus('')
+        }, 1000)
+      }
     }
   }
 
@@ -466,16 +509,21 @@ export default function NewRegistrationPage() {
                   Select an identity document (Aadhaar, Voter ID, etc.)
                 </p>
                 <label style={{
-                  display: "inline-block",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
                   backgroundColor: "#334155",
                   color: "white",
                   padding: "12px 24px",
                   borderRadius: "6px",
                   fontSize: "14px",
                   fontWeight: "500",
-                  cursor: "pointer"
+                  cursor: "pointer",
+                  border: "none",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                  transition: "all 0.2s ease"
                 }}>
-                  <MdUpload style={{ marginRight: "8px" }} />
+                  <MdUpload style={{ fontSize: "16px" }} />
                   Choose File
                   <input
                     type="file"
@@ -774,84 +822,134 @@ export default function NewRegistrationPage() {
                 padding: "24px",
                 textAlign: "center"
               }}>
-                <div style={{
-                  width: "80px",
-                  height: "80px",
-                  backgroundColor: formData.biometrics?.photo ? "#dcfce7" : "#f3f4f6",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto 16px"
-                }}>
-                  <MdPerson style={{
-                    fontSize: "40px",
-                    color: formData.biometrics?.photo ? "#16a34a" : "#6b7280"
-                  }} />
-                </div>
-                <h4 style={{
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  color: "#374151",
-                  margin: "0 0 8px 0"
-                }}>
-                  Live Photo Capture
-                </h4>
-                {loading && biometricStatus.includes('photo') ? (
-                  <div>
+                {showCamera ? (
+                  <div style={{
+                    marginBottom: "16px"
+                  }}>
+                    <video
+                      ref={(video) => {
+                        if (video && stream) {
+                          video.srcObject = stream
+                          video.play()
+                        }
+                      }}
+                      style={{
+                        width: "100%",
+                        maxWidth: "240px",
+                        height: "180px",
+                        borderRadius: "8px",
+                        backgroundColor: "#000",
+                        marginBottom: "12px",
+                        objectFit: "cover"
+                      }}
+                      autoPlay
+                      muted
+                    />
                     <div style={{
-                      fontSize: "14px",
+                      fontSize: "12px",
                       color: "#6b7280",
-                      marginBottom: "16px"
+                      marginBottom: "8px"
                     }}>
                       {biometricStatus}
                     </div>
                     <div style={{
                       width: "100%",
-                      height: "6px",
+                      height: "4px",
                       backgroundColor: "#f3f4f6",
-                      borderRadius: "3px",
+                      borderRadius: "2px",
                       overflow: "hidden"
                     }}>
                       <div style={{
                         width: `${biometricProgress}%`,
                         height: "100%",
                         backgroundColor: "#334155",
-                        borderRadius: "3px",
+                        borderRadius: "2px",
                         transition: "width 0.3s ease"
                       }}></div>
                     </div>
                   </div>
-                ) : formData.biometrics?.photo ? (
-                  <div style={{
-                    color: "#16a34a",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "6px"
-                  }}>
-                    <MdCheckCircle />
-                    Photo Captured ✓
-                  </div>
                 ) : (
-                  <button
-                    onClick={() => handleBiometricCapture('photo')}
-                    disabled={loading}
-                    style={{
-                      backgroundColor: "#334155",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "6px",
-                      padding: "12px 24px",
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      cursor: "pointer"
-                    }}
-                  >
-                    Capture Photo
-                  </button>
+                  <>
+                    <div style={{
+                      width: "80px",
+                      height: "80px",
+                      backgroundColor: formData.biometrics?.photo ? "#dcfce7" : "#f3f4f6",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 16px"
+                    }}>
+                      <MdPerson style={{
+                        fontSize: "40px",
+                        color: formData.biometrics?.photo ? "#16a34a" : "#6b7280"
+                      }} />
+                    </div>
+                    <h4 style={{
+                      fontSize: "16px",
+                      fontWeight: "600",
+                      color: "#374151",
+                      margin: "0 0 8px 0"
+                    }}>
+                      Live Photo Capture
+                    </h4>
+                    {biometricStatus && !formData.biometrics?.photo ? (
+                      <div>
+                        <div style={{
+                          fontSize: "14px",
+                          color: "#6b7280",
+                          marginBottom: "16px"
+                        }}>
+                          {biometricStatus}
+                        </div>
+                        <div style={{
+                          width: "100%",
+                          height: "6px",
+                          backgroundColor: "#f3f4f6",
+                          borderRadius: "3px",
+                          overflow: "hidden"
+                        }}>
+                          <div style={{
+                            width: `${biometricProgress}%`,
+                            height: "100%",
+                            backgroundColor: "#334155",
+                            borderRadius: "3px",
+                            transition: "width 0.3s ease"
+                          }}></div>
+                        </div>
+                      </div>
+                    ) : formData.biometrics?.photo ? (
+                      <div style={{
+                        color: "#16a34a",
+                        fontSize: "14px",
+                        fontWeight: "500",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "6px"
+                      }}>
+                        <MdCheckCircle />
+                        Photo Captured ✓
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => handleBiometricCapture('photo')}
+                        disabled={loading}
+                        style={{
+                          backgroundColor: "#334155",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "6px",
+                          padding: "12px 24px",
+                          fontSize: "14px",
+                          fontWeight: "500",
+                          cursor: "pointer"
+                        }}
+                      >
+                        Capture Photo
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
 
@@ -1305,8 +1403,30 @@ export default function NewRegistrationPage() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
-          marginBottom: "8px"
+          marginBottom: "8px",
+          position: "relative"
         }}>
+          {/* Connecting Line */}
+          <div style={{
+            position: "absolute",
+            top: "16px",
+            left: "16px",
+            right: "16px",
+            height: "2px",
+            backgroundColor: "#e5e7eb",
+            zIndex: 1
+          }} />
+          <div style={{
+            position: "absolute",
+            top: "16px",
+            left: "16px",
+            width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
+            height: "2px",
+            backgroundColor: "#334155",
+            zIndex: 2,
+            transition: "width 0.3s ease"
+          }} />
+          
           {steps.map((step, index) => (
             <div
               key={step.id}
@@ -1316,7 +1436,7 @@ export default function NewRegistrationPage() {
                 alignItems: "center",
                 flex: 1,
                 position: "relative",
-                maxWidth: "180px"
+                zIndex: 3
               }}
             >
               <div style={{
@@ -1330,7 +1450,9 @@ export default function NewRegistrationPage() {
                 justifyContent: "center",
                 fontSize: "14px",
                 fontWeight: "600",
-                marginBottom: "8px"
+                marginBottom: "8px",
+                border: "2px solid white",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
               }}>
                 {step.id < currentStep ? <MdCheck /> : step.id}
               </div>
@@ -1340,24 +1462,10 @@ export default function NewRegistrationPage() {
                 fontWeight: step.id === currentStep ? "600" : "400",
                 textAlign: "center",
                 lineHeight: "1.3",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                maxWidth: "100%"
+                maxWidth: "120px"
               }}>
                 {step.title}
               </div>
-              {index < steps.length - 1 && (
-                <div style={{
-                  position: "absolute",
-                  top: "16px",
-                  left: "50%",
-                  right: "-50%",
-                  height: "2px",
-                  backgroundColor: step.id < currentStep ? "#334155" : "#e5e7eb",
-                  zIndex: 1
-                }} />
-              )}
             </div>
           ))}
         </div>
