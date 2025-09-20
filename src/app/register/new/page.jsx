@@ -45,6 +45,7 @@ export default function NewRegistrationPage() {
   const [uploadedFiles, setUploadedFiles] = useState([])
   const [showCamera, setShowCamera] = useState(false)
   const [stream, setStream] = useState(null)
+  const [showPreview, setShowPreview] = useState(false)
 
   const router = useRouter()
 
@@ -229,14 +230,111 @@ export default function NewRegistrationPage() {
     }
   }
 
+  const generatePDFContent = () => {
+    const currentDate = new Date().toLocaleDateString('en-IN')
+    const currentTime = new Date().toLocaleTimeString('en-IN')
+    const claimId = `FRA-${Date.now()}`
+    
+    return {
+      claimId,
+      content: `
+                          FOREST RIGHTS ACT CLAIM APPLICATION
+                          
+═══════════════════════════════════════════════════════════════════════════════
+
+CLAIM REGISTRATION ID: ${claimId}
+APPLICATION DATE: ${currentDate}
+SUBMISSION TIME: ${currentTime}
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                               APPLICANT DETAILS
+
+Name:                    ${formData.applicantName || 'Not Provided'}
+Phone Number:            ${formData.applicantPhone || 'Not Provided'}
+Email Address:           ${formData.applicantEmail || 'Not Provided'}
+Land Area:               ${formData.landArea ? `${formData.landArea} acres` : 'Not Provided'}
+Land Location:           ${formData.landLocation || 'Not Provided'}
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                            EXTRACTED DOCUMENT INFORMATION
+${ocrData ? `
+Name (From Document):    ${ocrData.name}
+Father's Name:           ${ocrData.fatherName}
+Address:                 ${ocrData.address}
+Document Number:         ${ocrData.documentNumber}
+Date of Birth:           ${ocrData.dateOfBirth}
+` : 'No document information extracted'}
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                              VERIFICATION STATUS
+
+Identity Document:       ${formData.documents?.length > 0 ? '✓ Uploaded' : '✗ Not Uploaded'}
+Photo Verification:      ${formData.biometrics?.photo ? '✓ Completed' : '✗ Not Completed'}
+Thumbprint Verification: ${formData.biometrics?.thumbprint ? '✓ Completed' : '✗ Not Completed'}
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                              DOCUMENTS SUBMITTED
+
+${uploadedFiles.map(file => `• ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`).join('\n') || 'No documents uploaded'}
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                                 DECLARATION
+
+I hereby declare that the information provided in this application is true and 
+correct to the best of my knowledge. I understand that any false information 
+may lead to rejection of this claim.
+
+Applicant Name: ${formData.applicantName || 'Not Provided'}
+Date: ${currentDate}
+Digital Submission ID: ${claimId}
+
+═══════════════════════════════════════════════════════════════════════════════
+
+This is a computer-generated document. No signature is required.
+Generated on: ${currentDate} at ${currentTime}
+System: FRA Claim Registration Portal
+
+═══════════════════════════════════════════════════════════════════════════════
+      `
+    }
+  }
+
+  const downloadPDF = (content, claimId) => {
+    const blob = new Blob([content], { type: 'text/plain' })
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `FRA_Claim_Application_${claimId}.txt`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+  }
+
   const handleSubmit = async () => {
+    // Show preview instead of automatically downloading
+    setShowPreview(true)
+  }
+
+  const handleFinalSubmit = async () => {
     setLoading(true)
     try {
       // Simulate submission
       await new Promise(resolve => setTimeout(resolve, 2000))
+      
+      // Show success message
+      alert('Application submitted successfully!')
+      
+      // Redirect to dashboard
       router.push('/dashboard/survey')
     } catch (error) {
       console.error("Submission failed:", error)
+      alert('Submission failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -1529,6 +1627,129 @@ export default function NewRegistrationPage() {
           </button>
         </div>
       </div>
+
+      {/* PDF Preview Modal */}
+      {showPreview && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: "white",
+            borderRadius: "8px",
+            padding: "24px",
+            maxWidth: "800px",
+            maxHeight: "90vh",
+            overflow: "auto",
+            margin: "20px",
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+          }}>
+            <div style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "20px",
+              paddingBottom: "16px",
+              borderBottom: "1px solid #e5e7eb"
+            }}>
+              <h2 style={{
+                fontSize: "24px",
+                fontWeight: "600",
+                color: "#1f2937",
+                margin: 0
+              }}>
+                Application Preview
+              </h2>
+              <button
+                onClick={() => setShowPreview(false)}
+                style={{
+                  padding: "8px",
+                  backgroundColor: "transparent",
+                  border: "none",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  color: "#6b7280"
+                }}
+              >
+                <MdClose size={24} />
+              </button>
+            </div>
+
+            <div style={{
+              backgroundColor: "#f9fafb",
+              padding: "20px",
+              borderRadius: "6px",
+              marginBottom: "20px",
+              fontFamily: "monospace",
+              fontSize: "12px",
+              lineHeight: "1.6",
+              whiteSpace: "pre-wrap",
+              maxHeight: "400px",
+              overflow: "auto",
+              border: "1px solid #e5e7eb"
+            }}>
+              {generatePDFContent().content}
+            </div>
+
+            <div style={{
+              display: "flex",
+              gap: "12px",
+              justifyContent: "flex-end"
+            }}>
+              <button
+                onClick={() => {
+                  const pdfData = generatePDFContent()
+                  downloadPDF(pdfData.content, pdfData.claimId)
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "12px 24px",
+                  backgroundColor: "#059669",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "6px",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  cursor: "pointer"
+                }}
+              >
+                <MdCloudUpload />
+                Download PDF
+              </button>
+              <button
+                onClick={handleFinalSubmit}
+                disabled={loading}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "12px 24px",
+                  backgroundColor: loading ? "#9ca3af" : "#dc2626",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "6px",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  cursor: loading ? "not-allowed" : "pointer"
+                }}
+              >
+                <MdCheckCircle />
+                {loading ? "Submitting..." : "Submit Application"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
