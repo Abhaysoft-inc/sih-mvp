@@ -47,7 +47,7 @@ export default function TehsilDashboard() {
   const { t } = useTranslation()
 
   const [stats, setStats] = useState({
-    totalClaims: 156,
+    totalClaims: 96,
     pendingVerification: 56,
     verified: 118,
     rejected: 15,
@@ -416,7 +416,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>{t('dashboard.metrics.totalClaims')}</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>1,247</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>1,196</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>{t('dashboard.metrics.acrossStates')}</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
@@ -435,7 +435,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>{t('dashboard.metrics.approvalRate')}</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>78.5%</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>75.6%</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>{t('dashboard.metrics.successRate')}</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
@@ -454,7 +454,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>Pending Claims</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>156</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>98</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>Awaiting review</div>
                   <div style={{ fontSize: "11px", color: "#007bff", marginTop: "4px" }}>
@@ -473,7 +473,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>CFR Area</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>2,847 ha</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>1,867 ha</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>Community forest rights</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
@@ -492,7 +492,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>{t('dashboard.metrics.villagesCovered')}</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>89</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>75</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>Tribal settlements</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
@@ -847,8 +847,8 @@ export default function TehsilDashboard() {
                   {/* Funnel Chart */}
                   <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                     {[
-                      { stage: "Applications Received", count: 1247, width: 100, color: "#3b82f6" },
-                      { stage: "Initial Screening", count: 1198, width: 85, color: "#06b6d4" },
+                      { stage: "Applications Received", count: 1185, width: 100, color: "#3b82f6" },
+                      { stage: "Initial Screening", count: 1002, width: 85, color: "#06b6d4" },
                       { stage: "Field Verification", count: 1134, width: 70, color: "#10b981" },
                       { stage: "Committee Review", count: 1089, width: 55, color: "#f59e0b" },
                       { stage: "Final Approval", count: 978, width: 40, color: "#22c55e" }
