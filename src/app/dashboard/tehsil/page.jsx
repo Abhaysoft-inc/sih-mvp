@@ -318,19 +318,7 @@ export default function TehsilDashboard() {
                 coordinates: '20.5937, 78.9629'
               })} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
                 Illegal activity detected in FRA area. Immediate action required!
-              </span> |
-              {/* <span onClick={() => setPopupData({
-                image: 'https://imgs.mongabay.com/wp-content/uploads/sites/20/2016/10/01180102/image003.jpg',
-                coordinates: '19.0760, 72.8777'
-              })} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-                Satellite feed unavailable for some regions.
-              </span> |
-              <span onClick={() => setPopupData({
-                image: 'https://imgs.mongabay.com/wp-content/uploads/sites/20/2016/10/01180102/image003.jpg',
-                coordinates: '21.1458, 79.0882'
-              })} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-                IoT sensor data indicates abnormal soil moisture levels.
-              </span> */}
+              </span>
             </marquee>
           </div>
 
@@ -366,16 +354,36 @@ export default function TehsilDashboard() {
                 <h3 style={{ fontSize: '20px', marginBottom: '15px', fontWeight: 'bold' }}>Alert Details</h3>
                 <img src={popupData.image} alt="Alert Placeholder" style={{ width: '100%', height: '300px', objectFit: 'cover', marginBottom: '15px', borderRadius: '8px' }} />
                 <p style={{ fontSize: '16px', marginBottom: '10px' }}><strong>Coordinates:</strong> {popupData.coordinates}</p>
-                <button onClick={() => setPopupData(null)} style={{
-                  marginTop: '15px',
-                  backgroundColor: '#dc3545',
-                  color: '#fff',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  fontSize: '14px'
-                }}>Close</button>
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button onClick={() => setPopupData(null)} style={{
+                    flex: 1,
+                    backgroundColor: '#dc3545',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '10px 20px',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    transition: 'background-color 0.3s ease'
+                  }}>
+                    Close
+                  </button>
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${popupData.coordinates}`} target="_blank" rel="noopener noreferrer" style={{
+                    flex: 1,
+                    backgroundColor: '#007bff',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '10px 20px',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    textAlign: 'center',
+                    display: 'inline-block',
+                    transition: 'background-color 0.3s ease'
+                  }}>
+                    View on Maps
+                  </a>
+                </div>
               </div>
             </>
           )}
