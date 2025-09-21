@@ -27,7 +27,7 @@ export default function Map() {
             iconSize: [25, 41],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34],
-            shadowUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDEiIGhlaWdodD0iNDEiIHZpZXdCb3g9IjAgMCA0MSA0MSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGVsbGlwc2UgY3g9IjIwLjUiIGN5PSIzNy41IiByeD0iMTguNSIgcnk9IjMuNSIgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMC4zIi8+Cjwvc3ZnPgo=',
+            shadowUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDEiIGhlaWdodD0iNDEiIHZpZXdCb3g9IjAgMCA0MSA0MSIgZmlsbD0ibm9uZSIgeG1zbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGVsbGlwc2UgY3g9IjIwLjUiIGN5PSIzNy41IiByeD0iMTguNSIgcnk9IjMuNSIgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMC4zIi8+Cjwvc3ZnPgo=',
             shadowSize: [41, 41],
             shadowAnchor: [13, 41]
         });
@@ -529,7 +529,7 @@ export default function Map() {
                                         <div className="flex items-center gap-2">
                                             <MdAccountBalance className="text-blue-600 text-lg" />
                                             <h3 className="font-bold text-gray-800 text-base">
-                                                {claim.id}
+                                                {claim.properties['name:hi'] || claim.id}
                                             </h3>
                                         </div>
                                         <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${claim.status === 'Approved'
@@ -550,24 +550,24 @@ export default function Map() {
                                     <div className="grid grid-cols-1 gap-2">
                                         <div className="flex justify-between items-start">
                                             <span className="text-gray-600 text-sm font-medium">Claimant:</span>
-                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.claimantName}</span>
+                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.properties['claimantName:hi'] || claim.claimantName}</span>
                                         </div>
 
                                         <div className="flex justify-between items-start">
                                             <span className="text-gray-600 text-sm font-medium">Village:</span>
-                                            <span className="text-gray-800 text-sm text-right">{claim.village}</span>
+                                            <span className="text-gray-800 text-sm text-right">{claim.properties['village:hi'] || claim.village}</span>
                                         </div>
 
                                         <div className="flex justify-between items-start">
                                             <span className="text-gray-600 text-sm font-medium">Area:</span>
-                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.area}</span>
+                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.properties['area:hi'] || claim.area}</span>
                                         </div>
 
                                         <hr className="border-gray-100 my-2" />
 
                                         <div className="flex justify-between items-start">
                                             <span className="text-gray-600 text-sm font-medium">Submitted:</span>
-                                            <span className="text-gray-800 text-sm text-right">{claim.submissionDate}</span>
+                                            <span className="text-gray-800 text-sm text-right">{claim.properties['submissionDate:hi'] || claim.submissionDate}</span>
                                         </div>
 
                                         {claim.approvalDate && (
