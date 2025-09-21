@@ -47,7 +47,7 @@ export default function TehsilDashboard() {
   const { t } = useTranslation()
 
   const [stats, setStats] = useState({
-    totalClaims: 156,
+    totalClaims: 96,
     pendingVerification: 56,
     verified: 118,
     rejected: 15,
@@ -416,7 +416,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>{t('dashboard.metrics.totalClaims')}</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>1,247</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>1,196</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>{t('dashboard.metrics.acrossStates')}</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
@@ -435,7 +435,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>{t('dashboard.metrics.approvalRate')}</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>78.5%</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>75.6%</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>{t('dashboard.metrics.successRate')}</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
@@ -454,7 +454,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>Pending Claims</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>156</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>98</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>Awaiting review</div>
                   <div style={{ fontSize: "11px", color: "#007bff", marginTop: "4px" }}>
@@ -473,7 +473,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>CFR Area</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>2,847 ha</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>1,867 ha</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>Community forest rights</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
@@ -492,7 +492,7 @@ export default function TehsilDashboard() {
                     <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>{t('dashboard.metrics.villagesCovered')}</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>89</span>
+                    <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>75</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#666" }}>Tribal settlements</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
@@ -611,28 +611,26 @@ export default function TehsilDashboard() {
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                       <div style={{
                         width: "16px",
-                        height: "3px",
-                        backgroundColor: "#28a745",
-                        borderRadius: "2px"
+                        height: "16px",
+                        background: "linear-gradient(180deg, rgba(40, 167, 69, 0.2) 0%, rgba(40, 167, 69, 0.1) 100%)"
                       }}></div>
                       <span style={{ fontSize: "11px", color: "#333", fontWeight: "500" }}>
-                        Green Line: Approved Claims
+                        Approved Claims
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                       <div style={{
                         width: "16px",
-                        height: "3px",
-                        backgroundColor: "#007bff",
-                        borderRadius: "2px"
+                        height: "16px",
+                        background: "linear-gradient(180deg, rgba(0, 123, 255, 0.2) 0%, rgba(0, 123, 255, 0.1) 100%)"
                       }}></div>
                       <span style={{ fontSize: "11px", color: "#333", fontWeight: "500" }}>
-                        Blue Line: Total Submissions
+                        Total Submissions
                       </span>
                     </div>
                   </div>
 
-                  {/* Line Chart Simulation */}
+                  {/* Area Chart */}
                   <div style={{
                     height: "180px",
                     position: "relative",
@@ -670,26 +668,49 @@ export default function TehsilDashboard() {
                       color: "#666"
                     }}>25</div>
 
-                    {/* Chart lines simulation */}
+                    {/* Area Chart with SVG */}
                     <svg style={{ width: "100%", height: "100%" }}>
-                      {/* Blue line - Total Submissions */}
+                      {/* Area for Total Submissions */}
+                      <path
+                        d="M40,40 L80,35 L120,45 L160,38 L200,42 L240,35 L280,40 L320,33 L360,38 L400,30 L440,35 L480,28 L480,150 L40,150 Z"
+                        fill="url(#blueGradient)"
+                        opacity="0.3"
+                      />
+                      
+                      {/* Area for Approved Claims */}
+                      <path
+                        d="M40,60 L80,55 L120,65 L160,58 L200,62 L240,55 L280,60 L320,53 L360,58 L400,50 L440,55 L480,48 L480,150 L40,150 Z"
+                        fill="url(#greenGradient)"
+                        opacity="0.3"
+                      />
+
+                      {/* Gradients */}
+                      <defs>
+                        <linearGradient id="blueGradient" x1="0" x2="0" y1="0" y2="1">
+                          <stop offset="0%" stopColor="#007bff" stopOpacity="0.2"/>
+                          <stop offset="100%" stopColor="#007bff" stopOpacity="0.05"/>
+                        </linearGradient>
+                        <linearGradient id="greenGradient" x1="0" x2="0" y1="0" y2="1">
+                          <stop offset="0%" stopColor="#28a745" stopOpacity="0.2"/>
+                          <stop offset="100%" stopColor="#28a745" stopOpacity="0.05"/>
+                        </linearGradient>
+                      </defs>
+
+                      {/* Lines */}
                       <polyline
                         points="40,40 80,35 120,45 160,38 200,42 240,35 280,40 320,33 360,38 400,30 440,35 480,28"
                         fill="none"
                         stroke="#007bff"
-                        strokeWidth="3"
-                        strokeDasharray="none"
+                        strokeWidth="2"
                       />
-                      {/* Green line - Approved Claims */}
                       <polyline
                         points="40,60 80,55 120,65 160,58 200,62 240,55 280,60 320,53 360,58 400,50 440,55 480,48"
                         fill="none"
                         stroke="#28a745"
-                        strokeWidth="3"
-                        strokeDasharray="none"
+                        strokeWidth="2"
                       />
 
-                      {/* Data points for better visibility */}
+                      {/* Data points */}
                       {[
                         { x: 40, y: 40 }, { x: 80, y: 35 }, { x: 120, y: 45 }, { x: 160, y: 38 },
                         { x: 200, y: 42 }, { x: 240, y: 35 }, { x: 280, y: 40 }, { x: 320, y: 33 },
@@ -718,7 +739,8 @@ export default function TehsilDashboard() {
                       fontSize: "10px",
                       color: "#666"
                     }}>
-                      <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
+                      <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+                      <span>May</span><span>Jun</span><span>Jul</span>
                     </div>
                   </div>
 
@@ -847,8 +869,8 @@ export default function TehsilDashboard() {
                   {/* Funnel Chart */}
                   <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                     {[
-                      { stage: "Applications Received", count: 1247, width: 100, color: "#3b82f6" },
-                      { stage: "Initial Screening", count: 1198, width: 85, color: "#06b6d4" },
+                      { stage: "Applications Received", count: 1185, width: 100, color: "#3b82f6" },
+                      { stage: "Initial Screening", count: 1002, width: 85, color: "#06b6d4" },
                       { stage: "Field Verification", count: 1134, width: 70, color: "#10b981" },
                       { stage: "Committee Review", count: 1089, width: 55, color: "#f59e0b" },
                       { stage: "Final Approval", count: 978, width: 40, color: "#22c55e" }
