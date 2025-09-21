@@ -205,6 +205,32 @@ export default function Map() {
         }
     ];
 
+    // Potential forest areas (boundary only, no fill)
+    const potentialForestAreas = [
+        {
+            id: "PFA-001",
+            coordinates: [
+                [20.8000, 85.0000],
+                [20.8200, 85.0000],
+                [20.8200, 85.0200],
+                [20.8000, 85.0200],
+                [20.8000, 85.0000]
+            ],
+            size: "4.5"
+        },
+        {
+            id: "PFA-002",
+            coordinates: [
+                [20.9000, 84.9500],
+                [20.9200, 84.9500],
+                [20.9200, 84.9700],
+                [20.9000, 84.9700],
+                [20.9000, 84.9500]
+            ],
+            size: "3.2"
+        }
+    ];
+
     // Function to handle showing details
     const handleShowDetails = (claim) => {
         setSelectedFraClaim(claim);
@@ -608,6 +634,34 @@ export default function Map() {
                                         Forest Rights Act (FRA) Claim
                                     </p>
                                 </div>
+                            </div>
+                        </Popup>
+                    </Polygon>
+                ))}
+
+                {/* Potential Forest Area Boundary */}
+                {potentialForestAreas.map((area, index) => (
+                    <Polygon
+                        key={`potential-forest-${index}`}
+                        positions={[
+                            [20.6950, 84.9450], // Adjusted coordinates near FRA-001
+                            [20.6950, 84.9550],
+                            [20.7050, 84.9550],
+                            [20.7050, 84.9450],
+                            [20.6950, 84.9450]
+                        ]}
+                        pathOptions={{
+                            color: '#4ade80', // Green boundary color
+                            weight: 2,
+                            opacity: 0.8,
+                            fillOpacity: 0 // No fill
+                        }}
+                    >
+                        <Popup>
+                            <div className="text-sm">
+                                <h3 className="font-semibold text-green-800">Potential Forest Area</h3>
+                                <p><strong>Area:</strong> 10 sq km</p>
+                                <p className="text-xs text-gray-600 mt-1">This area is identified as a potential forest zone near FRA-001.</p>
                             </div>
                         </Popup>
                     </Polygon>

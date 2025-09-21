@@ -268,6 +268,7 @@ export default function TehsilDashboard() {
     </div>
   )
 
+  const [popupData, setPopupData] = useState(null)
 
   return (
     <div style={{
@@ -275,6 +276,7 @@ export default function TehsilDashboard() {
       backgroundColor: "#f5f5f5",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
     }}>
+
       {/* Navbar */}
       <TehsilNavbar currentTime={currentTime} />
 
@@ -293,6 +295,90 @@ export default function TehsilDashboard() {
           maxWidth: "calc(100vw - 200px)",
           overflow: "hidden"
         }}>
+          {/* Marquee Alert Section */}
+          <div style={{
+            backgroundColor: "#f8d7da",
+            borderBottom: "1px solid #f5c6cb",
+            padding: "8px 16px",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px"
+          }}>
+            <span style={{
+              backgroundColor: "#dc3545",
+              color: "#fff",
+              fontSize: "12px",
+              fontWeight: "bold",
+              padding: "4px 8px",
+              borderRadius: "4px"
+            }}>Alert</span>
+            <marquee style={{ color: "#721c24", fontSize: "14px", fontWeight: "bold" }}>
+              <span onClick={() => setPopupData({
+                image: 'https://imgs.mongabay.com/wp-content/uploads/sites/20/2016/10/01180102/image003.jpg',
+                coordinates: '20.5937, 78.9629'
+              })} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                Illegal activity detected in FRA area. Immediate action required!
+              </span> |
+              {/* <span onClick={() => setPopupData({
+                image: 'https://imgs.mongabay.com/wp-content/uploads/sites/20/2016/10/01180102/image003.jpg',
+                coordinates: '19.0760, 72.8777'
+              })} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                Satellite feed unavailable for some regions.
+              </span> |
+              <span onClick={() => setPopupData({
+                image: 'https://imgs.mongabay.com/wp-content/uploads/sites/20/2016/10/01180102/image003.jpg',
+                coordinates: '21.1458, 79.0882'
+              })} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                IoT sensor data indicates abnormal soil moisture levels.
+              </span> */}
+            </marquee>
+          </div>
+
+          {/* Popup Section */}
+          {popupData && (
+            <>
+              {/* Background Blur */}
+              <div style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                backdropFilter: 'blur(5px)',
+                zIndex: 999
+              }} onClick={() => setPopupData(null)}></div>
+
+              {/* Popup Content */}
+              <div style={{
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                backgroundColor: '#fff',
+                padding: '30px',
+                borderRadius: '12px',
+                boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+                zIndex: 1000,
+                width: '600px',
+                maxWidth: '90%'
+              }}>
+                <h3 style={{ fontSize: '20px', marginBottom: '15px', fontWeight: 'bold' }}>Alert Details</h3>
+                <img src={popupData.image} alt="Alert Placeholder" style={{ width: '100%', height: '300px', objectFit: 'cover', marginBottom: '15px', borderRadius: '8px' }} />
+                <p style={{ fontSize: '16px', marginBottom: '10px' }}><strong>Coordinates:</strong> {popupData.coordinates}</p>
+                <button onClick={() => setPopupData(null)} style={{
+                  marginTop: '15px',
+                  backgroundColor: '#dc3545',
+                  color: '#fff',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontSize: '14px'
+                }}>Close</button>
+              </div>
+            </>
+          )}
 
           {/* Overview Tab */}
           {activeTab === 'overview' && (
@@ -302,7 +388,8 @@ export default function TehsilDashboard() {
                 display: "grid",
                 gridTemplateColumns: "repeat(5, 1fr)",
                 gap: "16px",
-                marginBottom: "24px"
+                marginBottom: "24px",
+                marginTop: "20px"
               }}>
                 {/* Enhanced metrics with trends */}
                 <div style={{
@@ -455,6 +542,7 @@ export default function TehsilDashboard() {
                         backgroundColor: "white",
                         borderRadius: "50%"
                       }}></div>
+
                     </div>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>

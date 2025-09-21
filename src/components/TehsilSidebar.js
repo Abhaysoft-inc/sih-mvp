@@ -6,7 +6,10 @@ import {
     MdMap,
     MdStorage,
     MdHelp,
-    MdInfo
+    MdInfo,
+    MdSatellite,
+    MdSensors,
+    MdFeedback
 } from 'react-icons/md'
 import { useTranslation } from '@/translations/TranslationContext'
 
@@ -19,6 +22,16 @@ export default function TehsilSidebar({ activeTab, setActiveTab }) {
         { id: 'mapping', label: t('sidebar.mapping'), icon: <MdMap /> },
         { id: 'dss', label: t('sidebar.decisionSupport'), icon: <MdSupport /> },
         { id: 'analytics', label: t('sidebar.analytics'), icon: <MdAnalytics /> },
+        {
+            id: 'satelliteFeeds', label: (
+                <div className="flex items-center justify-between w-full">
+                    <span>Satellite Feeds</span>
+                    <span className="bg-yellow-200 text-yellow-800 text-[10px] font-semibold px-1.5 py-0.5 rounded-full ml-2 text-center">Coming Soon</span>
+                </div>
+            ), icon: <MdSatellite />
+        }, // Real-time Satellite Feeds
+        // { id: 'iotSensors', label: 'IoT Sensors', icon: <MdSensors /> }, // IoT Sensors
+        // { id: 'mobileFeedback', label: 'Mobile Feedback', icon: <MdFeedback /> }, // Mobile Feedback
         // { id: 'data', label: 'Data Management', icon: <MdStorage /> }
     ]
 
@@ -76,6 +89,11 @@ export default function TehsilSidebar({ activeTab, setActiveTab }) {
                     Documentation
                 </div>
             </div>
+
+            {/* Satellite Feeds Section */}
+
+
+
         </div>
     )
 }
