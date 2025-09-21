@@ -620,6 +620,370 @@ export default function TehsilDashboard() {
                 </div>
               </div>
 
+              {/* Additional Charts Section */}
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+                gap: "20px",
+                marginBottom: "24px"
+              }}>
+                {/* Land Type Distribution Bar Chart */}
+                <div style={{
+                  backgroundColor: "white",
+                  border: "1px solid #ddd",
+                  borderRadius: "6px",
+                  padding: "20px",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+                }}>
+                  <h3 style={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    color: "#333",
+                    margin: "0 0 8px 0"
+                  }}>
+                    Land Type Distribution
+                  </h3>
+                  <p style={{
+                    fontSize: "13px",
+                    color: "#666",
+                    margin: "0 0 16px 0"
+                  }}>
+                    Claims by land type (hectares)
+                  </p>
+
+                  {/* Bar Chart */}
+                  <div style={{ marginBottom: "16px" }}>
+                    {[
+                      { type: "Forest Land", value: 45, color: "#16a34a", hectares: "1,847" },
+                      { type: "Agricultural", value: 35, color: "#f59e0b", hectares: "1,456" },
+                      { type: "Community Forest", value: 25, color: "#059669", hectares: "987" },
+                      { type: "Mixed Use", value: 15, color: "#6366f1", hectares: "623" }
+                    ].map((item, index) => (
+                      <div key={index} style={{ marginBottom: "12px" }}>
+                        <div style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginBottom: "4px"
+                        }}>
+                          <span style={{ fontSize: "12px", color: "#333", fontWeight: "500" }}>
+                            {item.type}
+                          </span>
+                          <span style={{ fontSize: "11px", color: "#666" }}>
+                            {item.hectares} ha
+                          </span>
+                        </div>
+                        <div style={{
+                          width: "100%",
+                          height: "18px",
+                          backgroundColor: "#f1f5f9",
+                          borderRadius: "9px",
+                          overflow: "hidden"
+                        }}>
+                          <div style={{
+                            width: `${item.value}%`,
+                            height: "100%",
+                            backgroundColor: item.color,
+                            borderRadius: "9px",
+                            transition: "width 0.5s ease"
+                          }}></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{
+                    fontSize: "11px",
+                    color: "#666",
+                    padding: "8px",
+                    backgroundColor: "#f8f9fa",
+                    borderRadius: "4px"
+                  }}>
+                    <strong>Total Area:</strong> 4,913 hectares across all land types
+                  </div>
+                </div>
+
+                {/* Application Timeline Funnel */}
+                <div style={{
+                  backgroundColor: "white",
+                  border: "1px solid #ddd",
+                  borderRadius: "6px",
+                  padding: "20px",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+                }}>
+                  <h3 style={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    color: "#333",
+                    margin: "0 0 8px 0"
+                  }}>
+                    Application Processing Funnel
+                  </h3>
+                  <p style={{
+                    fontSize: "13px",
+                    color: "#666",
+                    margin: "0 0 16px 0"
+                  }}>
+                    Claims progression through stages
+                  </p>
+
+                  {/* Funnel Chart */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    {[
+                      { stage: "Applications Received", count: 1247, width: 100, color: "#3b82f6" },
+                      { stage: "Initial Screening", count: 1198, width: 85, color: "#06b6d4" },
+                      { stage: "Field Verification", count: 1134, width: 70, color: "#10b981" },
+                      { stage: "Committee Review", count: 1089, width: 55, color: "#f59e0b" },
+                      { stage: "Final Approval", count: 978, width: 40, color: "#22c55e" }
+                    ].map((stage, index) => (
+                      <div key={index} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                        <div style={{
+                          width: `${stage.width}%`,
+                          height: "32px",
+                          backgroundColor: stage.color,
+                          borderRadius: "16px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "white",
+                          fontSize: "11px",
+                          fontWeight: "600",
+                          minWidth: "60px"
+                        }}>
+                          {stage.count}
+                        </div>
+                        <span style={{ fontSize: "12px", color: "#333", fontWeight: "500" }}>
+                          {stage.stage}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{
+                    marginTop: "12px",
+                    fontSize: "11px",
+                    color: "#666",
+                    padding: "8px",
+                    backgroundColor: "#f8f9fa",
+                    borderRadius: "4px"
+                  }}>
+                    <strong>Conversion Rate:</strong> 78.4% from application to approval
+                  </div>
+                </div>
+
+                {/* Monthly Approval Rate Gauge */}
+                <div style={{
+                  backgroundColor: "white",
+                  border: "1px solid #ddd",
+                  borderRadius: "6px",
+                  padding: "20px",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+                }}>
+                  <h3 style={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    color: "#333",
+                    margin: "0 0 8px 0"
+                  }}>
+                    Monthly Approval Rate
+                  </h3>
+                  <p style={{
+                    fontSize: "13px",
+                    color: "#666",
+                    margin: "0 0 16px 0"
+                  }}>
+                    Current month performance
+                  </p>
+
+                  {/* Gauge Chart Simulation */}
+                  <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "16px"
+                  }}>
+                    <div style={{
+                      width: "120px",
+                      height: "60px",
+                      background: "conic-gradient(from 180deg, #dc2626 0deg 36deg, #f59e0b 36deg 72deg, #22c55e 72deg 180deg)",
+                      borderRadius: "120px 120px 0 0",
+                      position: "relative",
+                      display: "flex",
+                      alignItems: "flex-end",
+                      justifyContent: "center"
+                    }}>
+                      <div style={{
+                        width: "80px",
+                        height: "40px",
+                        backgroundColor: "white",
+                        borderRadius: "80px 80px 0 0",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "16px",
+                        fontWeight: "700",
+                        color: "#22c55e"
+                      }}>
+                        82%
+                      </div>
+                      {/* Needle */}
+                      <div style={{
+                        position: "absolute",
+                        bottom: "0",
+                        left: "50%",
+                        width: "2px",
+                        height: "50px",
+                        backgroundColor: "#333",
+                        transformOrigin: "bottom",
+                        transform: "translateX(-50%) rotate(30deg)"
+                      }}></div>
+                    </div>
+
+                    <div style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "100%",
+                      fontSize: "10px",
+                      color: "#666"
+                    }}>
+                      <span>Poor (0-40%)</span>
+                      <span>Good (40-70%)</span>
+                      <span>Excellent (70%+)</span>
+                    </div>
+
+                    <div style={{
+                      textAlign: "center",
+                      padding: "8px",
+                      backgroundColor: "#f0fdf4",
+                      borderRadius: "4px",
+                      border: "1px solid #bbf7d0"
+                    }}>
+                      <div style={{ fontSize: "12px", fontWeight: "600", color: "#15803d" }}>
+                        Performance: Excellent
+                      </div>
+                      <div style={{ fontSize: "11px", color: "#166534" }}>
+                        Target: 75% | Current: 82%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Claims Processing Workflow Timeline */}
+              <div style={{
+                backgroundColor: "white",
+                border: "1px solid #ddd",
+                borderRadius: "6px",
+                padding: "20px",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                marginBottom: "24px"
+              }}>
+                <h3 style={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  color: "#333",
+                  margin: "0 0 8px 0"
+                }}>
+                  Average Processing Timeline
+                </h3>
+                <p style={{
+                  fontSize: "13px",
+                  color: "#666",
+                  margin: "0 0 20px 0"
+                }}>
+                  Typical journey of a claim from submission to approval
+                </p>
+
+                {/* Timeline */}
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  position: "relative",
+                  padding: "0 20px"
+                }}>
+                  {/* Timeline Line */}
+                  <div style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "20px",
+                    right: "20px",
+                    height: "2px",
+                    backgroundColor: "#e5e7eb",
+                    zIndex: 1
+                  }}></div>
+
+                  {[
+                    { step: "Submit", days: "Day 0", status: "complete", color: "#22c55e" },
+                    { step: "Screen", days: "Day 2-3", status: "complete", color: "#22c55e" },
+                    { step: "Verify", days: "Day 5-8", status: "complete", color: "#22c55e" },
+                    { step: "Review", days: "Day 10-12", status: "current", color: "#f59e0b" },
+                    { step: "Approve", days: "Day 14-16", status: "pending", color: "#94a3b8" }
+                  ].map((phase, index) => (
+                    <div key={index} style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      zIndex: 2,
+                      backgroundColor: "white",
+                      padding: "0 8px"
+                    }}>
+                      <div style={{
+                        width: "32px",
+                        height: "32px",
+                        borderRadius: "50%",
+                        backgroundColor: phase.color,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "white",
+                        fontSize: "12px",
+                        fontWeight: "600",
+                        marginBottom: "8px",
+                        border: phase.status === 'current' ? "3px solid #fef3c7" : "none"
+                      }}>
+                        {index + 1}
+                      </div>
+                      <div style={{
+                        fontSize: "12px",
+                        fontWeight: "600",
+                        color: "#333",
+                        marginBottom: "2px"
+                      }}>
+                        {phase.step}
+                      </div>
+                      <div style={{
+                        fontSize: "10px",
+                        color: "#666"
+                      }}>
+                        {phase.days}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{
+                  marginTop: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "24px",
+                  fontSize: "11px"
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                    <div style={{ width: "8px", height: "8px", backgroundColor: "#22c55e", borderRadius: "50%" }}></div>
+                    <span>Completed</span>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                    <div style={{ width: "8px", height: "8px", backgroundColor: "#f59e0b", borderRadius: "50%" }}></div>
+                    <span>In Progress</span>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                    <div style={{ width: "8px", height: "8px", backgroundColor: "#94a3b8", borderRadius: "50%" }}></div>
+                    <span>Pending</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Lower Section - 3 Columns */}
               <div style={{
                 display: "grid",

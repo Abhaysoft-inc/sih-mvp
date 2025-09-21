@@ -17,7 +17,7 @@ const TehsilNavbar = ({ currentTime }) => (
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             {/*      */}
             <span style={{ fontWeight: 700, fontSize: 20, color: "#007bff", letterSpacing: 1 }}>
-                WebGIS FRA Portal
+                FRA-GIS Portal
             </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>

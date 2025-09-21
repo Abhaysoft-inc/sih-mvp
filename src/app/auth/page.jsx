@@ -12,7 +12,7 @@ const Login = () => {
         { value: 'admin', label: 'Admin' },
         { value: 'surveyor', label: 'Surveyor' },
         { value: 'tehsildar', label: 'Tehsildar' },
-        { value: 'citizen', label: 'Citizen' }
+        // { value: 'citizen', label: 'Citizen' }
     ]
 
     const handleInputChange = (e) => {
@@ -33,11 +33,11 @@ const Login = () => {
         // Store user role in localStorage for persistence
         localStorage.setItem('userRole', formData.role)
         localStorage.setItem('userEmail', formData.email)
-        
+
         // Role-based routing
         switch (formData.role) {
             case 'admin':
-                window.location.href = '/admin/dashboard'
+                window.location.href = '/dashboard/tehsil'
                 break
             case 'surveyor':
                 window.location.href = '/dashboard/survey'
@@ -65,7 +65,7 @@ const Login = () => {
                                 <img src="/emblem.png" alt="" className='w-7' />
                             </div>
                             <div>
-                                <h1 className="text-xl font-bold">Government of India</h1>
+                                <h1 className="text-xl font-bold">WebGIS Portal</h1>
                                 <p className="text-sm text-blue-200">भारत सरकार</p>
                             </div>
                         </div>
@@ -179,12 +179,12 @@ const Login = () => {
             <div className="bg-blue-900 text-white py-6 mt-8">
                 <div className="container mx-auto px-4 text-center">
                     <div className="text-sm space-y-2">
-                        <p>© 2024 Government of India. All rights reserved.</p>
+                        <p>© 2025 Cookie Parsers. All rights reserved.</p>
                         <p className="text-blue-200">
-                            Designed & Developed by National Informatics Centre (NIC)
+                            Designed & Developed by Cookies Parsers
                         </p>
                         <p className="text-xs text-blue-300">
-                            Last Updated: September 2024 | Best Viewed in Chrome, Firefox, Safari
+                            Last Updated: September 2025 | Best Viewed in Chrome, Firefox, Safari
                         </p>
                     </div>
                 </div>
