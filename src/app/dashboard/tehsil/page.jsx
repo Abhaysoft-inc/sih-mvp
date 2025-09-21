@@ -60,6 +60,16 @@ export default function TehsilDashboard() {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [activeTab, setActiveTab] = useState('overview')
 
+  // Function to handle tab change with scroll to top
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId)
+    // Scroll to top smoothly
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   // State for DSS form elements
   const [eligibilityCriteria, setEligibilityCriteria] = useState([
     { label: "Low Water Index (< 0.4)", icon: "water", checked: false },
@@ -103,6 +113,9 @@ export default function TehsilDashboard() {
   const [priorityLevel, setPriorityLevel] = useState('High')
 
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+
     const timeInterval = setInterval(() => {
       setCurrentTime(new Date())
     }, 60000)
@@ -271,7 +284,7 @@ export default function TehsilDashboard() {
         margin: "0"
       }}>
         {/* Sidebar Navigation */}
-        <TehsilSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <TehsilSidebar activeTab={activeTab} setActiveTab={handleTabChange} />
 
         {/* Main Content Area */}
         <div style={{
@@ -1314,7 +1327,7 @@ export default function TehsilDashboard() {
                       title="Decision Support System"
                       description="Advanced analytics and decision-making tools for claim processing"
                       icon={<MdBarChart />}
-                      onClick={() => setActiveTab('dss')}
+                      onClick={() => handleTabChange('dss')}
                       status="View Analytics →"
                     />
 
@@ -1322,7 +1335,7 @@ export default function TehsilDashboard() {
                       title="Verification Center"
                       description="Review and verify pending claims with comprehensive tools"
                       icon={<MdSearch />}
-                      onClick={() => setActiveTab('verification')}
+                      onClick={() => handleTabChange('verification')}
                       status={`${stats.pendingVerification} pending →`}
                     />
 
@@ -1330,7 +1343,7 @@ export default function TehsilDashboard() {
                       title="Assets Mapping"
                       description="Satellite imagery and land assets mapping interface"
                       icon={<MdLocationOn />}
-                      onClick={() => setActiveTab('mapping')}
+                      onClick={() => handleTabChange('mapping')}
                       status="View Maps →"
                     />
                   </div>
@@ -1361,10 +1374,30 @@ export default function TehsilDashboard() {
                   </p>
 
                   {[
-                    { icon: <MdLocationOn />, title: "Open FRA Atlas", desc: "Geographic information system" },
-                    { icon: <MdBolt />, title: "Run Decision Support", desc: "AI-powered recommendations" },
-                    { icon: <MdDescription />, title: "Upload Documents", desc: "Batch document processing" },
-                    { icon: <MdBarChart />, title: "Export Report (PDF)", desc: "Generate comprehensive reports" }
+                    {
+                      icon: <MdLocationOn />,
+                      title: "Open FRA Atlas",
+                      desc: "Geographic information system",
+                      action: () => handleTabChange('mapping')
+                    },
+                    {
+                      icon: <MdBolt />,
+                      title: "Run Decision Support",
+                      desc: "AI-powered recommendations",
+                      action: () => handleTabChange('dss')
+                    },
+                    {
+                      icon: <MdDescription />,
+                      title: "Upload Documents",
+                      desc: "Batch document processing",
+                      action: () => alert('Document upload feature coming soon!')
+                    },
+                    {
+                      icon: <MdBarChart />,
+                      title: "Export Report (PDF)",
+                      desc: "Generate comprehensive reports",
+                      action: () => alert('Report export feature coming soon!')
+                    }
                   ].map((action, index) => (
                     <div key={index} style={{
                       display: "flex",
@@ -1374,6 +1407,7 @@ export default function TehsilDashboard() {
                       borderBottom: index < 3 ? "1px solid #eee" : "none",
                       cursor: "pointer"
                     }}
+                      onClick={action.action}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = "#f8f9fa"
                       }}

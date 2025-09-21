@@ -5,6 +5,8 @@ import { useTranslation } from "../translations/TranslationContext";
 const TehsilNavbar = ({ currentTime }) => {
     const { t, currentLanguage, changeLanguage, getLanguageName } = useTranslation();
     const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+    const [isButtonHovered, setIsButtonHovered] = useState(false);
+    const [hoveredLanguage, setHoveredLanguage] = useState(null);
 
     const languages = [
         { code: 'en', name: t('navbar.languages.english'), native: 'English' },
@@ -54,7 +56,7 @@ const TehsilNavbar = ({ currentTime }) => {
                             alignItems: "center",
                             gap: "6px",
                             padding: "8px 12px",
-                            backgroundColor: "#f8f9fa",
+                            backgroundColor: isButtonHovered ? "#e2e6ea" : "#f8f9fa",
                             border: "1px solid #dee2e6",
                             borderRadius: "6px",
                             fontSize: "14px",
@@ -64,12 +66,8 @@ const TehsilNavbar = ({ currentTime }) => {
                             transition: "all 0.2s ease",
                             outline: "none"
                         }}
-                        onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = "#e2e6ea";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = "#f8f9fa";
-                        }}
+                        onMouseEnter={() => setIsButtonHovered(true)}
+                        onMouseLeave={() => setIsButtonHovered(false)}
                     >
                         <MdLanguage style={{ fontSize: "16px" }} />
                         <span>{getLanguageName(currentLanguage)}</span>
@@ -103,7 +101,8 @@ const TehsilNavbar = ({ currentTime }) => {
                                         width: "100%",
                                         padding: "10px 16px",
                                         border: "none",
-                                        backgroundColor: currentLanguage === language.code ? "#e3f2fd" : "transparent",
+                                        backgroundColor: currentLanguage === language.code ? "#e3f2fd" :
+                                            (hoveredLanguage === language.code ? "#f8f9fa" : "transparent"),
                                         color: currentLanguage === language.code ? "#1976d2" : "#495057",
                                         fontSize: "14px",
                                         fontWeight: currentLanguage === language.code ? "600" : "400",
@@ -116,16 +115,8 @@ const TehsilNavbar = ({ currentTime }) => {
                                             language === languages[languages.length - 1] ? "0 0 6px 6px" : "0",
                                         transition: "all 0.2s ease"
                                     }}
-                                    onMouseEnter={(e) => {
-                                        if (currentLanguage !== language.code) {
-                                            e.target.style.backgroundColor = "#f8f9fa";
-                                        }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        if (currentLanguage !== language.code) {
-                                            e.target.style.backgroundColor = "transparent";
-                                        }
-                                    }}
+                                    onMouseEnter={() => setHoveredLanguage(language.code)}
+                                    onMouseLeave={() => setHoveredLanguage(null)}
                                 >
                                     <span style={{ fontSize: "14px", fontWeight: "500" }}>{language.name}</span>
                                     <span style={{ fontSize: "12px", color: "#6c757d", marginTop: "2px" }}>{language.native}</span>

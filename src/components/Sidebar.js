@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/translations/TranslationContext";
 
 export default function Sidebar({ onApply }) {
+    const { t } = useTranslation();
     const [statesData, setStatesData] = useState([]);
     const [state, setState] = useState("");
     const [district, setDistrict] = useState("");
@@ -100,7 +102,7 @@ export default function Sidebar({ onApply }) {
                 aria-label="Open location selector"
                 className="fixed left-[10px] z-[1006] p-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
                 style={{ top: 'calc(3.2rem + 2px)' }}
-                title="Open Location Selector"
+                title={t('mainPage.locationSelector.openTitle')}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" className="w-6 h-6 fill-current">
                     <path d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z"></path>
@@ -123,26 +125,26 @@ export default function Sidebar({ onApply }) {
         >
             <div className="p-4">
                 <div className="flex items-center justify-between mb-2">
-                    <h2 className="text-lg font-semibold text-green-900">Location Selector</h2>
+                    <h2 className="text-lg font-semibold text-green-900">{t('mainPage.locationSelector.title')}</h2>
                     <button
                         onClick={() => setCollapsed(true)}
                         aria-label="Minimize location selector"
                         className="text-gray-500 hover:text-gray-700 text-lg font-bold"
-                        title="Close"
+                        title={t('mainPage.locationSelector.close')}
                     >
                         ×
                     </button>
                 </div>
-                <p className="text-xs text-gray-500 mb-4">Pick a location to filter the map and data</p>
+                <p className="text-xs text-gray-500 mb-4">{t('mainPage.locationSelector.description')}</p>
 
                 {/* State */}
-                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">State</label>
+                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">{t('mainPage.locationSelector.state')}</label>
                 <select
                     className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm"
                     value={state}
                     onChange={(e) => handleStateChange(e.target.value)}
                 >
-                    <option value="">Select State</option>
+                    <option value="">{t('mainPage.locationSelector.selectState')}</option>
                     {statesData.map((stateData) => (
                         <option key={stateData.state} value={stateData.state}>
                             {stateData.state}
@@ -151,14 +153,14 @@ export default function Sidebar({ onApply }) {
                 </select>
 
                 {/* District */}
-                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">District</label>
+                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">{t('mainPage.locationSelector.district')}</label>
                 <select
                     className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
                     value={district}
                     onChange={(e) => handleDistrictChange(e.target.value)}
                     disabled={!state}
                 >
-                    <option value="">Select District</option>
+                    <option value="">{t('mainPage.locationSelector.selectDistrict')}</option>
                     {getDistrictsForState(state).map((districtName) => (
                         <option key={districtName} value={districtName}>
                             {districtName}
@@ -167,14 +169,14 @@ export default function Sidebar({ onApply }) {
                 </select>
 
                 {/* Tehsil */}
-                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">Tehsil</label>
+                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">{t('mainPage.locationSelector.tehsil')}</label>
                 <select
                     className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
                     value={tehsil}
                     onChange={(e) => setTehsil(e.target.value)}
                     disabled={!district}
                 >
-                    <option value="">Select Tehsil</option>
+                    <option value="">{t('mainPage.locationSelector.selectTehsil')}</option>
                     {getSampleTehsils(district).map((tehsilName) => (
                         <option key={tehsilName} value={tehsilName}>
                             {tehsilName}
@@ -183,14 +185,14 @@ export default function Sidebar({ onApply }) {
                 </select>
 
                 {/* Village */}
-                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">Village</label>
+                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">{t('mainPage.locationSelector.village')}</label>
                 <select
                     className="w-full mb-4 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
                     value={village}
                     onChange={(e) => setVillage(e.target.value)}
                     disabled={!tehsil}
                 >
-                    <option value="">Select Village</option>
+                    <option value="">{t('mainPage.locationSelector.selectVillage')}</option>
                     {getSampleVillages(tehsil).map((villageName) => (
                         <option key={villageName} value={villageName}>
                             {villageName}
@@ -199,14 +201,14 @@ export default function Sidebar({ onApply }) {
                 </select>
 
                 {/* Plot */}
-                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">Plot No.</label>
+                <label className="block mb-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">{t('mainPage.locationSelector.plotNo')}</label>
                 <input
                     type="text"
                     className="w-full mb-6 px-3 py-2 bg-white border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-green-600/20 focus:border-green-600 text-sm disabled:opacity-60"
                     value={plot}
                     onChange={(e) => setPlot(e.target.value)}
                     disabled={!village}
-                    placeholder="Enter Plot Number"
+                    placeholder={t('mainPage.locationSelector.enterPlotNumber')}
                 />
 
                 {/* Apply Button */}
@@ -218,7 +220,7 @@ export default function Sidebar({ onApply }) {
                         : "bg-green-600 text-white hover:bg-green-700 active:bg-green-800"
                         }`}
                 >
-                    Apply Selection
+                    {t('mainPage.locationSelector.applySelection')}
                 </button>
             </div>
         </aside>

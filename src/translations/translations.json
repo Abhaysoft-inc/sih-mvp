@@ -4,9 +4,30 @@
             "portalName": "FRA-GIS Portal",
             "active": "Active",
             "logout": "Logout",
+            "login": "Login",
             "languages": {
                 "english": "English",
                 "hindi": "Hindi"
+            }
+        },
+        "mainPage": {
+            "title": "VanAdhikar Atlas",
+            "locationSelector": {
+                "title": "Location Selector",
+                "description": "Pick a location to filter the map and data",
+                "openTitle": "Open Location Selector",
+                "close": "Close",
+                "state": "State",
+                "selectState": "Select State",
+                "district": "District",
+                "selectDistrict": "Select District",
+                "tehsil": "Tehsil",
+                "selectTehsil": "Select Tehsil",
+                "village": "Village",
+                "selectVillage": "Select Village",
+                "plotNo": "Plot No.",
+                "enterPlotNumber": "Enter Plot Number",
+                "applySelection": "Apply Selection"
             }
         },
         "sidebar": {
@@ -160,9 +181,30 @@
             "portalName": "वन अधिकार-जीआईएस पोर्टल",
             "active": "सक्रिय",
             "logout": "लॉगआउट",
+            "login": "लॉगिन",
             "languages": {
                 "english": "अंग्रेजी",
                 "hindi": "हिंदी"
+            }
+        },
+        "mainPage": {
+            "title": "वनअधिकार एटलस",
+            "locationSelector": {
+                "title": "स्थान चयनकर्ता",
+                "description": "मानचित्र और डेटा को फ़िल्टर करने के लिए एक स्थान चुनें",
+                "openTitle": "स्थान चयनकर्ता खोलें",
+                "close": "बंद करें",
+                "state": "राज्य",
+                "selectState": "राज्य चुनें",
+                "district": "जिला",
+                "selectDistrict": "जिला चुनें",
+                "tehsil": "तहसील",
+                "selectTehsil": "तहसील चुनें",
+                "village": "गाँव",
+                "selectVillage": "गाँव चुनें",
+                "plotNo": "प्लॉट नं.",
+                "enterPlotNumber": "प्लॉट नंबर दर्ज करें",
+                "applySelection": "चयन लागू करें"
             }
         },
         "sidebar": {

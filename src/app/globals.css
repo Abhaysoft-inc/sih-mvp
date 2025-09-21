@@ -14,3 +14,13 @@
 .leaflet-top.leaflet-left {
     top: var(--controls-top-offset) !important;
 }
+
+.leaflet-container {
+    overflow: visible !important;
+}
+
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom {
+    z-index: 0 !important;
+}

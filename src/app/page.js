@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import { TranslationProvider } from "@/translations/TranslationContext";
 
 const Map = dynamic(() => import("../components/Map"), { ssr: false });
 
@@ -16,20 +17,22 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden">
-      {/* Navbar */}
-      <Navbar />
+    <TranslationProvider>
+      <div className="flex flex-col h-screen w-screen overflow-hidden">
+        {/* Navbar */}
+        <Navbar />
 
-      {/* Main Content */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <Sidebar onApply={handleLocationApply} />
+        {/* Main Content */}
+        <div className="flex flex-1 overflow-hidden">
+          {/* Sidebar */}
+          <Sidebar onApply={handleLocationApply} />
 
-        {/* Map Area */}
-        <main className="flex-1">
-          <Map />
-        </main>
+          {/* Map Area */}
+          <main className="flex-1">
+            <Map />
+          </main>
+        </div>
       </div>
-    </div>
+    </TranslationProvider>
   );
 }
