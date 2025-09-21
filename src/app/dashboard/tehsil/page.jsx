@@ -328,7 +328,8 @@ export default function TehsilDashboard() {
                 maxWidth: '90%'
               }}>
                 <h3 style={{ fontSize: '20px', marginBottom: '15px', fontWeight: 'bold' }}>Alert Details</h3>
-                <img src={popupData.image} alt="Alert Placeholder" style={{ width: '100%', height: '300px', objectFit: 'cover', marginBottom: '15px', borderRadius: '8px' }} />
+                <h2>Alert Type: Deforestation</h2>
+                <img src={popupData.image} alt="Alert Placeholder" style={{ width: '100%', height: '300px', objectFit: 'cover', marginBottom: '15px', borderRadius: '8px', marginTop: "20px" }} />
                 <p style={{ fontSize: '16px', marginBottom: '10px' }}><strong>Coordinates:</strong> {popupData.coordinates}</p>
                 <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
                   <button onClick={() => setPopupData(null)} style={{
