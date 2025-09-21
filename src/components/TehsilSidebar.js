@@ -8,15 +8,18 @@ import {
     MdHelp,
     MdInfo
 } from 'react-icons/md'
+import { useTranslation } from '@/translations/TranslationContext'
 
 export default function TehsilSidebar({ activeTab, setActiveTab }) {
+    const { t } = useTranslation()
+
     const menuItems = [
-        { id: 'overview', label: 'Dashboard', icon: <MdDashboard /> },
-        { id: 'dss', label: 'Decision Support', icon: <MdSupport /> },
-        { id: 'analytics', label: 'Analytics', icon: <MdAnalytics /> },
-        { id: 'verification', label: 'Verification', icon: <MdVerified /> },
-        { id: 'mapping', label: 'Mapping', icon: <MdMap /> },
-        { id: 'data', label: 'Data Management', icon: <MdStorage /> }
+        { id: 'overview', label: t('sidebar.dashboard'), icon: <MdDashboard /> },
+        { id: 'verification', label: t('sidebar.verification'), icon: <MdVerified /> },
+        { id: 'mapping', label: t('sidebar.mapping'), icon: <MdMap /> },
+        { id: 'dss', label: t('sidebar.decisionSupport'), icon: <MdSupport /> },
+        { id: 'analytics', label: t('sidebar.analytics'), icon: <MdAnalytics /> },
+        // { id: 'data', label: 'Data Management', icon: <MdStorage /> }
     ]
 
     return (
@@ -24,7 +27,7 @@ export default function TehsilSidebar({ activeTab, setActiveTab }) {
             {/* Sidebar Header */}
             <div className="px-4 pt-4 pb-3 border-b border-gray-200">
                 <div className="text-gray-600 text-xs font-bold uppercase tracking-widest">
-                    NAVIGATION
+                    {t('sidebar.navigation')}
                 </div>
             </div>
 

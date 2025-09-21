@@ -1,0 +1,314 @@
+{
+    "en": {
+        "navbar": {
+            "portalName": "FRA-GIS Portal",
+            "active": "Active",
+            "logout": "Logout",
+            "languages": {
+                "english": "English",
+                "hindi": "Hindi"
+            }
+        },
+        "sidebar": {
+            "navigation": "NAVIGATION",
+            "dashboard": "Dashboard",
+            "verification": "Verification",
+            "mapping": "Assets & Mapping",
+            "decisionSupport": "Decision Support",
+            "analytics": "Analytics & Reports",
+            "management": "Data Management"
+        },
+        "dashboard": {
+            "title": "Tehsil Dashboard",
+            "metrics": {
+                "totalClaims": "Total Claims",
+                "approvalRate": "Approval Rate",
+                "pendingClaims": "Pending Claims",
+                "cfrArea": "CFR Area",
+                "villagesCovered": "Villages Covered",
+                "acrossStates": "Across all states",
+                "successRate": "Success rate",
+                "awaitingReview": "Awaiting review",
+                "communityForestRights": "Community forest rights",
+                "tribalSettlements": "Tribal settlements",
+                "fromLastMonth": "from last month",
+                "newClaims": "new claims",
+                "approved": "approved",
+                "newVillages": "new villages"
+            },
+            "charts": {
+                "statusDistribution": {
+                    "title": "Claims Status Distribution",
+                    "description": "Current status of all submitted claims"
+                },
+                "landDistribution": {
+                    "title": "Land Type Distribution",
+                    "description": "Claims by land type (hectares)"
+                },
+                "monthlyProcessing": {
+                    "title": "Monthly Claims Processing",
+                    "description": "Processing trend over the last 12 months"
+                },
+                "processingFunnel": {
+                    "title": "Application Processing Funnel",
+                    "description": "Claims progression through stages"
+                },
+                "approvalRate": {
+                    "title": "Monthly Approval Rate",
+                    "description": "Current month performance"
+                },
+                "processingTimeline": {
+                    "title": "Average Processing Timeline",
+                    "description": "Typical journey of a claim from submission to approval"
+                }
+            },
+            "status": {
+                "approved": "Approved",
+                "underReview": "Under Review",
+                "rejected": "Rejected",
+                "pending": "Pending"
+            },
+            "landTypes": {
+                "forestLand": "Forest Land",
+                "agricultural": "Agricultural",
+                "communityForest": "Community Forest",
+                "mixedUse": "Mixed Use"
+            },
+            "processingStages": {
+                "applicationsReceived": "Applications Received",
+                "initialScreening": "Initial Screening",
+                "fieldVerification": "Field Verification",
+                "committeeReview": "Committee Review",
+                "finalApproval": "Final Approval"
+            },
+            "timeline": {
+                "submit": "Submit",
+                "screen": "Screen",
+                "verify": "Verify",
+                "review": "Review",
+                "approve": "Approve",
+                "day": "Day",
+                "completed": "Completed",
+                "inProgress": "In Progress"
+            },
+            "tribalCommunities": {
+                "title": "Tribal Community Distribution",
+                "desc": "Claims by tribal communities",
+                "gond": "Gond",
+                "korku": "Korku",
+                "muria": "Muria",
+                "baiga": "Baiga",
+                "others": "Others",
+                "claims": "claims"
+            },
+            "statePerformance": {
+                "title": "State-wise Performance",
+                "desc": "Claims processing by state",
+                "madhyaPradesh": "Madhya Pradesh",
+                "tripura": "Tripura",
+                "odisha": "Odisha",
+                "telangana": "Telangana",
+                "total": "total",
+                "legend": "Legend:",
+                "approvedClaims": "Approved Claims",
+                "pendingReview": "Pending Review",
+                "rejectedClaims": "Rejected Claims"
+            },
+            "processingEfficiency": {
+                "title": "Processing Efficiency",
+                "desc": "Average processing times",
+                "ifrClaims": "IFR Claims",
+                "cfrClaims": "CFR Claims",
+                "crClaims": "CR Claims",
+                "days": "days",
+                "geographicCoverage": "Geographic Coverage",
+                "states": "States",
+                "districts": "Districts",
+                "villages": "Villages",
+                "qualityMetrics": "Quality Metrics",
+                "documentation": "Documentation",
+                "verification": "Verification",
+                "compliance": "Compliance"
+            },
+            "quickAccess": {
+                "title": "Quick Access",
+                "dssTitle": "Decision Support System",
+                "dssDesc": "Advanced analytics and decision-making tools for claim processing",
+                "verificationTitle": "Verification Center",
+                "verificationDesc": "Review and verify pending claims with comprehensive tools",
+                "mappingTitle": "Assets Mapping",
+                "mappingDesc": "Satellite imagery and land assets mapping interface",
+                "viewAnalytics": "View Analytics",
+                "viewMaps": "View Maps"
+            },
+            "quickActions": {
+                "title": "Quick Actions",
+                "desc": "Common tasks and workflows",
+                "openAtlas": "Open FRA Atlas",
+                "atlasDesc": "Geographic information system",
+                "runDSS": "Run Decision Support",
+                "dssDesc": "AI-powered recommendations",
+                "uploadDocs": "Upload Documents",
+                "docsDesc": "Batch document processing",
+                "exportReport": "Export Report (PDF)",
+                "reportDesc": "Generate comprehensive reports"
+            }
+        }
+    },
+    "hi": {
+        "navbar": {
+            "portalName": "वन अधिकार-जीआईएस पोर्टल",
+            "active": "सक्रिय",
+            "logout": "लॉगआउट",
+            "languages": {
+                "english": "अंग्रेजी",
+                "hindi": "हिंदी"
+            }
+        },
+        "sidebar": {
+            "navigation": "नेवीगेशन",
+            "dashboard": "डैशबोर्ड",
+            "verification": "सत्यापन",
+            "mapping": "संपत्ति और मानचित्रण",
+            "decisionSupport": "निर्णय सहायता",
+            "analytics": "विश्लेषण और रिपोर्ट",
+            "management": "डेटा प्रबंधन"
+        },
+        "dashboard": {
+            "title": "तहसील डैशबोर्ड",
+            "metrics": {
+                "totalClaims": "कुल दावे",
+                "approvalRate": "अनुमोदन दर",
+                "pendingClaims": "लंबित दावे",
+                "cfrArea": "सीएफआर क्षेत्र",
+                "villagesCovered": "गांव कवर किए गए",
+                "acrossStates": "सभी राज्यों में",
+                "successRate": "सफलता दर",
+                "awaitingReview": "समीक्षा की प्रतीक्षा में",
+                "communityForestRights": "सामुदायिक वन अधिकार",
+                "tribalSettlements": "आदिवासी बस्तियां",
+                "fromLastMonth": "पिछले महीने से",
+                "newClaims": "नए दावे",
+                "approved": "अनुमोदित",
+                "newVillages": "नए गांव"
+            },
+            "charts": {
+                "statusDistribution": {
+                    "title": "दावों की स्थिति वितरण",
+                    "description": "सभी प्रस्तुत दावों की वर्तमान स्थिति"
+                },
+                "landDistribution": {
+                    "title": "भूमि प्रकार वितरण",
+                    "description": "भूमि प्रकार के अनुसार दावे (हेक्टेयर)"
+                },
+                "monthlyProcessing": {
+                    "title": "मासिक दावा प्रसंस्करण",
+                    "description": "पिछले 12 महीनों में प्रसंस्करण की प्रवृत्ति"
+                },
+                "processingFunnel": {
+                    "title": "आवेदन प्रसंस्करण फ़नल",
+                    "description": "चरणों के माध्यम से दावों की प्रगति"
+                },
+                "approvalRate": {
+                    "title": "मासिक अनुमोदन दर",
+                    "description": "वर्तमान माह का प्रदर्शन"
+                },
+                "processingTimeline": {
+                    "title": "औसत प्रसंस्करण समयसीमा",
+                    "description": "प्रस्तुति से अनुमोदन तक दावे की विशिष्ट यात्रा"
+                }
+            },
+            "status": {
+                "approved": "अनुमोदित",
+                "underReview": "समीक्षाधीन",
+                "rejected": "अस्वीकृत",
+                "pending": "लंबित"
+            },
+            "landTypes": {
+                "forestLand": "वन भूमि",
+                "agricultural": "कृषि",
+                "communityForest": "सामुदायिक वन",
+                "mixedUse": "मिश्रित उपयोग"
+            },
+            "processingStages": {
+                "applicationsReceived": "आवेदन प्राप्त",
+                "initialScreening": "प्रारंभिक जांच",
+                "fieldVerification": "क्षेत्रीय सत्यापन",
+                "committeeReview": "समिति समीक्षा",
+                "finalApproval": "अंतिम अनुमोदन"
+            },
+            "timeline": {
+                "submit": "प्रस्तुत",
+                "screen": "जांच",
+                "verify": "सत्यापन",
+                "review": "समीक्षा",
+                "approve": "अनुमोदन",
+                "day": "दिन",
+                "completed": "पूर्ण",
+                "inProgress": "प्रगति में"
+            },
+            "tribalCommunities": {
+                "title": "आदिवासी समुदाय वितरण",
+                "desc": "आदिवासी समुदायों के अनुसार दावे",
+                "gond": "गोंड",
+                "korku": "कोरकू",
+                "muria": "मुरिया",
+                "baiga": "बैगा",
+                "others": "अन्य",
+                "claims": "दावे"
+            },
+            "statePerformance": {
+                "title": "राज्यवार प्रदर्शन",
+                "desc": "राज्य के अनुसार दावा प्रसंस्करण",
+                "madhyaPradesh": "मध्य प्रदेश",
+                "tripura": "त्रिपुरा",
+                "odisha": "ओडिशा",
+                "telangana": "तेलंगाना",
+                "total": "कुल",
+                "legend": "लेजेंड:",
+                "approvedClaims": "अनुमोदित दावे",
+                "pendingReview": "लंबित समीक्षा",
+                "rejectedClaims": "अस्वीकृत दावे"
+            },
+            "processingEfficiency": {
+                "title": "प्रसंस्करण दक्षता",
+                "desc": "औसत प्रसंस्करण समय",
+                "ifrClaims": "आईएफआर दावे",
+                "cfrClaims": "सीएफआर दावे",
+                "crClaims": "सीआर दावे",
+                "days": "दिन",
+                "geographicCoverage": "भौगोलिक कवरेज",
+                "states": "राज्य",
+                "districts": "जिले",
+                "villages": "गांव",
+                "qualityMetrics": "गुणवत्ता मेट्रिक्स",
+                "documentation": "दस्तावेजीकरण",
+                "verification": "सत्यापन",
+                "compliance": "अनुपालन"
+            },
+            "quickAccess": {
+                "title": "त्वरित पहुंच",
+                "dssTitle": "निर्णय सहायता प्रणाली",
+                "dssDesc": "दावा प्रसंस्करण के लिए उन्नत विश्लेषण और निर्णय लेने के उपकरण",
+                "verificationTitle": "सत्यापन केंद्र",
+                "verificationDesc": "व्यापक उपकरणों के साथ लंबित दावों की समीक्षा और सत्यापन",
+                "mappingTitle": "संपत्ति मानचित्रण",
+                "mappingDesc": "उपग्रह इमेजरी और भूमि संपत्ति मानचित्रण इंटरफ़ेस",
+                "viewAnalytics": "विश्लेषण देखें",
+                "viewMaps": "मानचित्र देखें"
+            },
+            "quickActions": {
+                "title": "त्वरित कार्य",
+                "desc": "सामान्य कार्य और वर्कफ़्लो",
+                "openAtlas": "एफआरए एटलस खोलें",
+                "atlasDesc": "भौगोलिक सूचना प्रणाली",
+                "runDSS": "निर्णय सहायता चलाएं",
+                "dssDesc": "एआई-संचालित अनुशंसाएं",
+                "uploadDocs": "दस्तावेज़ अपलोड करें",
+                "docsDesc": "बैच दस्तावेज़ प्रसंस्करण",
+                "exportReport": "रिपोर्ट निर्यात करें (PDF)",
+                "reportDesc": "व्यापक रिपोर्ट जेनरेट करें"
+            }
+        }
+    }
+}

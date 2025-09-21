@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Nunito } from 'next/font/google';
+import { TranslationProvider } from '@/translations/TranslationContext';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -39,7 +40,9 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={`${nunito.variable} font-sans antialiased`} style={{ backgroundColor: 'hsl(0 0% 100%)', color: 'hsl(222.2 84% 4.9%)' }}>
-        {children}
+        <TranslationProvider>
+          {children}
+        </TranslationProvider>
       </body>
     </html>
   );

@@ -28,6 +28,7 @@ import VerificationSection from "@/components/VerificationSection"
 import MappingSection from "@/components/MappingSection"
 import DataManagementSection from "@/components/DataManagementSection"
 import DSSSection from "@/components/DSSSection"
+import { useTranslation } from "@/translations/TranslationContext"
 
 // Dynamic import to avoid SSR issues with Leaflet
 const Map = dynamic(() => import('@/components/Map'), {
@@ -43,6 +44,8 @@ const Map = dynamic(() => import('@/components/Map'), {
 })
 
 export default function TehsilDashboard() {
+  const { t } = useTranslation()
+
   const [stats, setStats] = useState({
     totalClaims: 156,
     pendingVerification: 56,
@@ -297,14 +300,14 @@ export default function TehsilDashboard() {
                   boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
                 }}>
                   <div style={{ marginBottom: "8px" }}>
-                    <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>Total Claims</span>
+                    <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>{t('dashboard.metrics.totalClaims')}</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
                     <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>1,247</span>
                   </div>
-                  <div style={{ fontSize: "11px", color: "#666" }}>Across all states</div>
+                  <div style={{ fontSize: "11px", color: "#666" }}>{t('dashboard.metrics.acrossStates')}</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
-                    ↗ +12.3% from last month
+                    ↗ +12.3% {t('dashboard.metrics.fromLastMonth')}
                   </div>
                 </div>
 
@@ -316,14 +319,14 @@ export default function TehsilDashboard() {
                   boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
                 }}>
                   <div style={{ marginBottom: "8px" }}>
-                    <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>Approval Rate</span>
+                    <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>{t('dashboard.metrics.approvalRate')}</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
                     <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>78.5%</span>
                   </div>
-                  <div style={{ fontSize: "11px", color: "#666" }}>Success rate</div>
+                  <div style={{ fontSize: "11px", color: "#666" }}>{t('dashboard.metrics.successRate')}</div>
                   <div style={{ fontSize: "11px", color: "#28a745", marginTop: "4px" }}>
-                    ↗ +2.7% from last month
+                    ↗ +2.7% {t('dashboard.metrics.fromLastMonth')}
                   </div>
                 </div>
 
@@ -373,7 +376,7 @@ export default function TehsilDashboard() {
                   boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
                 }}>
                   <div style={{ marginBottom: "8px" }}>
-                    <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>Villages Covered</span>
+                    <span style={{ fontSize: "13px", color: "#666", fontWeight: "500" }}>{t('dashboard.metrics.villagesCovered')}</span>
                   </div>
                   <div style={{ marginBottom: "4px" }}>
                     <span style={{ fontSize: "28px", fontWeight: "700", color: "#333" }}>89</span>
@@ -406,14 +409,14 @@ export default function TehsilDashboard() {
                     color: "#333",
                     margin: "0 0 8px 0"
                   }}>
-                    Claims Status Distribution
+                    {t('dashboard.charts.statusDistribution.title')}
                   </h3>
                   <p style={{
                     fontSize: "13px",
                     color: "#666",
                     margin: "0 0 20px 0"
                   }}>
-                    Current status of all submitted claims
+                    {t('dashboard.charts.statusDistribution.description')}
                   </p>
 
                   {/* Donut Chart Simulation */}
@@ -641,23 +644,23 @@ export default function TehsilDashboard() {
                     color: "#333",
                     margin: "0 0 8px 0"
                   }}>
-                    Land Type Distribution
+                    {t('dashboard.charts.landDistribution.title')}
                   </h3>
                   <p style={{
                     fontSize: "13px",
                     color: "#666",
                     margin: "0 0 16px 0"
                   }}>
-                    Claims by land type (hectares)
+                    {t('dashboard.charts.landDistribution.description')}
                   </p>
 
                   {/* Bar Chart */}
                   <div style={{ marginBottom: "16px" }}>
                     {[
-                      { type: "Forest Land", value: 45, color: "#16a34a", hectares: "1,847" },
-                      { type: "Agricultural", value: 35, color: "#f59e0b", hectares: "1,456" },
-                      { type: "Community Forest", value: 25, color: "#059669", hectares: "987" },
-                      { type: "Mixed Use", value: 15, color: "#6366f1", hectares: "623" }
+                      { type: t('dashboard.landTypes.forestLand'), value: 45, color: "#16a34a", hectares: "1,847" },
+                      { type: t('dashboard.landTypes.agricultural'), value: 35, color: "#f59e0b", hectares: "1,456" },
+                      { type: t('dashboard.landTypes.communityForest'), value: 25, color: "#059669", hectares: "987" },
+                      { type: t('dashboard.landTypes.mixedUse'), value: 15, color: "#6366f1", hectares: "623" }
                     ].map((item, index) => (
                       <div key={index} style={{ marginBottom: "12px" }}>
                         <div style={{
