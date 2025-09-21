@@ -1718,40 +1718,42 @@ export default function TehsilDashboard() {
           )}
 
           {/* Satellite Feed Section */}
-          <div style={{
-            marginTop: "20px",
-            padding: "20px",
-            backgroundColor: "#ffffff",
-            border: "1px solid #ddd",
-            borderRadius: "6px",
-            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-          }}>
-            <h2 style={{
-              fontSize: "18px",
-              fontWeight: "600",
-              marginBottom: "10px",
-              color: "#333",
-            }}>
-              Satellite Feed
-            </h2>
-            <p style={{
-              fontSize: "14px",
-              color: "#666",
-              marginBottom: "10px",
-            }}>
-              This section will display real-time satellite imagery and analytics in the future.
-            </p>
+          {activeTab === 'satelliteFeeds' && (
             <div style={{
-              padding: "10px",
-              backgroundColor: "#f8f9fa",
-              borderRadius: "4px",
-              textAlign: "center",
-              color: "#999",
-              fontStyle: "italic",
+              marginTop: "20px",
+              padding: "20px",
+              backgroundColor: "#ffffff",
+              border: "1px solid #ddd",
+              borderRadius: "6px",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
             }}>
-              Future Feature: Integration with live satellite data.
+              <h2 style={{
+                fontSize: "18px",
+                fontWeight: "600",
+                marginBottom: "10px",
+                color: "#333",
+              }}>
+                Satellite Feed
+              </h2>
+              <p style={{
+                fontSize: "14px",
+                color: "#666",
+                marginBottom: "10px",
+              }}>
+                This section will display real-time satellite imagery and analytics in the future.
+              </p>
+              <div style={{
+                padding: "10px",
+                backgroundColor: "#f8f9fa",
+                borderRadius: "4px",
+                textAlign: "center",
+                color: "#999",
+                fontStyle: "italic",
+              }}>
+                Future Feature: Integration with live satellite data.
+              </div>
             </div>
-          </div>
+          )}
         </div> {/* Close Main Content Area */}
       </div> {/* Close Flex Container */}
     </div>
