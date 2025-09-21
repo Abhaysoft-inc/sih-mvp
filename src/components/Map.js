@@ -367,6 +367,7 @@ export default function Map() {
                 </div>
             </div>
         );
+
     };
 
     return (
@@ -398,7 +399,7 @@ export default function Map() {
                         <Popup>
                             <div className="text-sm">
                                 <h3 className="font-semibold text-green-800 flex items-center gap-2">
-                                    <MdForest className="text-green-600" /> {forest.name}
+                                    <MdForest className="text-green-600" /> {forest.properties['name:hi'] || forest.name}
                                 </h3>
                                 <p><strong>Area:</strong> {forest.area}</p>
                                 <p><strong>Type:</strong> {forest.type}</p>
@@ -529,7 +530,7 @@ export default function Map() {
                                         <div className="flex items-center gap-2">
                                             <MdAccountBalance className="text-blue-600 text-lg" />
                                             <h3 className="font-bold text-gray-800 text-base">
-                                                {claim.properties['name:hi'] || claim.id}
+                                                {claim.id}
                                             </h3>
                                         </div>
                                         <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${claim.status === 'Approved'
@@ -550,24 +551,24 @@ export default function Map() {
                                     <div className="grid grid-cols-1 gap-2">
                                         <div className="flex justify-between items-start">
                                             <span className="text-gray-600 text-sm font-medium">Claimant:</span>
-                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.properties['claimantName:hi'] || claim.claimantName}</span>
+                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.claimantName}</span>
                                         </div>
 
                                         <div className="flex justify-between items-start">
                                             <span className="text-gray-600 text-sm font-medium">Village:</span>
-                                            <span className="text-gray-800 text-sm text-right">{claim.properties['village:hi'] || claim.village}</span>
+                                            <span className="text-gray-800 text-sm text-right">{claim.village}</span>
                                         </div>
 
                                         <div className="flex justify-between items-start">
                                             <span className="text-gray-600 text-sm font-medium">Area:</span>
-                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.properties['area:hi'] || claim.area}</span>
+                                            <span className="text-gray-800 text-sm font-semibold text-right">{claim.area}</span>
                                         </div>
 
                                         <hr className="border-gray-100 my-2" />
 
                                         <div className="flex justify-between items-start">
                                             <span className="text-gray-600 text-sm font-medium">Submitted:</span>
-                                            <span className="text-gray-800 text-sm text-right">{claim.properties['submissionDate:hi'] || claim.submissionDate}</span>
+                                            <span className="text-gray-800 text-sm text-right">{claim.submissionDate}</span>
                                         </div>
 
                                         {claim.approvalDate && (
