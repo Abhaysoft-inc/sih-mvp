@@ -296,31 +296,7 @@ export default function TehsilDashboard() {
           overflow: "hidden"
         }}>
           {/* Marquee Alert Section */}
-          <div style={{
-            backgroundColor: "#f8d7da",
-            borderBottom: "1px solid #f5c6cb",
-            padding: "8px 16px",
-            display: "flex",
-            alignItems: "center",
-            gap: "12px"
-          }}>
-            <span style={{
-              backgroundColor: "#dc3545",
-              color: "#fff",
-              fontSize: "12px",
-              fontWeight: "bold",
-              padding: "4px 8px",
-              borderRadius: "4px"
-            }}>Alert</span>
-            <marquee style={{ color: "#721c24", fontSize: "14px", fontWeight: "bold" }}>
-              <span onClick={() => setPopupData({
-                image: 'https://imgs.mongabay.com/wp-content/uploads/sites/20/2016/10/01180102/image003.jpg',
-                coordinates: '20.5937, 78.9629'
-              })} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-                Illegal activity detected in FRA area. Immediate action required!
-              </span>
-            </marquee>
-          </div>
+
 
           {/* Popup Section */}
           {popupData && (
@@ -391,6 +367,32 @@ export default function TehsilDashboard() {
           {/* Overview Tab */}
           {activeTab === 'overview' && (
             <>
+
+              <div style={{
+                backgroundColor: "#f8d7da",
+                borderBottom: "1px solid #f5c6cb",
+                padding: "8px 16px",
+                display: "flex",
+                alignItems: "center",
+                gap: "12px"
+              }}>
+                <span style={{
+                  backgroundColor: "#dc3545",
+                  color: "#fff",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  padding: "4px 8px",
+                  borderRadius: "4px"
+                }}>Alert</span>
+                <marquee style={{ color: "#721c24", fontSize: "14px", fontWeight: "bold" }}>
+                  <span onClick={() => setPopupData({
+                    image: 'https://imgs.mongabay.com/wp-content/uploads/sites/20/2016/10/01180102/image003.jpg',
+                    coordinates: '20.5937, 78.9629'
+                  })} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                    Illegal activity detected in FRA area. Immediate action required!
+                  </span>
+                </marquee>
+              </div>
               {/* Top Metrics Row */}
               <div style={{
                 display: "grid",
