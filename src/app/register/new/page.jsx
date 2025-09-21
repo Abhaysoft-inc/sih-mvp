@@ -604,7 +604,7 @@ System: FRA Claim Registration Portal
                   color: "#6b7280",
                   margin: "0 0 24px 0"
                 }}>
-                  Select an identity document (Aadhaar, Voter ID, etc.)
+                  Select land documents (Land records, Claim forms, etc.)
                 </p>
                 <label style={{
                   display: "inline-flex",
@@ -1193,8 +1193,8 @@ System: FRA Claim Registration Portal
               gap: "16px"
             }}>
               {[
-                { name: "Land Revenue Records", required: true },
-                { name: "Community Certificate", required: true },
+                { name: "Land Revenue Records", required: false },
+                { name: "Community Certificate", required: false },
                 { name: "Forest Settlement Records", required: false },
                 { name: "Survey Settlement Records", required: false }
               ].map((doc, index) => (

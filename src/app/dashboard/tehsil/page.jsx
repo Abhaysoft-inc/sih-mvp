@@ -45,7 +45,7 @@ const Map = dynamic(() => import('@/components/Map'), {
 export default function TehsilDashboard() {
   const [stats, setStats] = useState({
     totalClaims: 156,
-    pendingVerification: 23,
+    pendingVerification: 56,
     verified: 118,
     rejected: 15,
     villages: 12,

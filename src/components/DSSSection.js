@@ -33,49 +33,51 @@ const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, 
             </div>
         </div>
 
-        {/* Priority Summary */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mb-6">
-            <div className="bg-white border border-gray-300 rounded-md p-5 text-center shadow-sm">
-                <div className="text-3xl font-bold text-red-600 mb-2">
-                    5
-                </div>
-                <div className="text-base font-semibold text-gray-800 mb-1">
-                    High Priority
-                </div>
-                <div className="text-xs text-gray-600">
-                    Immediate action required
-                </div>
-            </div>
-
-            <div className="bg-white border border-gray-300 rounded-md p-5 text-center shadow-sm">
-                <div className="text-3xl font-bold text-yellow-500 mb-2">
-                    14
-                </div>
-                <div className="text-base font-semibold text-gray-800 mb-1">
-                    Medium Priority
-                </div>
-                <div className="text-xs text-gray-600">
-                    Plan for next quarter
-                </div>
-            </div>
-
-            <div className="bg-white border border-gray-300 rounded-md p-5 text-center shadow-sm">
-                <div className="text-3xl font-bold text-green-600 mb-2">
-                    10
-                </div>
-                <div className="text-base font-semibold text-gray-800 mb-1">
-                    Low Priority
-                </div>
-                <div className="text-xs text-gray-600">
-                    Long-term consideration
-                </div>
-            </div>
-        </div>
-
-        {/* Main DSS Interface (left: criteria, right: recommendations) */}
-        <div className="grid grid-cols-[300px_1fr] gap-5">
-            {/* Left Panel - Criteria & Villages */}
+        {/* Main DSS Interface (left: criteria & priority, right: schemes) */}
+        <div className="grid grid-cols-[350px_1fr] gap-5">
+            {/* Left Panel - Priority Cards, Criteria & Villages */}
             <div>
+                {/* Priority Summary Cards */}
+                <div className="bg-white border border-gray-300 rounded-md p-4 mb-4 shadow-sm">
+                    <h4 className="text-sm font-semibold text-gray-800 m-0 mb-3 uppercase tracking-wider">
+                        Priority Overview
+                    </h4>
+                    <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-red-50 border border-red-200 rounded-md">
+                            <div>
+                                <div className="text-lg font-bold text-red-600">5</div>
+                                <div className="text-xs font-semibold text-gray-800">High Priority</div>
+                                <div className="text-xs text-gray-600">Immediate action</div>
+                            </div>
+                            <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                !
+                            </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+                            <div>
+                                <div className="text-lg font-bold text-yellow-600">14</div>
+                                <div className="text-xs font-semibold text-gray-800">Medium Priority</div>
+                                <div className="text-xs text-gray-600">Next quarter</div>
+                            </div>
+                            <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                ●
+                            </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-md">
+                            <div>
+                                <div className="text-lg font-bold text-green-600">10</div>
+                                <div className="text-xs font-semibold text-gray-800">Low Priority</div>
+                                <div className="text-xs text-gray-600">Long-term</div>
+                            </div>
+                            <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                ✓
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Eligibility Criteria */}
                 <div className="bg-white border border-gray-300 rounded-md p-4 mb-4 shadow-sm">
                     <h4 className="text-sm font-semibold text-gray-800 m-0 mb-3 uppercase tracking-wider">
@@ -150,8 +152,21 @@ const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, 
                     ))}
                 </div>
             </div>
+            
             {/* Right Panel - Scheme Recommendations */}
-            <div className="flex flex-col gap-5">
+            <div>
+                <div className="bg-white border border-gray-300 rounded-md p-4 mb-4 shadow-sm">
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-lg font-semibold text-gray-800 m-0">
+                            Recommended Schemes
+                        </h3>
+                        <div className="text-sm text-gray-600">
+                            3 schemes found
+                        </div>
+                    </div>
+                </div>
+                
+                <div className="flex flex-col gap-5">
                 <RecommendedScheme
                     schemeName="PM-KISAN"
                     priority="High"
@@ -232,10 +247,8 @@ const DSSSection = ({ eligibilityCriteria, handleCriteriaChange, priorityLevel, 
                         { label: "📄 Export", primary: false },
                     ]}
                 />
+                </div>
             </div>
-
-
-
         </div>
     </div>
 );
