@@ -1,7 +1,7 @@
 {
     "en": {
         "navbar": {
-            "portalName": "FRA-GIS Portal",
+            "portalName": "VanAdhikar Portal",
             "active": "Active",
             "logout": "Logout",
             "login": "Login",
@@ -178,7 +178,7 @@
     },
     "hi": {
         "navbar": {
-            "portalName": "वन अधिकार-जीआईएस पोर्टल",
+            "portalName": "वनअधिकार पोर्टल",
             "active": "सक्रिय",
             "logout": "लॉगआउट",
             "login": "लॉगिन",

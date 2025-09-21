@@ -55,7 +55,7 @@ const Login = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-100 flex flex-col">
 
             <div className="bg-green-800 text-white py-4">
                 <div className="container mx-auto px-4">
@@ -65,7 +65,7 @@ const Login = () => {
                                 <img src="/emblem.png" alt="" className='w-7' />
                             </div>
                             <div>
-                                <h1 className="text-xl font-bold">WebGIS Portal</h1>
+                                <h1 className="text-xl font-bold">VanAdhikar Portal</h1>
                                 <p className="text-sm text-green-200"></p>
                             </div>
                         </div>
@@ -78,8 +78,8 @@ const Login = () => {
             </div>
 
             {/* Main Content */}
-            <div className="container mx-auto px-4 py-8">
-                <div className="max-w-lg mx-auto">
+            <div className="flex-1 flex items-center justify-center px-4 py-8">
+                <div className="max-w-lg w-full">
 
 
                     {/* Login Form */}
@@ -178,8 +178,8 @@ const Login = () => {
 
 
             {/* Bottom Bar */}
-            <div className="w-full py-3 bg-green-800 text-center text-white text-xs mt-8">
-                &copy; 2025 WebGIS Portal | Cookies Parsers
+            <div className="w-full py-3 bg-green-800 text-center text-white text-xs">
+                &copy; 2025 VanAdhikar Portal | Cookies Parsers
             </div>
         </div>
     )

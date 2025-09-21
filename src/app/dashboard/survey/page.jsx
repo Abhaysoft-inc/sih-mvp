@@ -94,7 +94,7 @@ export default function SurveyDashboard() {
               fontWeight: "600",
               color: "white"
             }}>
-              Survey Dashboard
+             VanAdhikar Survey Dashboard
             </div>
             <div style={{
               fontSize: "12px",
