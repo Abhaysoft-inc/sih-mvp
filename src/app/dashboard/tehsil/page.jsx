@@ -543,7 +543,7 @@ export default function TehsilDashboard() {
                       width: "180px",
                       height: "180px",
                       borderRadius: "50%",
-                      background: "conic-gradient(#28a745 0deg 245deg, #ffc107 245deg 290deg, #dc3545 290deg 360deg)",
+                      background: "conic-gradient( #1cc32aff 0deg 245deg, #f5583dff 245deg 290deg, #ef9313ff 290deg 360deg)",
                       position: "relative",
                       display: "flex",
                       alignItems: "center",
@@ -560,15 +560,15 @@ export default function TehsilDashboard() {
 
                     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <div style={{ width: "12px", height: "12px", backgroundColor: "#28a745", borderRadius: "50%" }}></div>
+                        <div style={{ width: "12px", height: "12px", backgroundColor: "#18d343ff", borderRadius: "50%" }}></div>
                         <span style={{ fontSize: "13px", color: "#333" }}>Approved (978)</span>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <div style={{ width: "12px", height: "12px", backgroundColor: "#ffc107", borderRadius: "50%" }}></div>
+                        <div style={{ width: "12px", height: "12px", backgroundColor: "#ff2c07ff", borderRadius: "50%" }}></div>
                         <span style={{ fontSize: "13px", color: "#333" }}>Under Review (156)</span>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <div style={{ width: "12px", height: "12px", backgroundColor: "#dc3545", borderRadius: "50%" }}></div>
+                        <div style={{ width: "12px", height: "12px", backgroundColor: "#ef9313ff", borderRadius: "50%" }}></div>
                         <span style={{ fontSize: "13px", color: "#333" }}>Rejected (113)</span>
                       </div>
                     </div>
@@ -1230,7 +1230,7 @@ export default function TehsilDashboard() {
                         }}></div>
                         <div style={{
                           width: `${state.rejected}%`,
-                          backgroundColor: "#dc3545"
+                          backgroundColor: "#fb1717ff"
                         }}></div>
                       </div>
                       <div style={{

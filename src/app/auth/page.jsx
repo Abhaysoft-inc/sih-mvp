@@ -55,7 +55,7 @@ const Login = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col">
+        <div className="min-h-screen bg-gray-100">
 
             <div className="bg-green-800 text-white py-4">
                 <div className="container mx-auto px-4">
@@ -78,8 +78,8 @@ const Login = () => {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 flex items-center justify-center px-4 py-8">
-                <div className="max-w-lg w-full">
+            <div className="container mx-auto px-4 py-8">
+                <div className="max-w-lg mx-auto">
 
 
                     {/* Login Form */}
@@ -178,7 +178,7 @@ const Login = () => {
 
 
             {/* Bottom Bar */}
-            <div className="w-full py-3 bg-green-800 text-center text-white text-xs">
+            <div className="w-full py-3 bg-green-800 text-center text-white text-xs mt-8">
                 &copy; 2025 VanAdhikar Portal | Cookies Parsers
             </div>
         </div>

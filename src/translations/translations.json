@@ -7,7 +7,9 @@
             "login": "Login",
             "languages": {
                 "english": "English",
-                "hindi": "Hindi"
+                "hindi": "Hindi",
+                "odia": "Odia",
+                "telugu": "Telugu"
             }
         },
         "mainPage": {
@@ -184,7 +186,9 @@
             "login": "लॉगिन",
             "languages": {
                 "english": "अंग्रेजी",
-                "hindi": "हिंदी"
+                "hindi": "हिंदी",
+                "odia": "ओडिया",
+                "telugu": "तेलुगु"
             }
         },
         "mainPage": {
@@ -350,6 +354,138 @@
                 "docsDesc": "बैच दस्तावेज़ प्रसंस्करण",
                 "exportReport": "रिपोर्ट निर्यात करें (PDF)",
                 "reportDesc": "व्यापक रिपोर्ट जेनरेट करें"
+            }
+        }
+    },
+    "od": {
+        "navbar": {
+            "portalName": "ବନଅଧିକାର ପୋର୍ଟାଲ",
+            "active": "ସକ୍ରିୟ",
+            "logout": "ଲଗଆଉଟ",
+            "login": "ଲଗଇନ",
+            "languages": {
+                "english": "ଇଂରାଜୀ",
+                "hindi": "ହିନ୍ଦୀ",
+                "odia": "ଓଡ଼ିଆ",
+                "telugu": "ତେଲୁଗୁ"
+            }
+        },
+        "mainPage": {
+            "title": "ବନଅଧିକାର ଆଟଲାସ",
+            "locationSelector": {
+                "title": "ସ୍ଥାନ ଚୟନକାରୀ",
+                "description": "ମାନଚିତ୍ର ଏବଂ ତଥ୍ୟ ଫିଲ୍ଟର କରିବାକୁ ଏକ ସ୍ଥାନ ବାଛନ୍ତୁ",
+                "openTitle": "ସ୍ଥାନ ଚୟନକାରୀ ଖୋଲନ୍ତୁ",
+                "close": "ବନ୍ଦ କରନ୍ତୁ",
+                "state": "ରାଜ୍ୟ",
+                "selectState": "ରାଜ୍ୟ ଚୟନ କରନ୍ତୁ",
+                "district": "ଜିଲ୍ଲା",
+                "selectDistrict": "ଜିଲ୍ଲା ଚୟନ କରନ୍ତୁ",
+                "tehsil": "ତହସିଲ",
+                "selectTehsil": "ତହସିଲ ଚୟନ କରନ୍ତୁ",
+                "village": "ଗାଁ",
+                "selectVillage": "ଗାଁ ଚୟନ କରନ୍ତୁ",
+                "plotNo": "ପ୍ଲଟ ନମ୍ବର",
+                "enterPlotNumber": "ପ୍ଲଟ ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ",
+                "applySelection": "ଚୟନ ପ୍ରୟୋଗ କରନ୍ତୁ"
+            }
+        },
+        "sidebar": {
+            "navigation": "ନେଭିଗେସନ",
+            "dashboard": "ଡ୍ୟାସବୋର୍ଡ",
+            "verification": "ଯାଞ୍ଚ",
+            "mapping": "ସମ୍ପତ୍ତି ଏବଂ ମ୍ୟାପିଂ",
+            "decisionSupport": "ନିଷ୍ପତ୍ତି ସହାୟତା",
+            "analytics": "ବିଶ୍ଳେଷଣ ଏବଂ ରିପୋର୍ଟ",
+            "management": "ତଥ୍ୟ ପରିଚାଳନା"
+        },
+        "dashboard": {
+            "title": "ତହସିଲ ଡ୍ୟାସବୋର୍ଡ",
+            "metrics": {
+                "totalClaims": "ମୋଟ ଦାବି",
+                "approvalRate": "ଅନୁମୋଦନ ହାର",
+                "pendingClaims": "ବିଚାରାଧୀନ ଦାବି",
+                "cfrArea": "CFR କ୍ଷେତ୍ର",
+                "villagesCovered": "ଆବୃତ ଗାଁ",
+                "acrossStates": "ସମସ୍ତ ରାଜ୍ୟରେ",
+                "successRate": "ସଫଳତା ହାର",
+                "fromLastMonth": "ଗତ ମାସରୁ"
+            },
+            "actions": {
+                "viewAtlas": "ଆଟଲାସ ଦେଖନ୍ତୁ",
+                "atlasDesc": "ଭୌଗୋଳିକ ସୂଚନା ପ୍ରଣାଳୀ",
+                "runDSS": "ନିଷ୍ପତ୍ତି ସହାୟତା ଚଲାନ୍ତୁ",
+                "dssDesc": "AI-ଚାଳିତ ସୁପାରିଶ",
+                "uploadDocs": "ଦଲିଲ ଅପଲୋଡ କରନ୍ତୁ",
+                "docsDesc": "ବ୍ୟାଚ ଦଲିଲ ପ୍ରକ୍ରିୟାକରଣ",
+                "exportReport": "ରିପୋର୍ଟ ରପ୍ତାନି କରନ୍ତୁ (PDF)",
+                "reportDesc": "ବ୍ୟାପକ ରିପୋର୍ଟ ସୃଷ୍ଟି କରନ୍ତୁ"
+            }
+        }
+    },
+    "te": {
+        "navbar": {
+            "portalName": "వనాధికార పోర్టల్",
+            "active": "చురుకుగా",
+            "logout": "లాగ్ అవుట్",
+            "login": "లాగిన్",
+            "languages": {
+                "english": "ఇంగ్లీష్",
+                "hindi": "హిందీ",
+                "odia": "ఒడియా",
+                "telugu": "తెలుగు"
+            }
+        },
+        "mainPage": {
+            "title": "వనాధికార అట్లాస్",
+            "locationSelector": {
+                "title": "స్థాన ఎంపికదారు",
+                "description": "మ్యాప్ మరియు డేటాను ఫిల్టర్ చేయడానికి స్థానాన్ని ఎంచుకోండి",
+                "openTitle": "స్థాన ఎంపికదారుని తెరవండి",
+                "close": "మూసివేయండి",
+                "state": "రాష్ట్రం",
+                "selectState": "రాష్ట్రాన్ని ఎంచుకోండి",
+                "district": "జిల్లా",
+                "selectDistrict": "జిల్లాను ఎంచుకోండి",
+                "tehsil": "తహసీల్",
+                "selectTehsil": "తహసీల్‌ను ఎంచుకోండి",
+                "village": "గ్రామం",
+                "selectVillage": "గ్రామాన్ని ఎంచుకోండి",
+                "plotNo": "ప్లాట్ నంబర్",
+                "enterPlotNumber": "ప్లాట్ నంబర్‌ను నమోదు చేయండి",
+                "applySelection": "ఎంపికను వర్తింపజేయండి"
+            }
+        },
+        "sidebar": {
+            "navigation": "నావిగేషన్",
+            "dashboard": "డ్యాష్‌బోర్డ్",
+            "verification": "ధృవీకరణ",
+            "mapping": "ఆస్తులు మరియు మ్యాపింగ్",
+            "decisionSupport": "నిర్ణయ మద్దతు",
+            "analytics": "విశ్లేషణలు మరియు నివేదికలు",
+            "management": "డేటా నిర్వహణ"
+        },
+        "dashboard": {
+            "title": "తహసీల్ డ్యాష్‌బోర్డ్",
+            "metrics": {
+                "totalClaims": "మొత్తం దావాలు",
+                "approvalRate": "ఆమోదం రేటు",
+                "pendingClaims": "పెండింగ్ దావాలు",
+                "cfrArea": "CFR ప్రాంతం",
+                "villagesCovered": "కవర్ చేయబడిన గ్రామాలు",
+                "acrossStates": "అన్ని రాష్ట్రాలలో",
+                "successRate": "విజయ రేటు",
+                "fromLastMonth": "గత నెల నుండి"
+            },
+            "actions": {
+                "viewAtlas": "అట్లాస్ చూడండి",
+                "atlasDesc": "భౌగోళిక సమాచార వ్యవస్థ",
+                "runDSS": "నిర్ణయ మద్దతు అమలు చేయండి",
+                "dssDesc": "AI-ఆధారిత సిఫార్సులు",
+                "uploadDocs": "పత్రాలను అప్‌లోడ్ చేయండి",
+                "docsDesc": "బ్యాచ్ పత్రాల ప్రాసెసింగ్",
+                "exportReport": "నివేదికను ఎగుమతి చేయండి (PDF)",
+                "reportDesc": "సమగ్ర నివేదికలను రూపొందించండి"
             }
         }
     }

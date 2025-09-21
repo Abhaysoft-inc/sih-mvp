@@ -9,7 +9,9 @@ export default function Navbar() {
 
     const languages = [
         { code: 'en', name: t('navbar.languages.english'), native: 'English' },
-        { code: 'hi', name: t('navbar.languages.hindi'), native: 'हिंदी' }
+        { code: 'hi', name: t('navbar.languages.hindi'), native: 'हिंदी' },
+        { code: 'od', name: t('navbar.languages.odia'), native: 'ଓଡ଼ିଆ' },
+        { code: 'te', name: t('navbar.languages.telugu'), native: 'తెలుగు' }
     ];
 
     const handleLanguageChange = (language) => {

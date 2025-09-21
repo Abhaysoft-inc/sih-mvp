@@ -11,7 +11,7 @@ export const TranslationProvider = ({ children }) => {
     // Load saved language from localStorage on mount
     useEffect(() => {
         const savedLanguage = localStorage.getItem('selectedLanguage');
-        if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'hi')) {
+        if (savedLanguage && ['en', 'hi', 'od', 'te'].includes(savedLanguage)) {
             setCurrentLanguage(savedLanguage);
         }
     }, []);
@@ -52,7 +52,12 @@ export const TranslationProvider = ({ children }) => {
     const getCurrentLanguage = () => currentLanguage;
 
     const getLanguageName = (code) => {
-        return code === 'hi' ? 'हिंदी' : 'English';
+        switch(code) {
+            case 'hi': return 'हिंदी';
+            case 'od': return 'ଓଡ଼ିଆ';
+            case 'te': return 'తెలుగు';
+            default: return 'English';
+        }
     };
 
     return (
