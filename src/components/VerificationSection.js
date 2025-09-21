@@ -28,7 +28,7 @@ const VerificationSection = ({ stats, ActionCard }) => {
       id: "FRA-2024-048", 
       applicant: "Rajesh Kumar", 
       village: "Banswara", 
-      priority: "High", 
+      priority: "A+", 
       days: 2,
       landArea: "3.5 acres",
       documents: ["Identity Proof", "Land Records", "Community Certificate"],
@@ -40,7 +40,7 @@ const VerificationSection = ({ stats, ActionCard }) => {
       id: "FRA-2024-049", 
       applicant: "Sita Devi", 
       village: "Kumbhalgarh", 
-      priority: "Medium", 
+      priority: "A", 
       days: 5,
       landArea: "2.1 acres",
       documents: ["Identity Proof", "Land Records"],
@@ -52,13 +52,37 @@ const VerificationSection = ({ stats, ActionCard }) => {
       id: "FRA-2024-050", 
       applicant: "Mohan Singh", 
       village: "Pratapgarh", 
-      priority: "Low", 
+      priority: "B", 
       days: 8,
       landArea: "4.2 acres",
       documents: ["Identity Proof", "Land Records", "Community Certificate", "Survey Report"],
       status: "Field Verification",
       phone: "+91-9876543212",
       submissionDate: "2024-09-13"
+    },
+    {
+      id: "FRA-2024-052",
+      applicant: "Amit Sharma",
+      village: "Chittorgarh",
+      priority: "C+",
+      days: 6, 
+      landArea: "2.7 acres",
+      documents: ["Identity Proof", "Land Records", "Community Certificate"],
+      status: "Document Verification",
+      phone: "+91-9876543214",
+      submissionDate: "2024-09-15"
+    },
+    {
+      id: "FRA-2024-053",
+      applicant: "Radha Patel",
+      village: "Udaipur",
+      priority: "C",
+      days: 7,
+      landArea: "3.0 acres",
+      documents: ["Identity Proof", "Land Records"],
+      status: "Pending Review",
+      phone: "+91-9876543215", 
+      submissionDate: "2024-09-14"
     }
   ])
 
@@ -83,20 +107,21 @@ const VerificationSection = ({ stats, ActionCard }) => {
 
   const getPriorityColor = (priority) => {
     switch(priority) {
+      case 'Medium': return { bg: '#fefce8', text: '#ca8a04' }
       case 'High': return { bg: '#fef2f2', text: '#dc2626' }
       case 'Medium': return { bg: '#fefce8', text: '#ca8a04' }
       case 'Low': return { bg: '#f0fdf4', text: '#16a34a' }
-      default: return { bg: '#f3f4f6', text: '#374151' }
+      default: return {  bg: '#f0fdf4', text: '#16a34a' }
     }
   }
 
   const getStatusColor = (status) => {
     switch(status) {
-      case 'Pending Review': return { bg: '#fefce8', text: '#ca8a04' }
-      case 'Document Verification': return { bg: '#fef3ff', text: '#a855f7' }
-      case 'Field Verification': return { bg: '#f0f9ff', text: '#0ea5e9' }
-      case 'Approved': return { bg: '#f0fdf4', text: '#16a34a' }
-      case 'Rejected': return { bg: '#fef2f2', text: '#dc2626' }
+      case 'Pending Review': return { bg: '#f3f4f6', text: '#374151' }
+      case 'Document Verification': return { bg: '#f3f4f6', text: '#374151'  }
+      case 'Field Verification': return { bg: '#f3f4f6', text: '#374151'  }
+      case 'Approved': return { bbg: '#f3f4f6', text: '#374151'  }
+      case 'Rejected': return {bg: '#f3f4f6', text: '#374151'  }
       default: return { bg: '#f3f4f6', text: '#374151' }
     }
   }
