@@ -57,7 +57,7 @@ const Login = () => {
     return (
         <div className="min-h-screen bg-gray-100">
 
-            <div className="bg-blue-900 text-white py-4">
+            <div className="bg-green-800 text-white py-4">
                 <div className="container mx-auto px-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
@@ -66,12 +66,12 @@ const Login = () => {
                             </div>
                             <div>
                                 <h1 className="text-xl font-bold">WebGIS Portal</h1>
-                                <p className="text-sm text-blue-200">भारत सरकार</p>
+                                <p className="text-sm text-green-200"></p>
                             </div>
                         </div>
                         <div className="text-right">
                             <p className="text-sm">Digital India Initiative</p>
-                            <p className="text-xs text-blue-200">डिजिटल इंडिया पहल</p>
+                            <p className="text-xs text-green-200">डिजिटल इंडिया पहल</p>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ const Login = () => {
 
                     {/* Login Form */}
                     <div className="bg-white shadow-md border border-gray-200">
-                        <div className="bg-blue-800 text-white px-6 py-3">
+                        <div className="bg-green-700 text-white px-6 py-3">
                             <h3 className="font-semibold">Login / लॉगिन</h3>
                         </div>
                         <div className="p-6">
@@ -149,7 +149,7 @@ const Login = () => {
                                 <div className="pt-4">
                                     <button
                                         type="submit"
-                                        className="w-full bg-blue-800 text-white py-3 px-4 font-medium hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200"
+                                        className="w-full py-2 px-4 bg-green-700 hover:bg-green-800 text-white font-semibold rounded shadow focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                     >
                                         LOGIN / लॉगिन करें
                                     </button>
@@ -175,19 +175,11 @@ const Login = () => {
                 </div>
             </div>
 
-            {/* Government Footer */}
-            <div className="bg-blue-900 text-white py-6 mt-8">
-                <div className="container mx-auto px-4 text-center">
-                    <div className="text-sm space-y-2">
-                        <p>© 2025 Cookie Parsers. All rights reserved.</p>
-                        <p className="text-blue-200">
-                            Designed & Developed by Cookies Parsers
-                        </p>
-                        <p className="text-xs text-blue-300">
-                            Last Updated: September 2025 | Best Viewed in Chrome, Firefox, Safari
-                        </p>
-                    </div>
-                </div>
+
+
+            {/* Bottom Bar */}
+            <div className="w-full py-3 bg-green-800 text-center text-white text-xs mt-8">
+                &copy; 2025 WebGIS Portal | Cookies Parsers
             </div>
         </div>
     )
